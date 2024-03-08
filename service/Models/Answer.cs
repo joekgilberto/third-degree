@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace service.Models
 {
 	public class Answer
