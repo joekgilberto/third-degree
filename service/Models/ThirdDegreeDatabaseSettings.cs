@@ -9,6 +9,9 @@ namespace service.Models
 
         public string QuizzesCollectionName { get; set; } = null!;
 
+        public string SubmissionsCollectionName { get; set; } = null!;
+
+
         public ThirdDegreeDatabaseSettings()
         {
             string connectionString = Environment.GetEnvironmentVariable("ASPNETCORE_MONGODB");

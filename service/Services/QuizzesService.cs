@@ -5,11 +5,11 @@ using MongoDB.Driver;
 
 namespace service.Services
 {
-	public class QuizzesServices
+	public class QuizzesService
 	{
 		private readonly IMongoCollection<Quiz> _quizzesCollection;
 
-		public QuizzesServices(IOptions<ThirdDegreeDatabaseSettings> thirdDegreeDatabaseSettings)
+		public QuizzesService(IOptions<ThirdDegreeDatabaseSettings> thirdDegreeDatabaseSettings)
 		{
 			var mongoClient = new MongoClient(thirdDegreeDatabaseSettings.Value.ConnectionString);
 
