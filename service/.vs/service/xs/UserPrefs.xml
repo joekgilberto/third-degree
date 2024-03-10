@@ -1,31 +1,35 @@
 ﻿<Properties StartupConfiguration="{A2A19300-3E6D-4CD8-AA10-3F7A5B418F45}|https">
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Models/Quiz.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Models/ThirdDegreeDatabaseSettings.cs">
     <Files>
-      <File FileName="Models/Quiz.cs" Line="1" Column="14" />
-      <File FileName="Models/Question.cs" />
-      <File FileName="Models/Submission.cs" />
-      <File FileName="Models/Category.cs" />
-      <File FileName="Models/User.cs" />
+      <File FileName="Services/UsersService.cs" Line="15" Column="1" />
+      <File FileName="Services/SubmissionsService.cs" Line="14" Column="99" />
+      <File FileName="Services/QuizzesService.cs" Line="14" Column="1" />
+      <File FileName="Services/CategoriesService.cs" Line="14" Column="99" />
+      <File FileName="Models/Submission.cs" Line="1" Column="1" />
+      <File FileName="Models/ThirdDegreeDatabaseSettings.cs" Line="20" Column="1" />
+      <File FileName="appsettings.json" Line="7" Column="34" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="service">
-            <Node name="service" expanded="True">
-              <Node name="Models" expanded="True">
-                <Node name="Quiz.cs" selected="True" />
-              </Node>
+            <Node name="service" selected="True">
+              <Node name="Controllers" expanded="True" />
+              <Node name="Services" expanded="True" />
             </Node>
           </Node>
         </State>
       </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.ItemProperties.service PreferredExecutionTarget="/Applications/Google Chrome.app" FirstBuild="True" />
+  <MonoDevelop.Ide.ItemProperties.service PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>

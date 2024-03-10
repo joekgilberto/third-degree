@@ -15,7 +15,8 @@
       "launchUrl": "swagger",
       "applicationUrl": "http://localhost:5279",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_MONGODB": "mongodb+srv://joekgilberto:M0thM4n@cluster0.h8rsnaa.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
       },
       "dotnetRunMessages": true
     },
@@ -25,7 +26,8 @@
       "launchUrl": "swagger",
       "applicationUrl": "https://localhost:7078;http://localhost:5279",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_MONGODB": "mongodb+srv://joekgilberto:M0thM4n@cluster0.h8rsnaa.mongodb.net/?authSource=admin"
       },
       "dotnetRunMessages": true
     },

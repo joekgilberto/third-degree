@@ -18,9 +18,9 @@ namespace service.Services
             _usersCollection = mongoDatabase.GetCollection<User>(thirdDegreeDatabaseSettings.Value.UsersCollectionName);
         }
 
-        public async Task<User?> GetByIdAsync(string id)
+        public async Task<User?> GetByUsernameAsync(string username)
         {
-            return await _usersCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+            return await _usersCollection.Find(x => x.Username == username).FirstOrDefaultAsync();
         }
 
         public async Task<User?> GetByCredentialsAsync(string username, string password)

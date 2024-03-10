@@ -3,7 +3,7 @@ namespace service.Models
 {
 	public class ThirdDegreeDatabaseSettings
 	{
-        public string ConnectionString { get; set; } = null!;
+        public string ConnectionString { get; set; } = Environment.GetEnvironmentVariable("ASPNETCORE_MONGODB");
 
         public string DatabaseName { get; set; } = null!;
 
@@ -14,12 +14,6 @@ namespace service.Models
         public string CategoriesCollectionName { get; set; } = null!;
 
         public string UsersCollectionName { get; set; } = null!;
-
-        public ThirdDegreeDatabaseSettings()
-        {
-            string connectionString = Environment.GetEnvironmentVariable("ASPNETCORE_MONGODB");
-            ConnectionString = connectionString;
-        }
     }
 }
 

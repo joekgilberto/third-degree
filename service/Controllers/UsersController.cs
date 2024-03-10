@@ -16,17 +16,19 @@ namespace service.Controllers
             _usersService = usersService;
         }
 
-        [HttpGet("{id:length(24)}")]
-        public async Task<ActionResult<User>> Get(string id)
+        [HttpGet("{username}")]
+        public async Task<ActionResult<Profile>> Get(string username)
         {
-            User? user = await _usersService.GetByIdAsync(id);
+            User? user = await _usersService.GetByUsernameAsync(username);
 
             if (user is null)
             {
                 return NotFound();
             }
 
-            return user;
+            Profile profile = new Profile(user);
+
+            return profile;
         }
 
         [HttpPost("register")]
@@ -38,7 +40,7 @@ namespace service.Controllers
         }
 
         [HttpPut("login")]
-        public async Task<ActionResult<User>> Login(string username, string password)
+        public async Task<ActionResult<Profile>> Login(string username, string password)
         {
             User? user = await _usersService.GetByCredentialsAsync(username,password);
 
@@ -47,7 +49,9 @@ namespace service.Controllers
                 return NotFound();
             }
 
-            return user;
+            Profile profile = new Profile(user);
+
+            return profile;
         }
     }
 }
