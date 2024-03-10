@@ -11,9 +11,9 @@ namespace service.Services
 
 		public QuizzesService(IOptions<ThirdDegreeDatabaseSettings> thirdDegreeDatabaseSettings)
 		{
-			var mongoClient = new MongoClient(thirdDegreeDatabaseSettings.Value.ConnectionString);
+            var mongoClient = new MongoClient(thirdDegreeDatabaseSettings.Value.ConnectionString);
 
-			var mongoDatabase = mongoClient.GetDatabase(thirdDegreeDatabaseSettings.Value.DatabaseName);
+            var mongoDatabase = mongoClient.GetDatabase(thirdDegreeDatabaseSettings.Value.DatabaseName);
 
 			_quizzesCollection = mongoDatabase.GetCollection<Quiz>(thirdDegreeDatabaseSettings.Value.QuizzesCollectionName);
 		}
