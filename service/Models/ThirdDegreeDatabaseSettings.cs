@@ -11,6 +11,7 @@ namespace service.Models
 
         public string SubmissionsCollectionName { get; set; } = null!;
 
+        public string CategoriesCollectionName { get; set; } = null!;
 
         public ThirdDegreeDatabaseSettings()
         {
