@@ -1,19 +1,78 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using service.Models;
+using service.Services;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace service.Controllers
 {
-    public class QuizzesController : Controller
+    [ApiController]
+    [Route("api/[controller]")]
+    public class QuizzesController : ControllerBase
     {
-        // GET: /<controller>/
-        public IActionResult Index()
+        private readonly QuizzesService _quizzesService;
+
+        public QuizzesController(QuizzesService quizzesService)
         {
-            return View();
+            _quizzesService = quizzesService;
+        }
+
+        [HttpGet]
+        public async Task<List<Quiz>> Index()
+        {
+            return await _quizzesService.GetAsync();
+        }
+
+        [HttpGet("{id:length(24)}")]
+        public async Task<ActionResult<Quiz>> Get(string id)
+        {
+            Quiz? quiz = await _quizzesService.GetByIdAsync(id);
+
+            if (quiz is null)
+            {
+                return NotFound();
+            }
+
+            return quiz;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post(Quiz newQuiz)
+        {
+            await _quizzesService.CreateAsync(newQuiz);
+
+            return CreatedAtAction(nameof(Get), new { id = newQuiz.Id }, newQuiz);
+        }
+
+        [HttpPut("{id:length(24)}")]
+        public async Task<IActionResult> Update(string id, Quiz updatedQuiz)
+        {
+            Quiz? quiz = await _quizzesService.GetByIdAsync(id);
+
+            if (quiz is null)
+            {
+                return NotFound();
+            }
+
+            updatedQuiz.Id = quiz.Id;
+
+            await _quizzesService.UpdateAsync(id, updatedQuiz);
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id:length(24)}")]
+        public async Task<IActionResult> Remove(string id)
+        {
+            Quiz? quiz = await _quizzesService.GetByIdAsync(id);
+
+            if(quiz is null)
+            {
+                return NotFound();
+            }
+
+            await _quizzesService.RemoveAsync(id);
+
+            return NoContent();
         }
     }
 }
