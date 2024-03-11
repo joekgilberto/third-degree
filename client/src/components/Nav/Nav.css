@@ -1,9 +1,0 @@
-nav{
-    display: flex;
-    flex-direction: column;
-}
-
-nav h1{
-    padding: 10px;
-    border-bottom: 2px solid black;
-}
