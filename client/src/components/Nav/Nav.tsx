@@ -14,7 +14,9 @@ export default function Nav() {
       <Link to='/categories'>
         <button>Categories</button>
       </Link>
-      <button>Build a Quiz</button>
+      <Link to='/quiz/new'>
+        <button>Build a Quiz</button>
+      </Link>
       {/* TODO: Toggle Login to profile link when logged in */}
       <button>Login</button>
     </nav>

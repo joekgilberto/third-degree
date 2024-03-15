@@ -1,5 +1,5 @@
 export interface Quiz {
-    id: string;
+    id?: string;
     title: string;
     questions: Array<Question>;
     submissions: Array<string>;
