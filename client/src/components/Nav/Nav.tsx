@@ -1,14 +1,19 @@
 import './Nav.css';
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Nav() {
   return (
     <nav>
-      <h1>Third<br/>Degree</h1>
+      <h1>Third<br />Degree</h1>
       <hr />
-      <button>Home</button>
-      <button>Categories</button>
+      <Link to='/'>
+        <button>Home</button>
+      </Link>
+      <Link to='/categories'>
+        <button>Categories</button>
+      </Link>
       <button>Build a Quiz</button>
       {/* TODO: Toggle Login to profile link when logged in */}
       <button>Login</button>

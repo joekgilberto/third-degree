@@ -21,7 +21,6 @@ const dummyData: Array<Category> = [
     id: 'd',
     title: 'Science'
   },
-  
 ]
 
 export default function CategoriesIndex() {
