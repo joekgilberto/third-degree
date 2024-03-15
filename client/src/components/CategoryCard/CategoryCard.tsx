@@ -5,7 +5,7 @@ import { Category } from '../../utilities/types';
 
 export default function CategoryCard({category}:{category: Category}) {
   return (
-    <div className="CategoryCard">
+    <div className='CategoryCard'>
       <h3>{category.title}</h3>
     </div>
   );

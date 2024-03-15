@@ -1,8 +1,9 @@
 import CategoryCard from '../../components/CategoryCard/CategoryCard';
 import { Category } from '../../utilities/types';
-import './CategoriesIndex.css';
+import './CategoryIndex.css';
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const dummyData: Array<Category> = [
   {
@@ -23,14 +24,18 @@ const dummyData: Array<Category> = [
   },
 ]
 
-export default function CategoriesIndex() {
+export default function CategoryIndex() {
   return (
-    <div className="CategoriesIndex">
+    <div className='CategoryIndex'>
       <h2>Smart your engines!</h2>
       <p>And pick your <span className='bold'>category</span>:</p>
-      <hr/>
-      {dummyData.map((category)=>{
-        return <CategoryCard key={category.id} category={category} />
+      <hr />
+      {dummyData.map((category) => {
+        return (
+          <Link to={`/categories/${category.id}`}>
+            <CategoryCard key={category.id} category={category} />
+          </Link>
+        )
       })}
     </div>
   );
