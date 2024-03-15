@@ -1,7 +1,9 @@
 import './NewQuiz.css';
 
 import React, { useState } from 'react';
-import { Quiz, Category } from '../../utilities/types';
+import { Quiz, Category, Question } from '../../utilities/types';
+
+import NewQuestion from '../../components/NewQuestion/NewQuestion';
 
 const dummyDataCategories: Array<Category> = [
     {
@@ -40,7 +42,6 @@ export default function NewQuiz() {
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>){
         setFormData({...formData, [e.target.name]: e.target.value})
-        console.log(formData)
     }
 
     function handleCategory(e: React.ChangeEvent<HTMLSelectElement>) {
@@ -68,7 +69,7 @@ export default function NewQuiz() {
                     {dummyDataCategories.map((category: Category) => {
                         return <option key={category.id} value={category.title}>{category.title}</option>
                     })}
-                    <option value='new'>New Category</option>
+                    <option value='new'>(New Category)</option>
                 </select>
                 :
                 <>
@@ -82,6 +83,9 @@ export default function NewQuiz() {
                 <p>*Please create a new category at your own discretion.  We here at Third Degree recommend keeping category names concise and relevant.  Admins reserve the right to edit, merge, or delete any new categories.</p>
             </div>
             :null}
+            {formData.questions.map((question: Question)=>{
+                return <NewQuestion key={question.id} question={question} />
+            })}
         </div>
     );
 }
