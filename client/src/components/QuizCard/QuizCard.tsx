@@ -8,7 +8,7 @@ export default function QuizCard({quiz}:{quiz: Quiz}) {
     <div className="QuizCard">
       <h3>{quiz.title}</h3>
       {quiz.avgScore?
-      <p>{quiz.avgScore} average score</p>
+      <p>{quiz.avgScore.toFixed(1)}% average score</p>
       :
       <p>No challengers yet</p>}
     </div>

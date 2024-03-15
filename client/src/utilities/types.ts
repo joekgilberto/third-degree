@@ -42,9 +42,11 @@ export interface User {
 export interface Question {
     id: number,
     type: string,
-    image: string,
+    image?: string,
     query: string,
-    choices?: Array<string>,
+    choices?: {
+        [option: string]: string
+    },
     answer: string
 }
 

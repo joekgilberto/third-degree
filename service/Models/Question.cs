@@ -12,7 +12,7 @@ namespace service.Models
 
         public string Query { get; set; }
 
-        public List<string>? Choices { get; set; }
+        public Dictionary<string, string>? Choices { get; set; }
 
         public string Answer { get; set; }
 
