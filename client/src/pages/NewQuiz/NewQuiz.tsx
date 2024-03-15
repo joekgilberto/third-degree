@@ -1,7 +1,9 @@
 import './NewQuiz.css';
 
-import React, { useState } from 'react';
-import { Quiz, Category, Question } from '../../utilities/types';
+import React, { useEffect, useState } from 'react';
+import { selectNewQuiz, updateNewQuiz } from './newQuizSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { Category, Question } from '../../utilities/types';
 
 import NewQuestion from '../../components/NewQuestion/NewQuestion';
 
@@ -26,16 +28,9 @@ const dummyDataCategories: Array<Category> = [
 
 export default function NewQuiz() {
 
-    //TODO: make username and author specific to logged in user
-    const initQuiz: Quiz = {
-        title: '',
-        questions: [],
-        submissions: [],
-        postingDate: new Date(),
-        username: 'joekgilberto',
-        author: '65ee2084f86b1b2bc8530705',
-        category: ''
-    }
+    const newQuiz = useSelector(selectNewQuiz);
+    const dispatch = useDispatch();
+
     const initTextQuestion: Question = {
         id: 0,
         type: '',
@@ -50,48 +45,47 @@ export default function NewQuiz() {
         answer: ''
     }
 
-    const [formData, setFormData] = useState<Quiz>(initQuiz)
     const [newCategory, setNewCategory] = useState<boolean>(false);
     const [newQuestion, setNewQuestion] = useState<boolean>(false);
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-        setFormData({ ...formData, [e.target.name]: e.target.value })
+        dispatch(updateNewQuiz({ ...newQuiz, [e.target.name]: e.target.value }))
     }
 
     function handleCategory(e: React.ChangeEvent<HTMLSelectElement>) {
         if (e.target.value === 'new') {
             setNewCategory(true);
-            setFormData({ ...formData, category: initQuiz.category })
+            dispatch(updateNewQuiz({ ...newQuiz, category: '' }))
         } else {
-            setFormData({ ...formData, category: e.target.value })
+            dispatch(updateNewQuiz({ ...newQuiz, category: e.target.value }))
         };
     };
 
     function handleExitCategory() {
-        setFormData({ ...formData, category: initQuiz.category })
+        dispatch(updateNewQuiz({ ...newQuiz, category: '' }))
         setNewCategory(false);
     }
 
     function addQuestion(type: string) {
         setNewQuestion(false)
         if (type === 'text') {
-            setFormData({
-                ...formData,
-                questions: [...formData.questions, {
+            dispatch(updateNewQuiz({
+                ...newQuiz,
+                questions: [...newQuiz.questions, {
                     ...initTextQuestion,
-                    id: formData.questions.length,
+                    id: newQuiz.questions.length,
                     type: type
                 }]
-            });
+            }));
         } else if (type === 'radio' || type === 'checkbox') {
-            setFormData({
-                ...formData,
-                questions: [...formData.questions, {
+            dispatch(updateNewQuiz({
+                ...newQuiz,
+                questions: [...newQuiz.questions, {
                     ...initChoiceQuestion,
-                    id: formData.questions.length,
+                    id: newQuiz.questions.length,
                     type: type
                 }]
-            });
+            }));
         }
     }
 
@@ -121,8 +115,8 @@ export default function NewQuiz() {
                 </div>
                 : null}
             <div>
-                {formData.questions.map((question: Question) => {
-                    return <NewQuestion key={question.id} question={question} />
+                {newQuiz.questions?.map((question: Question) => {
+                    return <NewQuestion key={question.id} quiz={newQuiz} question={question} />
                 })}
                 <div>
                     {!newQuestion ?
