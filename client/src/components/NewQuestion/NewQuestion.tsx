@@ -10,7 +10,7 @@ import NewCheckbox from '../../components/NewCheckbox/NewCheckbox';
 export default function NewQuestion({question}:{question: Question}) {
   return (
     <div className='NewQuestion'>
-        <h3>Question #{question.id+1}</h3>
+        <h3>Question #{question.id+1} <button>X</button></h3>
         {question.type==='text'?
         <NewText />
         : question.type ==='radio'?
