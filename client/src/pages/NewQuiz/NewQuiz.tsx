@@ -31,6 +31,10 @@ export default function NewQuiz() {
     const newQuiz = useSelector(selectNewQuiz);
     const dispatch = useDispatch();
 
+    useEffect(()=>{
+        console.log(newQuiz)
+    },[newQuiz])
+
     const initTextQuestion: Question = {
         id: 0,
         type: '',
@@ -93,7 +97,7 @@ export default function NewQuiz() {
         <div className='NewQuiz'>
             <h2>New Quiz</h2>
             <div className='new-header'>
-                <input placeholder='Enter Title' />
+                <input name='title' placeholder='Enter Title' onChange={handleChange} />
                 {!newCategory ?
                     <select name='category' defaultValue={''} onChange={handleCategory}>
                         <option disabled value=''>Choose a Category</option>
@@ -116,7 +120,7 @@ export default function NewQuiz() {
                 : null}
             <div>
                 {newQuiz.questions?.map((question: Question) => {
-                    return <NewQuestion key={question.id} quiz={newQuiz} question={question} />
+                    return <NewQuestion key={question.id} question={question} />
                 })}
                 <div>
                     {!newQuestion ?

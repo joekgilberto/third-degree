@@ -2,7 +2,9 @@ import './NewRadio.css';
 
 import React from 'react';
 
-export default function NewRadio() {
+import { Question } from '../../utilities/types';
+
+export default function NewRadio({question}:{question: Question}) {
     return (
         <div className='NewRadio'>
             <input placeholder='Type a question' />

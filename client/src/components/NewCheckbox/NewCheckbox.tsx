@@ -2,7 +2,9 @@ import './NewCheckbox.css';
 
 import React from 'react';
 
-export default function NewCheckbox() {
+import { Question } from '../../utilities/types';
+
+export default function NewCheckbox({question}:{question: Question}) {
     return (
         <div className='NewCheckbox'>
             <input placeholder='Type a question' />
