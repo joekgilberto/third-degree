@@ -52,7 +52,7 @@ const dummyData: Array<Quiz> = [
     postingDate: new Date(),
     username: 'joekgilberto',
     author: '1',
-    category: 'Film'
+    category: 'Film & TV'
   }
 ]
 
