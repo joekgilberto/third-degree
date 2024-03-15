@@ -31,3 +31,8 @@ a {
 .bold {
   font-weight: bold !important;
 }
+
+/* TODO: Remove */
+.todo{
+  color: darkred;
+}

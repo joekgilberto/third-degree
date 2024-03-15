@@ -3,6 +3,7 @@ export interface Quiz {
     title: string;
     questions: Array<Question>;
     submissions: Array<string>;
+    avgScore: number;
     postingDate: Date;
     username: string;
     author: string;
@@ -30,7 +31,7 @@ export interface Profile {
     clearance: number;
 }
 
-export type User = {
+export interface User {
     id: string,
     username: string,
     password: string,
@@ -38,7 +39,7 @@ export type User = {
     clearance: number;
 }
 
-export type Question = {
+export interface Question {
     id: number,
     type: string,
     image: string,
@@ -47,7 +48,7 @@ export type Question = {
     answer: string
 }
 
-export type Answer = {
+export interface Answer {
     id: number,
     guess: string
 }

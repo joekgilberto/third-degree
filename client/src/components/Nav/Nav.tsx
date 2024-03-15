@@ -10,6 +10,7 @@ export default function Nav() {
       <button>Home</button>
       <button>Categories</button>
       <button>Build a Quiz</button>
+      {/* TODO: Toggle Login to profile link when logged in */}
       <button>Login</button>
     </nav>
   );

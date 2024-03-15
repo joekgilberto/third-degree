@@ -16,6 +16,8 @@ namespace service.Models
 
         public List<string> Submissions { get; set; }
 
+        public double? AvgScore { get; set; }
+
         public DateTime PostingDate { get; set; }
 
         public string Username { get; set; }
