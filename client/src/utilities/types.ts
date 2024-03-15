@@ -3,7 +3,7 @@ export interface Quiz {
     title: string;
     questions: Array<Question>;
     submissions: Array<string>;
-    avgScore: number;
+    avgScore?: number;
     postingDate: Date;
     username: string;
     author: string;
