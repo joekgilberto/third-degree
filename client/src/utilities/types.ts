@@ -11,11 +11,11 @@ export interface Quiz {
 }
 
 export interface Submission {
-    id: string;
+    id?: string;
     answers: Array<Answer>;
     score: number;
-    username: string;
     submissionDate: Date;
+    username: string;
     challenger: string;
 }
 
@@ -56,5 +56,6 @@ export interface Question {
 
 export interface Answer {
     id: number,
-    guess: string
+    guess?: string,
+    guesses?: string[]
 }

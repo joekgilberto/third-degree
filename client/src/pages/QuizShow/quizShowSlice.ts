@@ -7,7 +7,10 @@ import { Quiz, Submission } from '../../utilities/types';
 //Creates an async thunk to call a shows based on a passed through id, along with its reviews, and then calculates the average of its reviews
 export const loadQuiz = createAsyncThunk(
     'quizShow/loadQuiz',
-    async (id: string) => {
+    async (id: string | undefined) => {
+        if(!id){
+            return 'Error: Invalid id.';
+        }
         return await quizServices.getQuiz(id);
     }
 );
