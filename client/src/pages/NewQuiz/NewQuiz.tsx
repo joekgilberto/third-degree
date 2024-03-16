@@ -31,10 +31,6 @@ export default function NewQuiz() {
     const newQuiz = useSelector(selectNewQuiz);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        console.log(newQuiz)
-    }, [newQuiz])
-
     const initTextQuestion: Question = {
         id: 0,
         type: '',
@@ -119,6 +115,14 @@ export default function NewQuiz() {
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>){
         e.preventDefault();
+        for(let i = 0; i < newQuiz.questions.length; i++){
+            if (newQuiz.questions[i].type === 'checkbox'){
+                if(!newQuiz.questions[i].answers.length){
+                    console.log(`Error: No answer selected on question #${i+1}`)
+                    return;
+                }
+            }
+        }
         console.log(newQuiz);
     }
 

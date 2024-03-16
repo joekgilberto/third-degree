@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import { Quiz } from '../../utilities/types';
+
 //TODO: make username and author specific to logged in user
 const newQuizSlice = createSlice({
   name: 'newQuiz',
   initialState: {
-    newQuiz: {
+    quiz: {
       title: '',
       questions: [],
       submissions: [],
@@ -16,12 +18,12 @@ const newQuizSlice = createSlice({
   },
   reducers: {
     updateNewQuiz(state, action) {
-      state.newQuiz = action.payload;
+      state.quiz = action.payload;
     }
   }
 })
 
-export const selectNewQuiz = (state) => state.newQuiz.newQuiz;
+export const selectNewQuiz = (state: { newQuiz: { quiz: Quiz; }; }) => state.newQuiz.quiz;
 
 export const { updateNewQuiz } = newQuizSlice.actions
 
