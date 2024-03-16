@@ -1,6 +1,7 @@
 import './NewQuiz.css';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import * as quizServices from '../../utilities/quiz/quiz-services';
 import { selectNewQuiz, updateNewQuiz } from './newQuizSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Category, Question } from '../../utilities/types';
@@ -123,7 +124,14 @@ export default function NewQuiz() {
                 }
             }
         }
+        
         console.log(newQuiz);
+
+        try {
+            quizServices.createQuiz(newQuiz);
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     return (

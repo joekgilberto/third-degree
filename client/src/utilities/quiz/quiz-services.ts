@@ -1,7 +1,7 @@
 import * as quizzesApi from './quiz-api';
 import { Quiz } from '../types';
 
-export async function getAllReviews() {
+export async function getAllQuizzes() {
     try {
         const res = await quizzesApi.index();
         return res;
@@ -10,7 +10,7 @@ export async function getAllReviews() {
     }
 }
 
-export async function getReview(id: string) {
+export async function getQuiz(id: string) {
     try {
         const res = await quizzesApi.show(id);
         return res;
@@ -19,7 +19,7 @@ export async function getReview(id: string) {
     }
 }
 
-export async function createReview(data: Quiz) {
+export async function createQuiz(data: Quiz) {
     try {
         const res = await quizzesApi.create(data);
         return res;
@@ -28,7 +28,7 @@ export async function createReview(data: Quiz) {
     }
 }
 
-export async function updateReview(id: string, data: Quiz) {
+export async function updateQuiz(id: string, data: Quiz) {
     try {
         const res = await quizzesApi.update(id, data);
         return res;
@@ -37,7 +37,7 @@ export async function updateReview(id: string, data: Quiz) {
     }
 }
 
-export async function destroyReview(id: string) {
+export async function destroyQuiz(id: string) {
     try {
         const res = await quizzesApi.destroy(id);
         return res;
