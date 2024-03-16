@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Quiz } from '../types';
 
-const BASE_URL = `${process.env.REACT_APP_REVIEWS_API_URL}Quizzes/`;
+const BASE_URL = `${process.env.REACT_APP_API_URL}Quizzes/`;
 
 export async function index() {
     return axios

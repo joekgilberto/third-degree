@@ -4,7 +4,7 @@ import { Quiz } from '../types';
 export async function getAllQuizzes() {
     try {
         const res = await quizzesApi.index();
-        return res;
+        return res.data;
     } catch (err) {
         return err;
     }
@@ -13,7 +13,7 @@ export async function getAllQuizzes() {
 export async function getQuiz(id: string) {
     try {
         const res = await quizzesApi.show(id);
-        return res;
+        return res.data;
     } catch (err) {
         return err;
     }
@@ -22,7 +22,7 @@ export async function getQuiz(id: string) {
 export async function createQuiz(data: Quiz) {
     try {
         const res = await quizzesApi.create(data);
-        return res;
+        return res.data;
     } catch (err) {
         return err;
     }
@@ -31,7 +31,7 @@ export async function createQuiz(data: Quiz) {
 export async function updateQuiz(id: string, data: Quiz) {
     try {
         const res = await quizzesApi.update(id, data);
-        return res;
+        return res.data;
     } catch (err) {
         return err;
     }
@@ -40,7 +40,7 @@ export async function updateQuiz(id: string, data: Quiz) {
 export async function destroyQuiz(id: string) {
     try {
         const res = await quizzesApi.destroy(id);
-        return res;
+        return res.data;
     } catch (err) {
         return err
     }

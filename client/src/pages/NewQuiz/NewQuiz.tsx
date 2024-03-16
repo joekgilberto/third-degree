@@ -2,6 +2,7 @@ import './NewQuiz.css';
 
 import React, { useState } from 'react';
 import * as quizServices from '../../utilities/quiz/quiz-services';
+import * as categoryServices from '../../utilities/category/category-services';
 import { selectNewQuiz, updateNewQuiz } from './newQuizSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Category, Question } from '../../utilities/types';
@@ -61,7 +62,8 @@ export default function NewQuiz() {
         answers: []
     }
 
-    const [newCategory, setNewCategory] = useState<boolean>(false);
+    const [newCategoryToggle, setNewCategoryToggle] = useState<boolean>(false);
+    const [newCategory, setNewCategory] = useState<string>();
     const [newQuestion, setNewQuestion] = useState<boolean>(false);
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -70,16 +72,20 @@ export default function NewQuiz() {
 
     function handleCategory(e: React.ChangeEvent<HTMLSelectElement>) {
         if (e.target.value === 'new') {
-            setNewCategory(true);
+            setNewCategoryToggle(true);
             dispatch(updateNewQuiz({ ...newQuiz, category: '' }))
         } else {
             dispatch(updateNewQuiz({ ...newQuiz, category: e.target.value }))
         };
     };
 
+    function handleNewCategory(e: React.ChangeEvent<HTMLInputElement>){
+        setNewCategory(e.target.value);
+    }
+
     function handleExitCategory() {
         dispatch(updateNewQuiz({ ...newQuiz, category: '' }))
-        setNewCategory(false);
+        setNewCategoryToggle(false);
     }
 
     function addQuestion(type: string) {
@@ -124,13 +130,30 @@ export default function NewQuiz() {
                 }
             }
         }
-        
-        console.log(newQuiz);
 
-        try {
-            quizServices.createQuiz(newQuiz);
-        } catch (err) {
-            console.log(err)
+        console.log(newQuiz);
+        
+        if(newCategory){
+            categoryServices.createCategory({title: newCategory}).then((category: Category)=>{
+                if(category.id){
+                    let cache = {...newQuiz, category: category.id};
+                    try {
+                        quizServices.createQuiz(cache);
+                    } catch (err) {
+                        console.log(err)
+                    }
+                } else {
+                    console.log(`Error: Unable to create new catagory, "${newCategory}"`)
+                    return;
+                }
+                
+            })
+        } else {
+            try {
+                quizServices.createQuiz(newQuiz);
+            } catch (err) {
+                console.log(err)
+            }
         }
     }
 
@@ -140,22 +163,22 @@ export default function NewQuiz() {
             <form onSubmit={handleSubmit}>
                 <div className='new-header'>
                     <input name='title' placeholder='Enter Title' onChange={handleChange} />
-                    {!newCategory ?
+                    {!newCategoryToggle ?
                         <select name='category' defaultValue={''} onChange={handleCategory} required>
                             <option disabled value=''>Choose a Category</option>
                             {dummyDataCategories.map((category: Category) => {
-                                return <option key={category.id} value={category.title}>{category.title}</option>
+                                return <option key={category.id} value={category.id}>{category.title}</option>
                             })}
                             <option value='new'>(New Category)</option>
                         </select>
                         :
                         <>
-                            <input name='category' placeholder='Enter new category' onChange={handleChange} required />
+                            <input name='category' placeholder='Enter new category' onChange={handleNewCategory} required />
                             <button onClick={handleExitCategory}>X</button>
                         </>
                     }
                 </div>
-                {newCategory ?
+                {newCategoryToggle ?
                     <div className='new-note'>
                         <p>*Please create a new category at your own discretion.  We here at Third Degree recommend keeping category names concise and relevant.  Admins reserve the right to edit, merge, or delete any new categories.</p>
                     </div>

@@ -20,7 +20,7 @@ export interface Submission {
 }
 
 export interface Category {
-    id: string;
+    id?: string;
     title: string;
 }
 
