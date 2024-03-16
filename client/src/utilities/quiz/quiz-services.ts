@@ -10,6 +10,33 @@ export async function getAllQuizzes() {
     }
 }
 
+export async function getHardestQuizzes() {
+    try {
+        const res = await quizzesApi.index();
+
+        res.data.sort((a: Quiz, b: Quiz) => {
+            if (!a.avgScore && !b.avgScore) {
+                return 0;
+            } else if (!a.avgScore) {
+                return 1;
+            } else if (!b.avgScore){
+                return -1;
+            } else {
+                return a.avgScore  - b.avgScore;
+            };
+        });
+
+        if (res.data.length > 5){
+            return res.data.slice(0,5);
+        };
+
+        return res.data;
+        
+    } catch (err) {
+        return err;
+    }
+}
+
 export async function getQuiz(id: string) {
     try {
         const res = await quizzesApi.show(id);
@@ -20,7 +47,7 @@ export async function getQuiz(id: string) {
 }
 
 export async function getQuizByCategory(id: string | undefined) {
-    if(!id){
+    if (!id) {
         return 'Error: id not defined.';
     }
     try {
