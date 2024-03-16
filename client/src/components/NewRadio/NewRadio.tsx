@@ -34,7 +34,7 @@ export default function NewRadio({ question }: { question: Question }) {
     function handleDeleteChoice(e: React.MouseEvent<HTMLButtonElement>) {
         let cache = { ...newQuiz.questions[question.id].choices }
 
-        if('d' in cache){
+        if ('d' in cache) {
             delete cache.d
         } else {
             delete cache.c
@@ -45,19 +45,27 @@ export default function NewRadio({ question }: { question: Question }) {
         dispatch(updateNewQuiz({ ...newQuiz, questions: [...questionArr] }))
     }
 
-    function handleChangeQuery(e: React.ChangeEvent<HTMLInputElement>){
+    function handleChangeQuery(e: React.ChangeEvent<HTMLInputElement>) {
         let cache: Question = newQuiz.questions[question.id];
-        cache = {...cache, query: e.target.value}
+        cache = { ...cache, query: e.target.value }
         const questionArr: Array<Question> = [...newQuiz.questions]
         questionArr[question.id] = cache;
         dispatch(updateNewQuiz({ ...newQuiz, questions: [...questionArr] }))
     }
 
-    function handleChangeChoice(e: React.ChangeEvent<HTMLInputElement>){
+    function handleChangeChoice(e: React.ChangeEvent<HTMLInputElement>) {
         let cache = newQuiz.questions[question.id].choices;
-        cache = {...cache, [e.target.name]: e.target.value}
+        cache = { ...cache, [e.target.name]: e.target.value }
         const questionArr: Array<Question> = [...newQuiz.questions]
-        questionArr[question.id] = {...questionArr[question.id], choices: cache};
+        questionArr[question.id] = { ...questionArr[question.id], choices: cache };
+        dispatch(updateNewQuiz({ ...newQuiz, questions: [...questionArr] }))
+    }
+
+    function handleAnswer(e: React.ChangeEvent<HTMLSelectElement>) {
+        let cache: Question = newQuiz.questions[question.id];
+        cache = { ...cache, answer: e.target.value }
+        const questionArr: Array<Question> = [...newQuiz.questions]
+        questionArr[question.id] = cache;
         dispatch(updateNewQuiz({ ...newQuiz, questions: [...questionArr] }))
     }
 
@@ -89,6 +97,20 @@ export default function NewRadio({ question }: { question: Question }) {
                     <button onClick={handleAddChoice}>+ Add a Choice</button>
                     :
                     null}
+            </div>
+            <div>
+                <h3>Answer #{question.id + 1}</h3>
+                <select name='answer' defaultValue={''} onChange={handleAnswer}>
+                        <option disabled value=''>Choose an Answer</option>
+                        <option value='a'>A</option>
+                        <option value='b'>B</option>
+                        {newQuiz.questions[question.id].choices?.c?.length || newQuiz.questions[question.id].choices?.c === ''?
+                        <option value='c'>C</option>
+                        :null}
+                        {newQuiz.questions[question.id].choices?.d?.length || newQuiz.questions[question.id].choices?.d === ''?
+                        <option value='c'>D</option>
+                        :null}
+                    </select>
             </div>
         </div>
     );
