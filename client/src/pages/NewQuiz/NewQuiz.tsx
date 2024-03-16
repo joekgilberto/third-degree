@@ -1,6 +1,6 @@
 import './NewQuiz.css';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as quizServices from '../../utilities/quiz/quiz-services';
 import * as categoryServices from '../../utilities/category/category-services';
 import { selectNewQuiz, updateNewQuiz } from './newQuizSlice';
@@ -65,6 +65,7 @@ export default function NewQuiz() {
     const [newCategoryToggle, setNewCategoryToggle] = useState<boolean>(false);
     const [newCategory, setNewCategory] = useState<string>();
     const [newQuestion, setNewQuestion] = useState<boolean>(false);
+    const [categories, setCategories] = useState<Array<Category>>([]);
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         dispatch(updateNewQuiz({ ...newQuiz, [e.target.name]: e.target.value }))
@@ -157,6 +158,21 @@ export default function NewQuiz() {
         }
     }
 
+    async function handleRequest(){
+        await categoryServices.getAllCategories().then((categories: Array<Category>)=>{
+            console.log(categories)
+            setCategories(categories)
+        })
+    }
+
+    useEffect(()=>{
+        handleRequest();
+    },[])
+
+    if(!categories.length){
+        return <p>Loading...</p>
+    }
+
     return (
         <div className='NewQuiz'>
             <h2>New Quiz</h2>
@@ -166,7 +182,7 @@ export default function NewQuiz() {
                     {!newCategoryToggle ?
                         <select name='category' defaultValue={''} onChange={handleCategory} required>
                             <option disabled value=''>Choose a Category</option>
-                            {dummyDataCategories.map((category: Category) => {
+                            {categories.map((category: Category) => {
                                 return <option key={category.id} value={category.id}>{category.title}</option>
                             })}
                             <option value='new'>(New Category)</option>
