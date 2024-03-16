@@ -35,6 +35,12 @@ namespace service.Controllers
             return quiz;
         }
 
+        [HttpGet("category/{id:length(24)}")]
+        public async Task<List<Quiz>> GetByCategory(string id)
+        {
+            return await _quizzesService.GetByCategoryAsync(id);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post(Quiz newQuiz)
         {

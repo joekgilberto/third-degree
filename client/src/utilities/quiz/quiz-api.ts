@@ -25,6 +25,17 @@ export async function show(id: string) {
         });
 };
 
+export async function byCategory(id: string) {
+    return axios
+        .get(`${BASE_URL}category/${id}/`)
+        .then((res) => {
+            return res;
+        })
+        .catch((err) => {
+            return err;
+        });
+};
+
 export async function create(data: Quiz) {
     return axios
         .post(BASE_URL, data)

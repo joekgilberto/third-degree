@@ -28,7 +28,12 @@ namespace service.Services
 			return await _quizzesCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
 		}
 
-		public async Task CreateAsync(Quiz newQuiz)
+        public async Task<List<Quiz>> GetByCategoryAsync(string id)
+        {
+            return await _quizzesCollection.Find(x => x.Category == id).ToListAsync();
+        }
+
+        public async Task CreateAsync(Quiz newQuiz)
 		{
 			await _quizzesCollection.InsertOneAsync(newQuiz);
 		}
