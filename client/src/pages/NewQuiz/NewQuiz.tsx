@@ -119,6 +119,7 @@ export default function NewQuiz() {
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>){
         e.preventDefault();
+        console.log(newQuiz);
     }
 
     return (
@@ -128,7 +129,7 @@ export default function NewQuiz() {
                 <div className='new-header'>
                     <input name='title' placeholder='Enter Title' onChange={handleChange} />
                     {!newCategory ?
-                        <select name='category' defaultValue={''} onChange={handleCategory}>
+                        <select name='category' defaultValue={''} onChange={handleCategory} required>
                             <option disabled value=''>Choose a Category</option>
                             {dummyDataCategories.map((category: Category) => {
                                 return <option key={category.id} value={category.title}>{category.title}</option>
@@ -137,7 +138,7 @@ export default function NewQuiz() {
                         </select>
                         :
                         <>
-                            <input name='category' placeholder='Enter new category' onChange={handleChange} />
+                            <input name='category' placeholder='Enter new category' onChange={handleChange} required />
                             <button onClick={handleExitCategory}>X</button>
                         </>
                     }
@@ -165,6 +166,9 @@ export default function NewQuiz() {
                                 <button onClick={(e) => setNewQuestion(false)}>X</button>
                             </div>
                         }
+                        {newQuiz.questions.length?
+                        <button>Submit</button>:
+                        null}
                     </div>
                 </div>
             </form>

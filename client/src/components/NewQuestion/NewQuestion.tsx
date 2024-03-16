@@ -28,9 +28,18 @@ export default function NewQuestion({ question }: { question: Question }) {
         };
     };
 
+    function handleChangeQuery(e: React.ChangeEvent<HTMLInputElement>) {
+        let cache: Question = newQuiz.questions[question.id];
+        cache = { ...cache, query: e.target.value }
+        const questionArr: Array<Question> = [...newQuiz.questions]
+        questionArr[question.id] = cache;
+        dispatch(updateNewQuiz({ ...newQuiz, questions: [...questionArr] }))
+    }
+
     return (
         <div className='NewQuestion'>
             <h3>Question #{question.id + 1} <button onClick={handleDelete}>X</button></h3>
+            <input name='query' placeholder='Type a question' onChange={handleChangeQuery} required />
             {question.type === 'text' ?
                 <NewText question={question} />
                 : question.type === 'radio' ?

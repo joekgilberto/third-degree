@@ -61,14 +61,6 @@ export default function NewCheckbox({ question }: { question: Question }) {
         dispatch(updateNewQuiz({ ...newQuiz, questions: [...questionArr] }))
     }
 
-    function handleChangeQuery(e: React.ChangeEvent<HTMLInputElement>) {
-        let cache: Question = newQuiz.questions[question.id];
-        cache = { ...cache, query: e.target.value }
-        const questionArr: Array<Question> = [...newQuiz.questions]
-        questionArr[question.id] = cache;
-        dispatch(updateNewQuiz({ ...newQuiz, questions: [...questionArr] }))
-    }
-
     function handleChangeChoice(e: React.ChangeEvent<HTMLInputElement>) {
         let cache = newQuiz.questions[question.id].choices;
         cache = { ...cache, [e.target.name]: e.target.value }
@@ -99,17 +91,16 @@ export default function NewCheckbox({ question }: { question: Question }) {
 
     return (
         <div className='NewCheckbox'>
-            <input name='query' placeholder='Type a question' onChange={handleChangeQuery} />
             <div className='radio-choices'>
                 <label>A&#41;
-                    <input name='a' placeholder='Enter choice A' onChange={handleChangeChoice} />
+                    <input name='a' placeholder='Enter choice A' onChange={handleChangeChoice} required />
                 </label>
                 <label>B&#41;
-                    <input name='b' placeholder='Enter choice B' onChange={handleChangeChoice} />
+                    <input name='b' placeholder='Enter choice B' onChange={handleChangeChoice} required />
                 </label>
                 {newQuiz.questions[question.id].choices?.c?.length || newQuiz.questions[question.id].choices?.c === '' ?
                     <label>C&#41;
-                        <input name='c' placeholder='Enter choice C' onChange={handleChangeChoice} />
+                        <input name='c' placeholder='Enter choice C' onChange={handleChangeChoice} required />
                         {newQuiz.questions[question.id].choices?.d?.length || newQuiz.questions[question.id].choices?.d !== '' ?
                             <button onClick={handleDeleteChoice}>X</button>
                             : null}
@@ -117,7 +108,7 @@ export default function NewCheckbox({ question }: { question: Question }) {
                     : null}
                 {newQuiz.questions[question.id].choices?.d?.length || newQuiz.questions[question.id].choices?.d === '' ?
                     <label>D&#41;
-                        <input name='d' placeholder='Enter choice D' onChange={handleChangeChoice} />
+                        <input name='d' placeholder='Enter choice D' onChange={handleChangeChoice} required />
                         <button onClick={handleDeleteChoice}>X</button>
                     </label>
                     : null}
