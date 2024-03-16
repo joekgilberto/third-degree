@@ -45,7 +45,10 @@ export interface Question {
     image?: string,
     query: string,
     choices?: {
-        [option: string]: string
+        a?: string,
+        b?: string,
+        c?: string,
+        d?: string
     },
     answer: string
 }

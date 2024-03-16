@@ -31,9 +31,9 @@ export default function NewQuiz() {
     const newQuiz = useSelector(selectNewQuiz);
     const dispatch = useDispatch();
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log(newQuiz)
-    },[newQuiz])
+    }, [newQuiz])
 
     const initTextQuestion: Question = {
         id: 0,
@@ -45,7 +45,10 @@ export default function NewQuiz() {
         id: 0,
         type: '',
         query: '',
-        choices: {},
+        choices: {
+            a: '',
+            b: ''
+        },
         answer: ''
     }
 
@@ -120,7 +123,10 @@ export default function NewQuiz() {
                 : null}
             <div>
                 {newQuiz.questions?.map((question: Question) => {
-                    return <NewQuestion key={question.id} question={question} />
+                    return (<>
+                    <NewQuestion key={question.id} question={question} />
+                    <hr />
+                    </>)
                 })}
                 <div>
                     {!newQuestion ?
