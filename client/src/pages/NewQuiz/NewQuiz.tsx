@@ -117,7 +117,7 @@ export default function NewQuiz() {
         e.preventDefault();
         for(let i = 0; i < newQuiz.questions.length; i++){
             if (newQuiz.questions[i].type === 'checkbox'){
-                if(!newQuiz.questions[i].answers.length){
+                if(!newQuiz.questions[i].answers?.length){
                     console.log(`Error: No answer selected on question #${i+1}`)
                     return;
                 }
