@@ -19,7 +19,10 @@ export async function getQuiz(id: string) {
     }
 }
 
-export async function getQuizByCategory(id: string) {
+export async function getQuizByCategory(id: string | undefined) {
+    if(!id){
+        return 'Error: id not defined.';
+    }
     try {
         const res = await quizzesApi.byCategory(id);
         return res.data;

@@ -144,7 +144,7 @@ export default function NewQuiz() {
                         console.log(err)
                     }
                 } else {
-                    console.log(`Error: Unable to create new catagory, "${newCategory}"`)
+                    console.log(`Error: Unable to create new category, "${newCategory}"`)
                     return;
                 }
                 

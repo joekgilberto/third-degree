@@ -1,74 +1,42 @@
-import CategoryCard from '../../components/CategoryCard/CategoryCard';
-import { Quiz } from '../../utilities/types';
 import './CategoryShow.css';
 
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import { useParams } from 'react-router-dom';
+import * as categoryServices from '../../utilities/category/category-services';
+import * as quizServices from '../../utilities/quiz/quiz-services';
+import { Quiz, Category } from '../../utilities/types';
 
 import QuizCard from '../../components/QuizCard/QuizCard';
 
-const dummyDataCategory = {
-    id: '1',
-    title: 'Superheroes'
-}
-
-const dummyDataQuizzes: Array<Quiz> = [
-    {
-      id: 'a',
-      title: 'Batman Trivia',
-      questions: [{
-        id: 1,
-        type: 'typed',
-        query: 'question',
-        answer: 'a'
-      }],
-      submissions: ['1'],
-      avgScore: 15.36,
-      postingDate: new Date(),
-      username: 'joekgilberto',
-      author: '1',
-      category: 'a'
-    },
-    {
-      id: 'b',
-      title: 'Spider-Man Facts',
-      questions: [{
-        id: 1,
-        type: 'typed',
-        query: 'question',
-        answer: 'a'
-      }],
-      submissions: ['1'],
-      avgScore: 27,
-      postingDate: new Date(),
-      username: 'joekgilberto',
-      author: '1',
-      category: 'a'
-    },
-    {
-      id: 'c',
-      title: 'Captain Marvel History',
-      questions: [{
-        id: 1,
-        type: 'typed',
-        query: 'question',
-        answer: 'a'
-      }],
-      submissions: ['1'],
-      avgScore: 31.1,
-      postingDate: new Date(),
-      username: 'joekgilberto',
-      author: '1',
-      category: 'a'
-    }
-  ]
-
 export default function CategoryShow() {
+
+  const { id } = useParams();
+  const [category, setCategory] = useState<Category>();
+  const [quizzes, setQuizzes] = useState<Array<Quiz>>();
+
+  async function handleRequest(){
+    await categoryServices.getCategory(id).then(async (c)=>{
+      setCategory(c);
+      await quizServices.getQuizByCategory(id).then((q)=>{
+        setQuizzes(q);
+      })
+    })
+  }
+
+  useEffect(()=>{
+    handleRequest()
+  },[])
+
+  if(!category || !quizzes){
+    return <p>Loading...</p>
+  }
+
   return (
     <div className='CategoryShow'>
-      <h2>{dummyDataCategory.title} Category</h2>
+      <h2>{category.title} Category</h2>
       <p>Find a <span className='bold'>quiz</span>:</p>
       <hr/>
-      {dummyDataQuizzes.map((quiz: Quiz)=>{
+      {quizzes.map((quiz: Quiz)=>{
         return <QuizCard key={quiz.id} quiz={quiz} />
       })}
     </div>

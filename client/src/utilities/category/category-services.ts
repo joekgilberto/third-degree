@@ -10,7 +10,10 @@ export async function getAllCategories() {
     }
 }
 
-export async function getCategory(id: string) {
+export async function getCategory(id: string | undefined) {
+    if(!id){
+        return 'Error: id not defined.';
+    }
     try {
         const res = await categoriesApi.show(id);
         return res.data;
