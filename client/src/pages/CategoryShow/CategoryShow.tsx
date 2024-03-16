@@ -1,7 +1,7 @@
 import './CategoryShow.css';
 
 import React, {useEffect, useState} from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import * as categoryServices from '../../utilities/category/category-services';
 import * as quizServices from '../../utilities/quiz/quiz-services';
 import { Quiz, Category } from '../../utilities/types';
@@ -37,7 +37,11 @@ export default function CategoryShow() {
       <p>Find a <span className='bold'>quiz</span>:</p>
       <hr/>
       {quizzes.map((quiz: Quiz)=>{
-        return <QuizCard key={quiz.id} quiz={quiz} />
+        return (
+          <Link to={`/quiz/${quiz.id}`}>
+            <QuizCard key={quiz.id} quiz={quiz} />
+          </Link>
+        )
       })}
     </div>
   );
