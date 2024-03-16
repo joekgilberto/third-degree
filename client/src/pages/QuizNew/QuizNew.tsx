@@ -1,34 +1,15 @@
-import './NewQuiz.css';
+import './QuizNew.css';
 
 import React, { useEffect, useState } from 'react';
 import * as quizServices from '../../utilities/quiz/quiz-services';
 import * as categoryServices from '../../utilities/category/category-services';
-import { selectNewQuiz, updateNewQuiz } from './newQuizSlice';
+import { selectNewQuiz, updateQuizNew } from './quizNewSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Category, Question } from '../../utilities/types';
 
 import NewQuestion from '../../components/NewQuestion/NewQuestion';
 
-const dummyDataCategories: Array<Category> = [
-    {
-        id: 'a',
-        title: 'Alt Rock'
-    },
-    {
-        id: 'b',
-        title: 'History'
-    },
-    {
-        id: 'c',
-        title: 'Film & TV'
-    },
-    {
-        id: 'd',
-        title: 'Science'
-    },
-]
-
-export default function NewQuiz() {
+export default function QuizNew() {
 
     const newQuiz = useSelector(selectNewQuiz);
     const dispatch = useDispatch();
@@ -68,15 +49,15 @@ export default function NewQuiz() {
     const [categories, setCategories] = useState<Array<Category>>([]);
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-        dispatch(updateNewQuiz({ ...newQuiz, [e.target.name]: e.target.value }))
+        dispatch(updateQuizNew({ ...newQuiz, [e.target.name]: e.target.value }))
     }
 
     function handleCategory(e: React.ChangeEvent<HTMLSelectElement>) {
         if (e.target.value === 'new') {
             setNewCategoryToggle(true);
-            dispatch(updateNewQuiz({ ...newQuiz, category: '' }))
+            dispatch(updateQuizNew({ ...newQuiz, category: '' }))
         } else {
-            dispatch(updateNewQuiz({ ...newQuiz, category: e.target.value }))
+            dispatch(updateQuizNew({ ...newQuiz, category: e.target.value }))
         };
     };
 
@@ -85,14 +66,14 @@ export default function NewQuiz() {
     }
 
     function handleExitCategory() {
-        dispatch(updateNewQuiz({ ...newQuiz, category: '' }))
+        dispatch(updateQuizNew({ ...newQuiz, category: '' }))
         setNewCategoryToggle(false);
     }
 
     function addQuestion(type: string) {
         setNewQuestion(false)
         if (type === 'text') {
-            dispatch(updateNewQuiz({
+            dispatch(updateQuizNew({
                 ...newQuiz,
                 questions: [...newQuiz.questions, {
                     ...initTextQuestion,
@@ -101,7 +82,7 @@ export default function NewQuiz() {
                 }]
             }));
         } else if (type === 'radio') {
-            dispatch(updateNewQuiz({
+            dispatch(updateQuizNew({
                 ...newQuiz,
                 questions: [...newQuiz.questions, {
                     ...initRadioQuestion,
@@ -110,7 +91,7 @@ export default function NewQuiz() {
                 }]
             }));
         } else if (type === 'checkbox') {
-            dispatch(updateNewQuiz({
+            dispatch(updateQuizNew({
                 ...newQuiz,
                 questions: [...newQuiz.questions, {
                     ...initCheckboxQuestion,
@@ -174,7 +155,7 @@ export default function NewQuiz() {
     }
 
     return (
-        <div className='NewQuiz'>
+        <div className='QuizNew'>
             <h2>New Quiz</h2>
             <form onSubmit={handleSubmit}>
                 <div className='new-header'>

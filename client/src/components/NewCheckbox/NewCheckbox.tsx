@@ -2,7 +2,7 @@ import './NewCheckbox.css';
 
 import React from 'react';
 
-import { updateNewQuiz, selectNewQuiz } from '../../pages/NewQuiz/newQuizSlice';
+import { updateQuizNew, selectNewQuiz } from '../../pages/QuizNew/quizNewSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Quiz, Question } from '../../utilities/types';
 
@@ -20,14 +20,14 @@ export default function NewCheckbox({ question }: { question: Question }) {
 
             const questionArr: Array<Question> = [...newQuiz.questions]
             questionArr[question.id] = { ...questionArr[question.id], choices: { ...cache } }
-            dispatch(updateNewQuiz({ ...newQuiz, questions: [...questionArr] }))
+            dispatch(updateQuizNew({ ...newQuiz, questions: [...questionArr] }))
         } else if (!newQuiz.questions[question.id].choices?.d?.length && newQuiz.questions[question.id].choices?.d !== '') {
             let cache = { ...newQuiz.questions[question.id].choices }
             cache.d = '';
 
             const questionArr: Array<Question> = [...newQuiz.questions]
             questionArr[question.id] = { ...questionArr[question.id], choices: { ...cache } }
-            dispatch(updateNewQuiz({ ...newQuiz, questions: [...questionArr] }))
+            dispatch(updateQuizNew({ ...newQuiz, questions: [...questionArr] }))
         }
     }
 
@@ -58,7 +58,7 @@ export default function NewCheckbox({ question }: { question: Question }) {
         } else {
             questionArr[question.id] = { ...questionArr[question.id], choices: { ...choicesCache } };
         }
-        dispatch(updateNewQuiz({ ...newQuiz, questions: [...questionArr] }))
+        dispatch(updateQuizNew({ ...newQuiz, questions: [...questionArr] }))
     }
 
     function handleChangeChoice(e: React.ChangeEvent<HTMLInputElement>) {
@@ -66,7 +66,7 @@ export default function NewCheckbox({ question }: { question: Question }) {
         cache = { ...cache, [e.target.name]: e.target.value }
         const questionArr: Array<Question> = [...newQuiz.questions]
         questionArr[question.id] = { ...questionArr[question.id], choices: cache };
-        dispatch(updateNewQuiz({ ...newQuiz, questions: [...questionArr] }))
+        dispatch(updateQuizNew({ ...newQuiz, questions: [...questionArr] }))
     }
 
     function handleAnswer(e: React.ChangeEvent<HTMLInputElement>) {
@@ -78,13 +78,13 @@ export default function NewCheckbox({ question }: { question: Question }) {
                 cache = [...cache, e.target.value];
                 const questionArr: Array<Question> = [...newQuiz.questions];
                 questionArr[question.id] = { ...questionArr[question.id], answers: cache };
-                dispatch(updateNewQuiz({ ...newQuiz, questions: [...questionArr] }))
+                dispatch(updateQuizNew({ ...newQuiz, questions: [...questionArr] }))
             } else {
                 const idx: number = cache.indexOf(e.target.value);
                 cache.splice(idx, 1);
                 const questionArr: Array<Question> = [...newQuiz.questions];
                 questionArr[question.id] = { ...questionArr[question.id], answers: cache };
-                dispatch(updateNewQuiz({ ...newQuiz, questions: [...questionArr] }))
+                dispatch(updateQuizNew({ ...newQuiz, questions: [...questionArr] }))
             }
         }
     }

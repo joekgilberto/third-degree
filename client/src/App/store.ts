@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import newQuizReducer from '../pages/NewQuiz/newQuizSlice';
+import quizNewReducer from '../pages/QuizNew/quizNewSlice';
+import quizShowReducer from '../pages/QuizShow/quizShowSlice';
 
 export const store = configureStore({
   reducer: {
-    newQuiz: newQuizReducer
+    quizNew: quizNewReducer,
+    quizShow: quizShowReducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false })
 });

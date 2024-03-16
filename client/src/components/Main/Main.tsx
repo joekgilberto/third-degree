@@ -6,7 +6,8 @@ import { Routes, Route } from 'react-router-dom'
 import Home from '../../pages/Home/Home';
 import CategoryIndex from '../../pages/CategoryIndex/CategoryIndex';
 import CategoryShow from '../../pages/CategoryShow/CategoryShow';
-import NewQuiz from '../../pages/NewQuiz/NewQuiz';
+import QuizNew from '../../pages/QuizNew/QuizNew';
+import QuizShow from '../../pages/QuizShow/QuizShow';
 
 export default function Main() {
   return (
@@ -15,7 +16,8 @@ export default function Main() {
         <Route path='/' element={<Home />} />
         <Route path='/categories' element={<CategoryIndex />} />
         <Route path='/categories/:id' element={<CategoryShow />} />
-        <Route path='/quiz/new' element={<NewQuiz />} />
+        <Route path='/quiz/new' element={<QuizNew />} />
+        <Route path='/quiz/:id' element={<QuizShow />} />
       </Routes>
     </main>
   );

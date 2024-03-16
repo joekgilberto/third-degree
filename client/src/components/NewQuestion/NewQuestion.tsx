@@ -2,7 +2,7 @@ import './NewQuestion.css';
 
 import React from 'react';
 import { Quiz, Question } from '../../utilities/types';
-import { updateNewQuiz, selectNewQuiz } from '../../pages/NewQuiz/newQuizSlice';
+import { updateQuizNew, selectNewQuiz } from '../../pages/QuizNew/quizNewSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 import NewText from '../../components/NewText/NewText';
@@ -22,7 +22,7 @@ export default function NewQuestion({ question }: { question: Question }) {
             for (let i: number = 0; i < questionsCache.length; i++){
                 questionsCache[i] = {...questionsCache[i], id: i};
             }
-            dispatch(updateNewQuiz({...newQuiz, questions: [...questionsCache]}))
+            dispatch(updateQuizNew({...newQuiz, questions: [...questionsCache]}))
         } else {
             console.log('Error: Question not found.');
         };
@@ -33,7 +33,7 @@ export default function NewQuestion({ question }: { question: Question }) {
         cache = { ...cache, query: e.target.value }
         const questionArr: Array<Question> = [...newQuiz.questions]
         questionArr[question.id] = cache;
-        dispatch(updateNewQuiz({ ...newQuiz, questions: [...questionArr] }))
+        dispatch(updateQuizNew({ ...newQuiz, questions: [...questionArr] }))
     }
 
     return (
