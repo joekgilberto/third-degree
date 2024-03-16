@@ -14,7 +14,9 @@ namespace service.Models
 
         public Choices? Choices { get; set; }
 
-        public string Answer { get; set; }
+        public string? Answer { get; set; }
+        
+        public List<string>? Answers {get; set;}
 
         public Question()
 		{

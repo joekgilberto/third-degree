@@ -108,7 +108,7 @@ export default function NewRadio({ question }: { question: Question }) {
                         <option value='c'>C</option>
                         :null}
                         {newQuiz.questions[question.id].choices?.d?.length || newQuiz.questions[question.id].choices?.d === ''?
-                        <option value='c'>D</option>
+                        <option value='d'>D</option>
                         :null}
                     </select>
             </div>

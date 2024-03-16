@@ -41,7 +41,8 @@ export default function NewQuiz() {
         query: '',
         answer: ''
     }
-    const initChoiceQuestion: Question = {
+
+    const initRadioQuestion: Question = {
         id: 0,
         type: '',
         query: '',
@@ -50,6 +51,17 @@ export default function NewQuiz() {
             b: ''
         },
         answer: ''
+    }
+
+    const initCheckboxQuestion: Question = {
+        id: 0,
+        type: '',
+        query: '',
+        choices: {
+            a: '',
+            b: ''
+        },
+        answers: []
     }
 
     const [newCategory, setNewCategory] = useState<boolean>(false);
@@ -84,11 +96,20 @@ export default function NewQuiz() {
                     type: type
                 }]
             }));
-        } else if (type === 'radio' || type === 'checkbox') {
+        } else if (type === 'radio') {
             dispatch(updateNewQuiz({
                 ...newQuiz,
                 questions: [...newQuiz.questions, {
-                    ...initChoiceQuestion,
+                    ...initRadioQuestion,
+                    id: newQuiz.questions.length,
+                    type: type
+                }]
+            }));
+        } else if (type === 'checkbox') {
+            dispatch(updateNewQuiz({
+                ...newQuiz,
+                questions: [...newQuiz.questions, {
+                    ...initCheckboxQuestion,
                     id: newQuiz.questions.length,
                     type: type
                 }]
@@ -96,51 +117,57 @@ export default function NewQuiz() {
         }
     }
 
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>){
+        e.preventDefault();
+    }
+
     return (
         <div className='NewQuiz'>
             <h2>New Quiz</h2>
-            <div className='new-header'>
-                <input name='title' placeholder='Enter Title' onChange={handleChange} />
-                {!newCategory ?
-                    <select name='category' defaultValue={''} onChange={handleCategory}>
-                        <option disabled value=''>Choose a Category</option>
-                        {dummyDataCategories.map((category: Category) => {
-                            return <option key={category.id} value={category.title}>{category.title}</option>
-                        })}
-                        <option value='new'>(New Category)</option>
-                    </select>
-                    :
-                    <>
-                        <input name='category' placeholder='Enter new category' onChange={handleChange} />
-                        <button onClick={handleExitCategory}>X</button>
-                    </>
-                }
-            </div>
-            {newCategory ?
-                <div className='new-note'>
-                    <p>*Please create a new category at your own discretion.  We here at Third Degree recommend keeping category names concise and relevant.  Admins reserve the right to edit, merge, or delete any new categories.</p>
-                </div>
-                : null}
-            <div>
-                {newQuiz.questions?.map((question: Question) => {
-                    return (<>
-                    <NewQuestion key={question.id} question={question} />
-                    <hr />
-                    </>)
-                })}
-                <div>
-                    {!newQuestion ?
-                        <p onClick={(e) => setNewQuestion(true)}>+ Add a Question</p>
+            <form onSubmit={handleSubmit}>
+                <div className='new-header'>
+                    <input name='title' placeholder='Enter Title' onChange={handleChange} />
+                    {!newCategory ?
+                        <select name='category' defaultValue={''} onChange={handleCategory}>
+                            <option disabled value=''>Choose a Category</option>
+                            {dummyDataCategories.map((category: Category) => {
+                                return <option key={category.id} value={category.title}>{category.title}</option>
+                            })}
+                            <option value='new'>(New Category)</option>
+                        </select>
                         :
-                        <div className='new-question-options'>
-                            <button onClick={(e) => addQuestion('text')}>Short Answer</button>
-                            <button onClick={(e) => addQuestion('radio')}>Multiple Choice</button>
-                            <button onClick={(e) => addQuestion('checkbox')}>Select All</button>
-                            <button onClick={(e) => setNewQuestion(false)}>X</button>
-                        </div>
+                        <>
+                            <input name='category' placeholder='Enter new category' onChange={handleChange} />
+                            <button onClick={handleExitCategory}>X</button>
+                        </>
                     }
                 </div>
-            </div>
+                {newCategory ?
+                    <div className='new-note'>
+                        <p>*Please create a new category at your own discretion.  We here at Third Degree recommend keeping category names concise and relevant.  Admins reserve the right to edit, merge, or delete any new categories.</p>
+                    </div>
+                    : null}
+                <div>
+                    {newQuiz.questions?.map((question: Question) => {
+                        return (<>
+                            <NewQuestion key={question.id} question={question} />
+                            <hr />
+                        </>)
+                    })}
+                    <div>
+                        {!newQuestion ?
+                            <button onClick={(e) => setNewQuestion(true)}>+ Add a Question</button>
+                            :
+                            <div className='new-question-options'>
+                                <button onClick={(e) => addQuestion('text')}>Short Answer</button>
+                                <button onClick={(e) => addQuestion('radio')}>Multiple Choice</button>
+                                <button onClick={(e) => addQuestion('checkbox')}>Select All</button>
+                                <button onClick={(e) => setNewQuestion(false)}>X</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </form>
         </div>
     );
 }

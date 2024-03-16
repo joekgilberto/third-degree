@@ -50,7 +50,8 @@ export interface Question {
         c?: string,
         d?: string
     },
-    answer: string
+    answer?: string,
+    answers?: Array<string>
 }
 
 export interface Answer {
