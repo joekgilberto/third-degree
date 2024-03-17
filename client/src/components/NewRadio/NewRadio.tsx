@@ -12,16 +12,16 @@ export default function NewRadio({ question }: { question: Question }) {
     const dispatch = useDispatch();
 
     function handleAddChoice(e: React.MouseEvent<HTMLButtonElement>) {
-        console.log(!newQuiz.questions[question.id].choices?.c?.length)
-        console.log(newQuiz.questions[question.id].choices?.c !== '')
-        if (!newQuiz.questions[question.id].choices?.c?.length && newQuiz.questions[question.id].choices?.c !== '') {
+        console.log(!newQuiz.questions[question.id].choices.c?.length)
+        console.log(newQuiz.questions[question.id].choices.c !== '')
+        if (!newQuiz.questions[question.id].choices.c?.length && newQuiz.questions[question.id].choices.c !== '') {
             let cache = { ...newQuiz.questions[question.id].choices }
             cache.c = '';
 
             const questionArr: Array<Question> = [...newQuiz.questions]
             questionArr[question.id] = { ...questionArr[question.id], choices: { ...cache } }
             dispatch(updateQuizNew({ ...newQuiz, questions: [...questionArr] }))
-        } else if (!newQuiz.questions[question.id].choices?.d?.length && newQuiz.questions[question.id].choices?.d !== '') {
+        } else if (!newQuiz.questions[question.id].choices.d?.length && newQuiz.questions[question.id].choices.d !== '') {
             let cache = { ...newQuiz.questions[question.id].choices }
             cache.d = '';
 
@@ -70,21 +70,21 @@ export default function NewRadio({ question }: { question: Question }) {
                 <label>B&#41;
                     <input name='b' placeholder='Enter choice B' onChange={handleChangeChoice} required />
                 </label>
-                {newQuiz.questions[question.id].choices?.c?.length || newQuiz.questions[question.id].choices?.c === '' ?
+                {newQuiz.questions[question.id].choices.c?.length || newQuiz.questions[question.id].choices.c === '' ?
                     <label>C&#41;
                         <input name='c' placeholder='Enter choice C' onChange={handleChangeChoice} required />
-                        {newQuiz.questions[question.id].choices?.d?.length || newQuiz.questions[question.id].choices?.d !== '' ?
+                        {newQuiz.questions[question.id].choices.d?.length || newQuiz.questions[question.id].choices.d !== '' ?
                             <button onClick={handleDeleteChoice}>X</button>
                             : null}
                     </label>
                     : null}
-                {newQuiz.questions[question.id].choices?.d?.length || newQuiz.questions[question.id].choices?.d === '' ?
+                {newQuiz.questions[question.id].choices.d?.length || newQuiz.questions[question.id].choices.d === '' ?
                     <label>D&#41;
                         <input name='d' placeholder='Enter choice D' onChange={handleChangeChoice} required />
                         <button onClick={handleDeleteChoice}>X</button>
                     </label>
                     : null}
-                {!newQuiz.questions[question.id].choices?.d?.length && newQuiz.questions[question.id].choices?.d !== '' ?
+                {!newQuiz.questions[question.id].choices.d?.length && newQuiz.questions[question.id].choices.d !== '' ?
                     <button onClick={handleAddChoice}>+ Add a Choice</button>
                     :
                     null}
@@ -95,10 +95,10 @@ export default function NewRadio({ question }: { question: Question }) {
                         <option disabled value=''>Choose an Answer</option>
                         <option value='a'>A</option>
                         <option value='b'>B</option>
-                        {newQuiz.questions[question.id].choices?.c?.length || newQuiz.questions[question.id].choices?.c === ''?
+                        {newQuiz.questions[question.id].choices.c?.length || newQuiz.questions[question.id].choices.c === ''?
                         <option value='c'>C</option>
                         :null}
-                        {newQuiz.questions[question.id].choices?.d?.length || newQuiz.questions[question.id].choices?.d === ''?
+                        {newQuiz.questions[question.id].choices.d?.length || newQuiz.questions[question.id].choices.d === ''?
                         <option value='d'>D</option>
                         :null}
                     </select>

@@ -22,7 +22,7 @@ export default function ShowText({question}:{question: Question}) {
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>){
         const answerArr: Array<Answer> = [...newSubmission.answers]
-        answerArr[question.id] = {...answerArr[question.id], guess: e.target.value}
+        answerArr[question.id] = {...answerArr[question.id], guess: e.target.value.toLowerCase()}
         dispatch(updateSubmissionNew({...newSubmission, answers: [...answerArr]}))
     }
 

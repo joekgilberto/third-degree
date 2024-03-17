@@ -16,35 +16,6 @@ export default function QuizNew() {
     const newQuiz = useSelector(selectNewQuiz);
     const dispatch = useDispatch();
 
-    const initTextQuestion: Question = {
-        id: 0,
-        type: '',
-        query: '',
-        answer: ''
-    }
-
-    const initRadioQuestion: Question = {
-        id: 0,
-        type: '',
-        query: '',
-        choices: {
-            a: '',
-            b: ''
-        },
-        answer: ''
-    }
-
-    const initCheckboxQuestion: Question = {
-        id: 0,
-        type: '',
-        query: '',
-        choices: {
-            a: '',
-            b: ''
-        },
-        answers: []
-    }
-
     const [newCategoryToggle, setNewCategoryToggle] = useState<boolean>(false);
     const [newCategory, setNewCategory] = useState<string>();
     const [newQuestion, setNewQuestion] = useState<boolean>(false);
@@ -63,7 +34,7 @@ export default function QuizNew() {
         };
     };
 
-    function handleNewCategory(e: React.ChangeEvent<HTMLInputElement>){
+    function handleNewCategory(e: React.ChangeEvent<HTMLInputElement>) {
         setNewCategory(e.target.value);
     }
 
@@ -74,53 +45,39 @@ export default function QuizNew() {
 
     function addQuestion(type: string) {
         setNewQuestion(false)
-        if (type === 'text') {
-            dispatch(updateQuizNew({
-                ...newQuiz,
-                questions: [...newQuiz.questions, {
-                    ...initTextQuestion,
-                    id: newQuiz.questions.length,
-                    type: type
-                }]
-            }));
-        } else if (type === 'radio') {
-            dispatch(updateQuizNew({
-                ...newQuiz,
-                questions: [...newQuiz.questions, {
-                    ...initRadioQuestion,
-                    id: newQuiz.questions.length,
-                    type: type
-                }]
-            }));
-        } else if (type === 'checkbox') {
-            dispatch(updateQuizNew({
-                ...newQuiz,
-                questions: [...newQuiz.questions, {
-                    ...initCheckboxQuestion,
-                    id: newQuiz.questions.length,
-                    type: type
-                }]
-            }));
-        }
+        dispatch(updateQuizNew({
+            ...newQuiz,
+            questions: [...newQuiz.questions, {
+                id: newQuiz.questions.length,
+                type: type,
+                query: '',
+                choices: {
+                    a: '',
+                    b: ''
+                },
+                answer: '',
+                answers: []
+            }]
+        }));
     }
 
-    async function handleSubmit(e: React.FormEvent<HTMLFormElement>){
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        for(let i = 0; i < newQuiz.questions.length; i++){
-            if (newQuiz.questions[i].type === 'checkbox'){
-                if(!newQuiz.questions[i].answers?.length){
-                    console.log(`Error: No answer selected on question #${i+1}`)
+        for (let i = 0; i < newQuiz.questions.length; i++) {
+            if (newQuiz.questions[i].type === 'checkbox') {
+                if (!newQuiz.questions[i].answers.length) {
+                    console.log(`Error: No answer selected on question #${i + 1}`)
                     return;
                 }
             }
         }
-        
-        if(newCategory){
-            categoryServices.createCategory({title: newCategory}).then(async (category: Category)=>{
-                if(category.id){
-                    let cache = {...newQuiz, category: category.id};
+
+        if (newCategory) {
+            categoryServices.createCategory({ title: newCategory }).then(async (category: Category) => {
+                if (category.id) {
+                    let cache = { ...newQuiz, category: category.id };
                     try {
-                        await quizServices.createQuiz(cache).then((quiz: Quiz)=>{
+                        await quizServices.createQuiz(cache).then((quiz: Quiz) => {
                             navigate(`/categories/${quiz.category}`)
                         });
                     } catch (err) {
@@ -130,11 +87,11 @@ export default function QuizNew() {
                     console.log(`Error: Unable to create new category, "${newCategory}"`)
                     return;
                 }
-                
+
             })
         } else {
             try {
-                await quizServices.createQuiz(newQuiz).then((quiz: Quiz)=>{
+                await quizServices.createQuiz(newQuiz).then((quiz: Quiz) => {
                     navigate(`/categories/${quiz.category}`)
                 });
             } catch (err) {
@@ -143,18 +100,18 @@ export default function QuizNew() {
         }
     }
 
-    async function handleRequest(){
-        await categoryServices.getAllCategories().then((categories: Array<Category>)=>{
+    async function handleRequest() {
+        await categoryServices.getAllCategories().then((categories: Array<Category>) => {
             console.log(categories)
             setCategories(categories)
         })
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         handleRequest();
-    },[])
+    }, [])
 
-    if(!categories?.length){
+    if (!categories?.length) {
         return <p>Loading...</p>
     }
 
@@ -202,9 +159,10 @@ export default function QuizNew() {
                                 <button onClick={(e) => setNewQuestion(false)}>X</button>
                             </div>
                         }
-                        {newQuiz.questions.length?
-                        <button>Submit</button>:
-                        null}
+                        {newQuiz.questions.length ?
+                            <input type='submit' value='Submit' />
+                            :
+                            null}
                     </div>
                 </div>
             </form>

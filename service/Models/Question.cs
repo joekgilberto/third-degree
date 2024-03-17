@@ -12,11 +12,11 @@ namespace service.Models
 
         public string Query { get; set; }
 
-        public Choices? Choices { get; set; }
+        public Choices Choices { get; set; }
 
-        public string? Answer { get; set; }
+        public string Answer { get; set; }
         
-        public List<string>? Answers {get; set;}
+        public List<string> Answers {get; set;}
 
         public Question()
 		{

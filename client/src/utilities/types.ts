@@ -44,14 +44,14 @@ export interface Question {
     type: string,
     image?: string,
     query: string,
-    choices?: {
-        a?: string,
-        b?: string,
+    choices: {
+        a: string,
+        b: string,
         c?: string,
         d?: string
     },
-    answer?: string,
-    answers?: Array<string>
+    answer: string,
+    answers: Array<string>
 }
 
 export interface Answer {

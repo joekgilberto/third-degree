@@ -8,7 +8,7 @@ import { Quiz, Submission } from '../../utilities/types';
 export const loadQuiz = createAsyncThunk(
     'quizShow/loadQuiz',
     async (id: string | undefined) => {
-        if(!id){
+        if (!id) {
             return 'Error: Invalid id.';
         }
         return await quizServices.getQuiz(id);
@@ -20,7 +20,13 @@ export const quizSlice = createSlice({
     name: 'quizShow',
     initialState: {
         quiz: {},
-        submission: {},
+        submission: {
+            answers: [],
+            score: 0,
+            submissionDate: new Date(),
+            username: 'joekgilberto',
+            challenger: '65ee2084f86b1b2bc8530705'
+        },
         isLoadingQuiz: false,
         hasQuizError: false
     },
@@ -42,9 +48,9 @@ export const quizSlice = createSlice({
     },
     reducers: {
         updateSubmissionNew(state, action) {
-          state.submission = action.payload;
+            state.submission = action.payload;
         }
-      }
+    }
 });
 
 //Exports state, actions, and reducer

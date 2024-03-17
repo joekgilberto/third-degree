@@ -3,20 +3,77 @@ import './QuizShow.css';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadQuiz, selectQuiz, selectSubmission, updateSubmissionNew } from './quizShowSlice';
-import { Answer, Question, Submission } from '../../utilities/types';
-import { useParams } from 'react-router-dom';
+import { Answer, Question, Quiz, Submission } from '../../utilities/types';
+import { useNavigate, useParams } from 'react-router-dom';
 import { AppDispatch } from '../../App/store';
+import * as submissionServices from '../../utilities/submission/submission-services';
+import * as quizServices from '../../utilities/quiz/quiz-services';
 
 import ShowQuestion from '../../components/ShowQuestion/ShowQuestion';
 
 export default function QuizShow() {
 
     const { id } = useParams();
+    const navigate = useNavigate();
     const quiz = useSelector(selectQuiz);
     const newSubmission = useSelector(selectSubmission);
     const dispatch = useDispatch<AppDispatch>();
 
-    
+    function handleScore(submission: Submission): number {
+        let correct: number = 0;
+        for (let i = 0; i < quiz.questions.length; i++) {
+            if (quiz.questions[i].type === 'text' || quiz.questions[i].type === 'radio') {
+                if (quiz.questions[i].answer === submission.answers[i].guess) {
+                    correct++;
+                };
+            } else if (quiz.questions[i].type === 'checkbox') {
+                let includes: boolean = true;
+                for (let j = 0; j < quiz.questions[i].answers.length; j++) {
+                    console.log('guess',submission.answers[i].guesses)
+                    console.log('answer',quiz.questions[i].answers[j])
+                    console.log(submission.answers[i].guesses.includes(quiz.questions[i].answers[j]))
+                    if (!submission.answers[i].guesses.includes(quiz.questions[i].answers[j])) {
+                        includes = false;
+                        break;
+                    }
+                }
+                if (includes) {
+                    correct++;
+                }
+            }
+        }
+
+        return (correct/quiz.questions.length)*100;
+    }
+
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        
+        const cache = {
+            ...newSubmission,
+            score: handleScore(newSubmission)
+        };
+
+        console.log('cache', cache)
+        await submissionServices.createSubmission(cache).then(async (s: Submission) => {
+            console.log(s);
+            if (s?.id && quiz?.id) {
+                const updatedQuiz: Quiz = { ...quiz };
+                updatedQuiz.submissions = [...updatedQuiz.submissions, s.id];
+                if(!updatedQuiz.avgScore){
+                    updatedQuiz.avgScore = s.score;
+                } else {
+                    let scoreMinusAvg: number = s.score - updatedQuiz.avgScore;
+                    let count: number = updatedQuiz.submissions.length;
+                    let increase: number = scoreMinusAvg / count;
+                    updatedQuiz.avgScore += increase;
+                }
+                await quizServices.updateQuiz(quiz.id, updatedQuiz).then(()=>{
+                    navigate(`/categories/${quiz.category}`);
+                });
+            }
+        })
+    }
 
     useEffect(() => {
         dispatch(loadQuiz(id))
@@ -27,7 +84,7 @@ export default function QuizShow() {
     }, [newSubmission])
 
     useEffect(() => {
-        if (quiz.id) {
+        if (quiz?.id) {
             const answerArr: Array<Answer> = [];
             for (let i = 0; i < quiz.questions.length; i++) {
                 answerArr.push({
@@ -36,11 +93,11 @@ export default function QuizShow() {
                     guesses: []
                 })
             }
-            dispatch(updateSubmissionNew({...newSubmission, answers: answerArr}))
+            dispatch(updateSubmissionNew({ ...newSubmission, answers: answerArr }))
         }
     }, [quiz])
 
-    if (!quiz.id || !newSubmission.answers?.length) {
+    if (!quiz?.id || !newSubmission.answers?.length) {
         return <p>Loading...</p>
     }
 
@@ -52,14 +109,15 @@ export default function QuizShow() {
             </div>
             <div>
                 {quiz.avgScore ?
-                    <h3>{quiz.avgScore}% average score | {quiz.submissions.length} challengers</h3>
+                    <h3>{quiz.avgScore.toFixed(2)}% average score | {quiz.submissions.length} challengers</h3>
                     :
                     <h3>No challengers, yet!</h3>}
             </div>
-            <form>
+            <form onSubmit={handleSubmit}>
                 {quiz.questions.map((question: Question) => {
                     return <ShowQuestion question={question} />
                 })}
+                <input type='submit' value='Submit' />
             </form>
         </div>
     );

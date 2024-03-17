@@ -7,57 +7,6 @@ import { Quiz } from '../../utilities/types';
 import QuizCard from '../../components/QuizCard/QuizCard';
 import { Link } from 'react-router-dom';
 
-const dummyData: Array<Quiz> = [
-  {
-    id: 'a',
-    title: 'Batman Trivia',
-    questions: [{
-      id: 1,
-      type: 'typed',
-      query: 'question',
-      answer: 'a'
-    }],
-    submissions: ['1'],
-    avgScore: 15.36,
-    postingDate: new Date(),
-    username: 'joekgilberto',
-    author: '1',
-    category: 'a'
-  },
-  {
-    id: 'b',
-    title: 'Chemistry Facts',
-    questions: [{
-      id: 1,
-      type: 'typed',
-      query: 'question',
-      answer: 'a'
-    }],
-    submissions: ['1'],
-    avgScore: 27,
-    postingDate: new Date(),
-    username: 'joekgilberto',
-    author: '1',
-    category: 'b'
-  },
-  {
-    id: 'c',
-    title: 'Movie History',
-    questions: [{
-      id: 1,
-      type: 'typed',
-      query: 'question',
-      answer: 'a'
-    }],
-    submissions: ['1'],
-    avgScore: 31.1,
-    postingDate: new Date(),
-    username: 'joekgilberto',
-    author: '1',
-    category: 'c'
-  }
-]
-
 export default function Home() {
 
   const [hardestQuizzes, setHardestQuizzes] = useState<Array<Quiz>>([]);
