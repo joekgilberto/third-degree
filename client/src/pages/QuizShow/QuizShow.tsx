@@ -2,7 +2,7 @@ import './QuizShow.css';
 
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadQuiz, selectQuiz, selectSubmission } from './quizShowSlice';
+import { loadQuiz, selectQuiz, selectSubmission, updateSubmissionNew } from './quizShowSlice';
 import { Answer, Question, Submission } from '../../utilities/types';
 import { useParams } from 'react-router-dom';
 import { AppDispatch } from '../../App/store';
@@ -18,23 +18,33 @@ export default function QuizShow() {
 
     useEffect(() => {
         dispatch(loadQuiz(id))
-        const answerArr: Array<Answer> = [];
-        for (let i = 0; i < quiz.questions.length; i++){
-            if(quiz.questions[i].type === 'text' || quiz.questions[i].type === 'radio'){
-                answerArr.push({
-                    id: i,
-                    guess: ''
-                })
-            } else if (quiz.questions[i].type === 'checkbox'){
-                answerArr.push({
-                    id: i,
-                    guesses: []
-                })
-            }
-        }
     }, [])
 
-    if (!quiz.id) {
+    useEffect(() => {
+        console.log(newSubmission)
+    }, [newSubmission])
+
+    useEffect(() => {
+        if (quiz.id) {
+            const answerArr: Array<Answer> = [];
+            for (let i = 0; i < quiz.questions.length; i++) {
+                if (quiz.questions[i].type === 'text' || quiz.questions[i].type === 'radio') {
+                    answerArr.push({
+                        id: i,
+                        guess: ''
+                    })
+                } else if (quiz.questions[i].type === 'checkbox') {
+                    answerArr.push({
+                        id: i,
+                        guesses: []
+                    })
+                }
+            }
+            dispatch(updateSubmissionNew({...newSubmission, answers: answerArr}))
+        }
+    }, [quiz])
+
+    if (!quiz.id || !newSubmission.answers?.length) {
         return <p>Loading...</p>
     }
 
@@ -50,9 +60,11 @@ export default function QuizShow() {
                     :
                     <h3>No challengers, yet!</h3>}
             </div>
-            {quiz.questions.map((question: Question) => {
-                return <ShowQuestion question={question} />
-            })}
+            <form>
+                {quiz.questions.map((question: Question) => {
+                    return <ShowQuestion question={question} />
+                })}
+            </form>
         </div>
     );
 }

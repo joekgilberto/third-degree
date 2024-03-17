@@ -1,4 +1,4 @@
-import './NewText.css';
+import './ShowText.css';
 
 import React, { useEffect, useState } from 'react';
 import { updateSubmissionNew, selectSubmission} from '../../pages/QuizShow/quizShowSlice';
@@ -13,11 +13,11 @@ export default function ShowText({question}:{question: Question}) {
     const [length, setLength] = useState<number>();
 
     useEffect(()=>{
-        const answerArr = question.answer?.split(' ');
-        const answerLength = answerArr?.length;
-        if (answerLength){
+        if(question.answer){
+            const answerArr = question.answer.split(' ');
+            const answerLength = answerArr.length;
             setLength(answerLength);
-        };
+        }
     },[])
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>){
