@@ -27,6 +27,7 @@ export default function ShowCheckbox({ question }: { question: Question }) {
 
     return (
         <div className='ShowCheckbox'>
+            <p>&#40;select all that apply&#41;</p>
             <label>
                 <input type='checkbox' name='a' value='a' checked={newSubmission.answers[question.id].guesses.includes('a')} onChange={handleChange} />
                 A&#41; {question.choices?.a}

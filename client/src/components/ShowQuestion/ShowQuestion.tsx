@@ -20,6 +20,7 @@ export default function ShowQuestion({ question }: { question: Question }) {
                     :
                     <ShowCheckbox question={question} />
             }
+            <hr />
         </div>
     );
 }
