@@ -56,6 +56,6 @@ export interface Question {
 
 export interface Answer {
     id: number,
-    guess?: string,
-    guesses?: string[]
+    guess: string,
+    guesses: string[]
 }

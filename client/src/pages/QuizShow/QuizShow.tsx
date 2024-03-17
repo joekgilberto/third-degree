@@ -28,17 +28,11 @@ export default function QuizShow() {
         if (quiz.id) {
             const answerArr: Array<Answer> = [];
             for (let i = 0; i < quiz.questions.length; i++) {
-                if (quiz.questions[i].type === 'text' || quiz.questions[i].type === 'radio') {
-                    answerArr.push({
-                        id: i,
-                        guess: ''
-                    })
-                } else if (quiz.questions[i].type === 'checkbox') {
-                    answerArr.push({
-                        id: i,
-                        guesses: []
-                    })
-                }
+                answerArr.push({
+                    id: i,
+                    guess: '',
+                    guesses: []
+                })
             }
             dispatch(updateSubmissionNew({...newSubmission, answers: answerArr}))
         }

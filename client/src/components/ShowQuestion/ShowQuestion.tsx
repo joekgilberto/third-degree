@@ -5,6 +5,7 @@ import { Question } from '../../utilities/types';
 
 import ShowText from '../../components/ShowText/ShowText';
 import ShowRadio from '../../components/ShowRadio/ShowRadio';
+import ShowCheckbox from '../../components/ShowCheckbox/ShowCheckbox';
 
 export default function ShowQuestion({ question }: { question: Question }) {
     
@@ -17,7 +18,7 @@ export default function ShowQuestion({ question }: { question: Question }) {
                 : question.type === 'radio' ?
                     <ShowRadio question={question} />
                     :
-                    null
+                    <ShowCheckbox question={question} />
             }
         </div>
     );
