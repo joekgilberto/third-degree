@@ -16,6 +16,8 @@ export default function QuizShow() {
     const newSubmission = useSelector(selectSubmission);
     const dispatch = useDispatch<AppDispatch>();
 
+    
+
     useEffect(() => {
         dispatch(loadQuiz(id))
     }, [])

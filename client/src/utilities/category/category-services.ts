@@ -4,6 +4,7 @@ import { Category } from '../types';
 export async function getAllCategories() {
     try {
         const res = await categoriesApi.index();
+        res.data.sort((a: Category, b: Category) => a.title.localeCompare(b.title))
         return res.data;
     } catch (err) {
         return err;

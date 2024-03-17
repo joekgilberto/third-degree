@@ -52,6 +52,7 @@ export async function getQuizByCategory(id: string | undefined) {
     }
     try {
         const res = await quizzesApi.byCategory(id);
+        res.data.sort((a: Quiz, b: Quiz) => a.title.localeCompare(b.title))
         return res.data;
     } catch (err) {
         return err;

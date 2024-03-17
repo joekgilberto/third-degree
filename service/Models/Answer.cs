@@ -6,9 +6,9 @@ namespace service.Models
 	{
 		public int Id { get; set; }
 
-		public string? Guess { get; set; }
+		public string Guess { get; set; }
 
-		public List<string>? Guesses { get; set; }
+		public List<string> Guesses { get; set; }
 
 		public Answer()
 		{

@@ -5,12 +5,14 @@ import * as quizServices from '../../utilities/quiz/quiz-services';
 import * as categoryServices from '../../utilities/category/category-services';
 import { selectNewQuiz, updateQuizNew } from './quizNewSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { Category, Question } from '../../utilities/types';
+import { Category, Question, Quiz } from '../../utilities/types';
 
 import NewQuestion from '../../components/NewQuestion/NewQuestion';
+import { useNavigate } from 'react-router-dom';
 
 export default function QuizNew() {
 
+    const navigate = useNavigate();
     const newQuiz = useSelector(selectNewQuiz);
     const dispatch = useDispatch();
 
@@ -102,7 +104,7 @@ export default function QuizNew() {
         }
     }
 
-    function handleSubmit(e: React.FormEvent<HTMLFormElement>){
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>){
         e.preventDefault();
         for(let i = 0; i < newQuiz.questions.length; i++){
             if (newQuiz.questions[i].type === 'checkbox'){
@@ -112,15 +114,15 @@ export default function QuizNew() {
                 }
             }
         }
-
-        console.log(newQuiz);
         
         if(newCategory){
-            categoryServices.createCategory({title: newCategory}).then((category: Category)=>{
+            categoryServices.createCategory({title: newCategory}).then(async (category: Category)=>{
                 if(category.id){
                     let cache = {...newQuiz, category: category.id};
                     try {
-                        quizServices.createQuiz(cache);
+                        await quizServices.createQuiz(cache).then((quiz: Quiz)=>{
+                            navigate(`/categories/${quiz.category}`)
+                        });
                     } catch (err) {
                         console.log(err)
                     }
@@ -132,7 +134,9 @@ export default function QuizNew() {
             })
         } else {
             try {
-                quizServices.createQuiz(newQuiz);
+                await quizServices.createQuiz(newQuiz).then((quiz: Quiz)=>{
+                    navigate(`/categories/${quiz.category}`)
+                });
             } catch (err) {
                 console.log(err)
             }
@@ -150,7 +154,7 @@ export default function QuizNew() {
         handleRequest();
     },[])
 
-    if(!categories.length){
+    if(!categories?.length){
         return <p>Loading...</p>
     }
 

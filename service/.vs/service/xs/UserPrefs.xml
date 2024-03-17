@@ -1,21 +1,23 @@
 ﻿<Properties StartupConfiguration="{A2A19300-3E6D-4CD8-AA10-3F7A5B418F45}|https">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Models/Category.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Models/Answer.cs">
     <Files>
       <File FileName="Services/UsersService.cs" />
       <File FileName="Services/SubmissionsService.cs" />
-      <File FileName="Services/QuizzesService.cs" />
-      <File FileName="Services/CategoriesService.cs" />
-      <File FileName="Models/Submission.cs" Line="1" Column="1" />
+      <File FileName="Services/QuizzesService.cs" Line="28" Column="29" />
+      <File FileName="Services/CategoriesService.cs" Line="24" Column="10" />
+      <File FileName="Models/Submission.cs" />
       <File FileName="Models/ThirdDegreeDatabaseSettings.cs" />
       <File FileName="appsettings.json" />
-      <File FileName="Models/User.cs" Line="16" Column="33" />
-      <File FileName="Controllers/UsersController.cs" Line="39" Column="36" />
-      <File FileName="Models/Profile.cs" Line="30" Column="1" />
-      <File FileName="Models/Question.cs" Line="19" Column="25" />
-      <File FileName="Models/Quiz.cs" Line="17" Column="40" />
-      <File FileName="Controllers/SubmissionsController.cs" />
-      <File FileName="Models/Answer.cs" Line="1" Column="1" />
+      <File FileName="Models/User.cs" />
+      <File FileName="Controllers/UsersController.cs" />
+      <File FileName="Models/Profile.cs" />
+      <File FileName="Models/Question.cs" />
+      <File FileName="Models/Quiz.cs" />
+      <File FileName="Controllers/SubmissionsController.cs" Line="1" Column="1" />
+      <File FileName="Models/Answer.cs" Line="19" Column="1" />
       <File FileName="Models/Category.cs" Line="1" Column="1" />
+      <File FileName="Controllers/QuizzesController.cs" Line="29" Column="1" />
+      <File FileName="Program.cs" Line="31" Column="42" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -23,24 +25,21 @@
           <Node name="service">
             <Node name="service">
               <Node name="Controllers" expanded="True" />
-              <Node name="Models" expanded="True">
-                <Node name="Category.cs" selected="True" />
+              <Node name="Models">
+                <Node name="Answer.cs" selected="True" />
               </Node>
               <Node name="Services" expanded="True" />
             </Node>
           </Node>
         </State>
       </Pad>
-      <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State />
-      </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.ItemProperties.service PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.service PreferredExecutionTarget="/Applications/Google Chrome.app" />
 </Properties>
