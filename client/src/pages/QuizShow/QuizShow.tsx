@@ -86,6 +86,10 @@ export default function QuizShow() {
         }
     }, [quiz])
 
+    useEffect(()=>{
+        console.log(newSubmission)
+    },[newSubmission])
+
     if (!quiz?.id || !newSubmission.answers?.length) {
         return <p>Loading...</p>
     }

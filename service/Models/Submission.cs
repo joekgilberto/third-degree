@@ -20,6 +20,9 @@ namespace service.Models
 
         [BsonRepresentation(BsonType.ObjectId)]
         public string Challenger { get; set; }
+
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Quiz { get; set; }
     }
 }
 

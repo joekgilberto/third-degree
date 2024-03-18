@@ -8,6 +8,7 @@ import CategoryIndex from '../../pages/CategoryIndex/CategoryIndex';
 import CategoryShow from '../../pages/CategoryShow/CategoryShow';
 import QuizNew from '../../pages/QuizNew/QuizNew';
 import QuizShow from '../../pages/QuizShow/QuizShow';
+import SubmissionShow from '../../pages/SubmissionShow/SubmissionShow';
 
 export default function Main() {
   return (
@@ -18,6 +19,7 @@ export default function Main() {
         <Route path='/categories/:id' element={<CategoryShow />} />
         <Route path='/quiz/new' element={<QuizNew />} />
         <Route path='/quiz/:id' element={<QuizShow />} />
+        <Route path='/submission/:id' element={<SubmissionShow />} />
       </Routes>
     </main>
   );
