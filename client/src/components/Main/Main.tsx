@@ -9,6 +9,7 @@ import CategoryShow from '../../pages/CategoryShow/CategoryShow';
 import QuizNew from '../../pages/QuizNew/QuizNew';
 import QuizShow from '../../pages/QuizShow/QuizShow';
 import SubmissionShow from '../../pages/SubmissionShow/SubmissionShow';
+import Auth from '../../pages/Auth/Auth';
 
 export default function Main() {
   return (
@@ -20,6 +21,7 @@ export default function Main() {
         <Route path='/quiz/new' element={<QuizNew />} />
         <Route path='/quiz/:id' element={<QuizShow />} />
         <Route path='/submission/:id' element={<SubmissionShow />} />
+        <Route path='/auth' element={<Auth />} />
       </Routes>
     </main>
   );

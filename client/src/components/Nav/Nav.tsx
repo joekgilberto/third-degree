@@ -38,7 +38,9 @@ export default function Nav() {
           </Link>
         </div>
         {/* TODO: Toggle Login to profile link when logged in */}
-        <button className='auth'>Login</button>
+        <Link to='/auth'>
+          <button className='auth'>Login</button>
+        </Link>
       </nav>
     </header>
   );
