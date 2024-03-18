@@ -29,9 +29,6 @@ export default function QuizShow() {
             } else if (quiz.questions[i].type === 'checkbox') {
                 let includes: boolean = true;
                 for (let j = 0; j < quiz.questions[i].answers.length; j++) {
-                    console.log('guess',submission.answers[i].guesses)
-                    console.log('answer',quiz.questions[i].answers[j])
-                    console.log(submission.answers[i].guesses.includes(quiz.questions[i].answers[j]))
                     if (!submission.answers[i].guesses.includes(quiz.questions[i].answers[j])) {
                         includes = false;
                         break;
@@ -48,28 +45,20 @@ export default function QuizShow() {
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        
-        const cache = {
-            ...newSubmission,
-            score: handleScore(newSubmission)
-        };
-
-        console.log('cache', cache)
-        await submissionServices.createSubmission(cache).then(async (s: Submission) => {
-            console.log(s);
-            if (s?.id && quiz?.id) {
+        await submissionServices.createSubmission({...newSubmission, score: handleScore(newSubmission)}).then(async (submission: Submission) => {
+            if (submission?.id && quiz?.id) {
                 const updatedQuiz: Quiz = { ...quiz };
-                updatedQuiz.submissions = [...updatedQuiz.submissions, s.id];
+                updatedQuiz.submissions = [...updatedQuiz.submissions, submission.id];
                 if(!updatedQuiz.avgScore){
-                    updatedQuiz.avgScore = s.score;
+                    updatedQuiz.avgScore = submission.score;
                 } else {
-                    let scoreMinusAvg: number = s.score - updatedQuiz.avgScore;
+                    let scoreMinusAvg: number = submission.score - updatedQuiz.avgScore;
                     let count: number = updatedQuiz.submissions.length;
                     let increase: number = scoreMinusAvg / count;
                     updatedQuiz.avgScore += increase;
                 }
                 await quizServices.updateQuiz(quiz.id, updatedQuiz).then(()=>{
-                    navigate(`/categories/${quiz.category}`);
+                    navigate(`/submission/${submission.id}`);
                 });
             }
         })
@@ -78,10 +67,6 @@ export default function QuizShow() {
     useEffect(() => {
         dispatch(loadQuiz(id))
     }, [])
-
-    useEffect(() => {
-        console.log(newSubmission)
-    }, [newSubmission])
 
     useEffect(() => {
         if (quiz?.id) {
@@ -93,7 +78,11 @@ export default function QuizShow() {
                     guesses: []
                 })
             }
-            dispatch(updateSubmissionNew({ ...newSubmission, answers: answerArr }))
+            dispatch(updateSubmissionNew({
+                ...newSubmission,
+                answers: answerArr,
+                quiz: quiz.id
+            }))
         }
     }, [quiz])
 

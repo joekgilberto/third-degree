@@ -17,6 +17,7 @@ export interface Submission {
     submissionDate: Date;
     username: string;
     challenger: string;
+    quiz: string;
 }
 
 export interface Category {
