@@ -16,8 +16,23 @@ namespace service.Controllers
             _usersService = usersService;
         }
 
+        [HttpGet("{id:length(24)}")]
+        public async Task<ActionResult<User>> Get(string id)
+        {
+            User? user = await _usersService.GetByIdAsync(id);
+
+            if (user is null)
+            {
+                return NotFound();
+            }
+
+            user.Cred.Password = null;
+
+            return user;
+        }
+
         [HttpGet("{username}")]
-        public async Task<ActionResult<Profile>> Get(string username)
+        public async Task<ActionResult<User>> GetByUsername(string username)
         {
             User? user = await _usersService.GetByUsernameAsync(username);
 
@@ -26,9 +41,9 @@ namespace service.Controllers
                 return NotFound();
             }
 
-            Profile profile = new Profile(user);
+            user.Cred.Password = null;
 
-            return profile;
+            return user;
         }
 
         [HttpPost("register")]
@@ -40,18 +55,18 @@ namespace service.Controllers
         }
 
         [HttpPut("login")]
-        public async Task<ActionResult<Profile>> Login(string username, string password)
+        public async Task<ActionResult<User>> Login(Cred credentials)
         {
-            User? user = await _usersService.GetByCredentialsAsync(username,password);
+            User? user = await _usersService.GetByCredentialsAsync(credentials);
 
             if (user is null)
             {
                 return NotFound();
             }
 
-            Profile profile = new Profile(user);
+            user.Cred.Password = null;
 
-            return profile;
+            return user;
         }
     }
 }
