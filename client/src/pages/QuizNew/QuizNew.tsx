@@ -9,6 +9,7 @@ import { Category, Question, Quiz } from '../../utilities/types';
 
 import NewQuestion from '../../components/NewQuestion/NewQuestion';
 import { useNavigate } from 'react-router-dom';
+import { setCurrentPage } from '../../components/Nav/navSlice';
 
 export default function QuizNew() {
 
@@ -108,6 +109,7 @@ export default function QuizNew() {
     }
 
     useEffect(() => {
+        dispatch(setCurrentPage('new'));
         handleRequest();
     }, [])
 

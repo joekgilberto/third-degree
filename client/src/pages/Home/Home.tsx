@@ -2,13 +2,16 @@ import './Home.css';
 
 import React, { useEffect, useState } from 'react';
 import * as quizServices from '../../utilities/quiz/quiz-services';
+import { useDispatch } from 'react-redux';
 import { Quiz } from '../../utilities/types';
+import { setCurrentPage } from '../../components/Nav/navSlice';
 
 import QuizCard from '../../components/QuizCard/QuizCard';
 import { Link } from 'react-router-dom';
 
 export default function Home() {
 
+  const dispatch = useDispatch();
   const [hardestQuizzes, setHardestQuizzes] = useState<Array<Quiz>>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -20,6 +23,7 @@ export default function Home() {
   };
 
   useEffect(() => {
+    dispatch(setCurrentPage('home'))
     handleRequest();
   }, [])
 

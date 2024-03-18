@@ -6,9 +6,12 @@ import * as categoryServices from '../../utilities/category/category-services';
 import { Category } from '../../utilities/types';
 
 import CategoryCard from '../../components/CategoryCard/CategoryCard';
+import { useDispatch } from 'react-redux';
+import { setCurrentPage } from '../../components/Nav/navSlice';
 
 export default function CategoryIndex() {
 
+  const dispatch = useDispatch();
   const [categories, setCategories] = useState<Array<Category>>([]);
 
   async function handleRequest(){
@@ -18,6 +21,7 @@ export default function CategoryIndex() {
   }
 
   useEffect(()=>{
+    dispatch(setCurrentPage('categories'));
     handleRequest();
   },[])
 
