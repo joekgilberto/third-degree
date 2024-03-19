@@ -43,4 +43,4 @@ export default function SubmissionCheckbox({ question, guesses }: { question: Qu
             }
         </div>
     );
-}
+};

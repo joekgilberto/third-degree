@@ -1,8 +1,8 @@
 import './NewText.css';
 
 import React from 'react';
-import { updateQuizNew, selectNewQuiz} from '../../pages/QuizNew/quizNewSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { selectNewQuiz, updateQuizNew} from '../../pages/QuizNew/quizNewSlice';
+import { useSelector, useDispatch } from 'react-redux';
 import { Quiz, Question } from '../../utilities/types';
 
 export default function NewText({question}:{question: Question}) {
@@ -10,11 +10,11 @@ export default function NewText({question}:{question: Question}) {
     const newQuiz: Quiz = useSelector(selectNewQuiz);
     const dispatch = useDispatch();
 
-    function handleChange(e: React.ChangeEvent<HTMLInputElement>){
-        const questionArr: Array<Question> = [...newQuiz.questions]
-        questionArr[question.id] = {...questionArr[question.id], [e.target.name]: e.target.value.toLowerCase()}
-        dispatch(updateQuizNew({...newQuiz, questions: [...questionArr]}))
-    }
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>): void{
+        const questionArr: Array<Question> = [...newQuiz.questions];
+        questionArr[question.id] = {...questionArr[question.id], [e.target.name]: e.target.value.toLowerCase()};
+        dispatch(updateQuizNew({...newQuiz, questions: [...questionArr]}));
+    };
 
     return (
         <div className='NewText'>
@@ -23,4 +23,4 @@ export default function NewText({question}:{question: Question}) {
             <p>*Third Degree recommends keeping short answer questions as concise as possible for challenger benefit.</p>
         </div>
     );
-}
+};

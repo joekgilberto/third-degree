@@ -1,9 +1,9 @@
 import './ShowText.css';
 
 import React, { useEffect, useState } from 'react';
-import { updateSubmissionNew, selectSubmission} from '../../pages/QuizShow/quizShowSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { Answer, Question, Submission } from '../../utilities/types';
+import { selectSubmission, updateSubmissionNew} from '../../pages/QuizShow/quizShowSlice';
+import { useSelector, useDispatch  } from 'react-redux';
+import { Question, Submission, Answer } from '../../utilities/types';
 
 export default function ShowText({question}:{question: Question}) {
 
@@ -14,17 +14,18 @@ export default function ShowText({question}:{question: Question}) {
 
     useEffect(()=>{
         if(question.answer){
-            const answerArr = question.answer.split(' ');
-            const answerLength = answerArr.length;
+            const answerArr: Array<string> = question.answer.split(' ');
+            const answerLength: number = answerArr.length;
             setLength(answerLength);
         }
     },[])
 
-    function handleChange(e: React.ChangeEvent<HTMLInputElement>){
-        const answerArr: Array<Answer> = [...newSubmission.answers]
-        answerArr[question.id] = {...answerArr[question.id], guess: e.target.value.toLowerCase()}
-        dispatch(updateSubmissionNew({...newSubmission, answers: [...answerArr]}))
-    }
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>): void{
+        const answerArr: Array<Answer> = [...newSubmission.answers];
+        answerArr[question.id] = {...answerArr[question.id], guess: e.target.value.toLowerCase()};
+        const submissionCache: Submission = {...newSubmission, answers: [...answerArr]};
+        dispatch(updateSubmissionNew(submissionCache));
+    };
 
     return (
         <div className='ShowText'>
@@ -32,4 +33,4 @@ export default function ShowText({question}:{question: Question}) {
             <input name='guess' placeholder='Make a guess' onChange={handleChange} required />
         </div>
     );
-}
+};

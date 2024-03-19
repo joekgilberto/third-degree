@@ -2,20 +2,19 @@ import './Nav.css';
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { selectCurrentPage } from './navSlice';
 import { useSelector } from 'react-redux';
+import { selectCurrentPage } from './navSlice';
 
 export default function Nav() {
 
-  const currentPage = useSelector(selectCurrentPage);
+  const currentPage: string = useSelector(selectCurrentPage);
 
   function handlePage(page: string): string {
     if (page === currentPage) {
       return 'current-page';
     };
-
     return '';
-  }
+  };
 
   return (
     <header>
@@ -44,4 +43,4 @@ export default function Nav() {
       </nav>
     </header>
   );
-}
+};

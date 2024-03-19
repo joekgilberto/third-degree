@@ -12,7 +12,7 @@ export default function SubmissionText({ question, guess }: { question: Question
             return ' incorrect';
         }
         return '';
-    }
+    };
 
     return (
         <div className='SubmissionText'>
@@ -20,4 +20,4 @@ export default function SubmissionText({ question, guess }: { question: Question
                 <p className={handleCorrection(guess)}>Your guess: {guess}</p>
         </div >
     );
-}
+};

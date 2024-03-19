@@ -1,22 +1,22 @@
 import './Login.css';
 
 import React from 'react';
-import { updateCredentials } from '../../pages/Auth/authSlice';
-import { useDispatch } from 'react-redux';
-import { User } from '../../utilities/types';
-import { setUser, setUserToken } from '../../utilities/local-storage';
-import * as userServices from '../../utilities/user/user-services';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { updateCredentials } from '../../pages/Auth/authSlice';
+import * as userServices from '../../utilities/user/user-services';
+import { setUser, setUserToken } from '../../utilities/local-storage';
+import { User } from '../../utilities/types';
 
 export default function Login({ credentials }: { credentials: User }) {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
     const update: User = { ...credentials, [e.target.name]: e.target.value };
     dispatch(updateCredentials(update));
-  }
+  };
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -26,8 +26,8 @@ export default function Login({ credentials }: { credentials: User }) {
         setUser(loggedIn.user);
         navigate('/');
       });
-    }
-  }
+    };
+  };
 
   return (
     <form className='Login' onSubmit={handleSubmit}>
@@ -37,4 +37,4 @@ export default function Login({ credentials }: { credentials: User }) {
       <input type='submit' value='Login' />
     </form>
   );
-}
+};

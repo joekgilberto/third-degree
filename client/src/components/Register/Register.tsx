@@ -13,18 +13,17 @@ export default function Register({ credentials, reEnter }: { credentials: User, 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
         const update: User = { ...credentials, [e.target.name]: e.target.value};
         dispatch(updateCredentials(update));
-    }
+    };
 
-    function handleReEnter(e: React.ChangeEvent<HTMLInputElement>) {
+    function handleReEnter(e: React.ChangeEvent<HTMLInputElement>): void {
         dispatch(updateReEnter(e.target.value));
-    }
+    };
 
-    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>): Promise<void> {
         e.preventDefault();
-        console.log(credentials)
         if (credentials.password === reEnter) {
             await userServices.registerUser(credentials).then(async (user: User) => {
                 if(user && credentials.password){
@@ -43,10 +42,6 @@ export default function Register({ credentials, reEnter }: { credentials: User, 
 
     }
 
-    useEffect(() => {
-        console.log(credentials)
-    }, [credentials])
-
     return (
         <form className='Register' onSubmit={handleSubmit}>
             <h2>Register to start your journey...</h2>
@@ -56,4 +51,4 @@ export default function Register({ credentials, reEnter }: { credentials: User, 
             <input type='submit' value='Register' />
         </form>
     );
-}
+};
