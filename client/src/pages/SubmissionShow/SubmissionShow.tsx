@@ -1,16 +1,18 @@
 import './SubmissionShow.css';
 
 import React, { useEffect, useState } from 'react';
-import { Quiz, Submission, Question } from '../../utilities/types';
-import { Link, useParams } from 'react-router-dom';
+import { Quiz, Submission, Question, User } from '../../utilities/types';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import * as submissionServices from '../../utilities/submission/submission-services';
 import * as quizServices from '../../utilities/quiz/quiz-services';
-
+import * as localStorageTools from '../../utilities/local-storage';
 import SubmissionQuestion from '../../components/SubmissionQuestion/SubmissionQuestion';
 
 export default function SubmissionShow() {
 
     const { id } = useParams();
+    const navigate = useNavigate();
+    const [user, setUser] = useState<User | null>(null);
     const [submission, setSubmission] = useState<Submission>();
     const [quiz, setQuiz] = useState<Quiz>();
 
@@ -25,12 +27,18 @@ export default function SubmissionShow() {
             })
         }
     }
-
+    
     useEffect(() => {
-        handleRequest();
+        const fetchedUser: User | null = localStorageTools.getUser();
+        if (!fetchedUser) {
+            navigate('/auth');
+        } else {
+            setUser(fetchedUser);
+            handleRequest();
+        };
     }, [])
 
-    if (!submission?.id || !quiz?.id) {
+    if (!user || !submission?.id || !quiz?.id) {
         return <p>Loading...</p>
     }
 

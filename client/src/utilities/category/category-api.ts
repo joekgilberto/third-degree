@@ -31,9 +31,8 @@ export async function create(data: Category) {
             Authorization: `Bearer ${localStorage.getItem('token')}`
         }
     }
-    console.log(config)
     return axios
-        .post(BASE_URL, data,config)
+        .post(BASE_URL, data, config)
         .then((res) => {
             return res;
         })
@@ -65,7 +64,7 @@ export async function destroy(id: string) {
         }
     }
     return axios
-        .delete(`${BASE_URL}${id}/`,config)
+        .delete(`${BASE_URL}${id}/`, config)
         .then((res) => {
             return res;
         })

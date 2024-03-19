@@ -3,7 +3,7 @@ import './Account.css';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as submissionServices from '../../utilities/submission/submission-services';
-import * as localStoage from '../../utilities/local-storage';
+import * as localStorageTools from '../../utilities/local-storage';
 import { Submission, User } from '../../utilities/types';
 
 import SubmissionCard from '../../components/SubmissionCard/SubmissionCard';
@@ -15,7 +15,7 @@ export default function Account() {
     const [submissions, setSubmissions] = useState<Array<Submission> | null>(null);
 
     useEffect(() => {
-        const fetchedUser: User | null = localStoage.getUser();
+        const fetchedUser: User | null = localStorageTools.getUser();
         if (!fetchedUser) {
             navigate('/auth');
         } else {

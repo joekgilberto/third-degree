@@ -9,7 +9,7 @@ import { AppDispatch } from '../../App/store';
 import * as submissionServices from '../../utilities/submission/submission-services';
 import * as quizServices from '../../utilities/quiz/quiz-services';
 import * as userServices from '../../utilities/user/user-services';
-import * as localStorage from '../../utilities/local-storage';
+import * as localStorageTools from '../../utilities/local-storage';
 
 import ShowQuestion from '../../components/ShowQuestion/ShowQuestion';
 
@@ -108,7 +108,7 @@ export default function QuizShow() {
 
     useEffect(() => {
         dispatch(loadQuiz(id))
-        const fetchedUser: User | null = localStorage.getUser();
+        const fetchedUser: User | null = localStorageTools.getUser();
         if (!fetchedUser) {
             navigate('/auth');
         } else {
@@ -135,11 +135,7 @@ export default function QuizShow() {
         }
     }, [quiz])
 
-    useEffect(() => {
-        console.log(newSubmission)
-    }, [newSubmission])
-
-    if (!quiz?.id || !newSubmission.answers?.length) {
+    if (!user || !quiz?.id || !newSubmission.answers?.length) {
         return <p>Loading...</p>
     }
 
