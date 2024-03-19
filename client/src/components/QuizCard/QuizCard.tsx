@@ -13,4 +13,4 @@ export default function QuizCard({quiz}:{quiz: Quiz}) {
       <p>No challengers yet</p>}
     </div>
   );
-}
+};

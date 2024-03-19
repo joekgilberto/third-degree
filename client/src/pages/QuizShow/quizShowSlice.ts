@@ -25,7 +25,7 @@ export const quizSlice = createSlice({
             score: 0,
             submissionDate: new Date(),
             username: 'joekgilberto',
-            challenger: '65ee2084f86b1b2bc8530705',
+            challenger: '65f909f26f46ccb55d4c7665',
             quiz: ''
         },
         isLoadingQuiz: false,

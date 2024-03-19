@@ -2,64 +2,64 @@ import './NewRadio.css';
 
 import React from 'react';
 
-import { updateQuizNew, selectNewQuiz } from '../../pages/QuizNew/quizNewSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { Quiz, Question } from '../../utilities/types';
+import { selectNewQuiz, updateQuizNew } from '../../pages/QuizNew/quizNewSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { Quiz, Question, Choices } from '../../utilities/types';
 
 export default function NewRadio({ question }: { question: Question }) {
 
     const newQuiz: Quiz = useSelector(selectNewQuiz);
     const dispatch = useDispatch();
 
-    function handleAddChoice(e: React.MouseEvent<HTMLButtonElement>) {
-        console.log(!newQuiz.questions[question.id].choices.c?.length)
-        console.log(newQuiz.questions[question.id].choices.c !== '')
+    function handleAddChoice(e: React.MouseEvent<HTMLButtonElement>): void {
         if (!newQuiz.questions[question.id].choices.c?.length && newQuiz.questions[question.id].choices.c !== '') {
-            let cache = { ...newQuiz.questions[question.id].choices }
+            let cache: Choices = { ...newQuiz.questions[question.id].choices };
             cache.c = '';
 
-            const questionArr: Array<Question> = [...newQuiz.questions]
-            questionArr[question.id] = { ...questionArr[question.id], choices: { ...cache } }
-            dispatch(updateQuizNew({ ...newQuiz, questions: [...questionArr] }))
+            const questionArr: Array<Question> = [...newQuiz.questions];
+            questionArr[question.id] = { ...questionArr[question.id], choices: { ...cache } };
+            dispatch(updateQuizNew({ ...newQuiz, questions: [...questionArr] }));
         } else if (!newQuiz.questions[question.id].choices.d?.length && newQuiz.questions[question.id].choices.d !== '') {
-            let cache = { ...newQuiz.questions[question.id].choices }
+            let cache: Choices = { ...newQuiz.questions[question.id].choices };
             cache.d = '';
 
-            const questionArr: Array<Question> = [...newQuiz.questions]
-            questionArr[question.id] = { ...questionArr[question.id], choices: { ...cache } }
-            dispatch(updateQuizNew({ ...newQuiz, questions: [...questionArr] }))
-        }
-    }
+            const questionArr: Array<Question> = [...newQuiz.questions];
+            questionArr[question.id] = { ...questionArr[question.id], choices: { ...cache } };
+            dispatch(updateQuizNew({ ...newQuiz, questions: [...questionArr] }));
+        };
+    };
 
-    function handleDeleteChoice(e: React.MouseEvent<HTMLButtonElement>) {
-        let cache = { ...newQuiz.questions[question.id].choices }
+    function handleDeleteChoice(e: React.MouseEvent<HTMLButtonElement>): void {
+        let cache: Choices = { ...newQuiz.questions[question.id].choices };
 
         if ('d' in cache) {
-            delete cache.d
+            delete cache.d;
         } else {
-            delete cache.c
-        }
+            delete cache.c;
+        };
 
         const questionArr: Array<Question> = [...newQuiz.questions]
         questionArr[question.id] = { ...questionArr[question.id], choices: { ...cache } }
         dispatch(updateQuizNew({ ...newQuiz, questions: [...questionArr] }))
-    }
+    };
 
-    function handleChangeChoice(e: React.ChangeEvent<HTMLInputElement>) {
-        let cache = newQuiz.questions[question.id].choices;
+    function handleChangeChoice(e: React.ChangeEvent<HTMLInputElement>): void {
+        let cache: Choices = newQuiz.questions[question.id].choices;
         cache = { ...cache, [e.target.name]: e.target.value }
-        const questionArr: Array<Question> = [...newQuiz.questions]
-        questionArr[question.id] = { ...questionArr[question.id], choices: cache };
-        dispatch(updateQuizNew({ ...newQuiz, questions: [...questionArr] }))
-    }
 
-    function handleAnswer(e: React.ChangeEvent<HTMLSelectElement>) {
+        const questionArr: Array<Question> = [...newQuiz.questions];
+        questionArr[question.id] = { ...questionArr[question.id], choices: cache };
+        dispatch(updateQuizNew({ ...newQuiz, questions: [...questionArr] }));
+    };
+
+    function handleAnswer(e: React.ChangeEvent<HTMLSelectElement>): void {
         let cache: Question = newQuiz.questions[question.id];
-        cache = { ...cache, answer: e.target.value }
-        const questionArr: Array<Question> = [...newQuiz.questions]
+        cache = { ...cache, answer: e.target.value };
+
+        const questionArr: Array<Question> = [...newQuiz.questions];
         questionArr[question.id] = cache;
-        dispatch(updateQuizNew({ ...newQuiz, questions: [...questionArr] }))
-    }
+        dispatch(updateQuizNew({ ...newQuiz, questions: [...questionArr] }));
+    };
 
     return (
         <div className='NewRadio'>
@@ -92,17 +92,17 @@ export default function NewRadio({ question }: { question: Question }) {
             <div>
                 <h3>Answer #{question.id + 1}</h3>
                 <select name='answer' defaultValue={''} onChange={handleAnswer} required >
-                        <option disabled value=''>Choose an Answer</option>
-                        <option value='a'>A</option>
-                        <option value='b'>B</option>
-                        {newQuiz.questions[question.id].choices.c?.length || newQuiz.questions[question.id].choices.c === ''?
+                    <option disabled value=''>Choose an Answer</option>
+                    <option value='a'>A</option>
+                    <option value='b'>B</option>
+                    {newQuiz.questions[question.id].choices.c?.length || newQuiz.questions[question.id].choices.c === '' ?
                         <option value='c'>C</option>
-                        :null}
-                        {newQuiz.questions[question.id].choices.d?.length || newQuiz.questions[question.id].choices.d === ''?
+                        : null}
+                    {newQuiz.questions[question.id].choices.d?.length || newQuiz.questions[question.id].choices.d === '' ?
                         <option value='d'>D</option>
-                        :null}
-                    </select>
+                        : null}
+                </select>
             </div>
         </div>
     );
-}
+};

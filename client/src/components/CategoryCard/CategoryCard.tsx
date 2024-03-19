@@ -9,4 +9,4 @@ export default function CategoryCard({category}:{category: Category}) {
       <h3>{category.title}</h3>
     </div>
   );
-}
+};

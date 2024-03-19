@@ -1,11 +1,13 @@
-﻿using service.Models;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using service.Models;
 using service.Services;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.Configure<ThirdDegreeDatabaseSettings>(
     builder.Configuration.GetSection("ThirdDegreeDatabase"));
 
@@ -14,8 +16,29 @@ builder.Services.AddSingleton<SubmissionsService>();
 builder.Services.AddSingleton<CategoriesService>();
 builder.Services.AddSingleton<UsersService>();
 
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(o =>
+{
+    o.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidIssuer = Environment.GetEnvironmentVariable("ASPNETCORE_ISSUER"),
+        ValidAudience = Environment.GetEnvironmentVariable("ASPNETCORE_AUDIENCE"),
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("ASPNETCORE_KEY"))),
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = false,
+        ValidateIssuerSigningKey = true
+    };
+});
+
+builder.Services.AddAuthorization();
+
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -25,7 +48,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
                           policy =>
                           {
-                              policy.WithOrigins()
+                              policy.WithOrigins("http://localhost:3000/")
                                                   .AllowAnyOrigin()
                                                   .AllowAnyHeader()
                                                   .AllowAnyMethod();
@@ -34,7 +57,6 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -43,6 +65,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseCors(MyAllowSpecificOrigins);

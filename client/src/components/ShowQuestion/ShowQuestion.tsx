@@ -23,4 +23,4 @@ export default function ShowQuestion({ question }: { question: Question }) {
             <hr />
         </div>
     );
-}
+};

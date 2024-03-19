@@ -1,30 +1,29 @@
 import './ShowCheckbox.css';
 
 import React from 'react';
-import { updateSubmissionNew, selectSubmission } from '../../pages/QuizShow/quizShowSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { Answer, Question, Submission } from '../../utilities/types';
+import { selectSubmission, updateSubmissionNew } from '../../pages/QuizShow/quizShowSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { Question, Submission, Answer } from '../../utilities/types';
 
 export default function ShowCheckbox({ question }: { question: Question }) {
 
     const newSubmission: Submission = useSelector(selectSubmission);
     const dispatch = useDispatch();
 
-    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-        const answerArr: Array<Answer> = [...newSubmission.answers]
-        console.log(newSubmission.answers[question.id].guesses.includes(e.target.value))
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
+        const answerArr: Array<Answer> = [...newSubmission.answers];
+
         if(newSubmission.answers[question.id].guesses.includes(e.target.value)){
-            const idx: number | undefined = answerArr[question.id].guesses.indexOf(e.target.value);
-            const guessesArr = [...answerArr[question.id].guesses];
+            const idx: number = answerArr[question.id].guesses.indexOf(e.target.value);
+            const guessesArr: Array<string> = [...answerArr[question.id].guesses];
             guessesArr.splice(idx,1);
             answerArr[question.id] = { ...answerArr[question.id], guesses:[...guessesArr] };
         } else {
-            answerArr[question.id] = { ...answerArr[question.id], guesses:[...answerArr[question.id].guesses, e.target.value] }
-            console.log(answerArr[question.id])
-        }
+            answerArr[question.id] = { ...answerArr[question.id], guesses:[...answerArr[question.id].guesses, e.target.value] };
+        };
 
-        dispatch(updateSubmissionNew({ ...newSubmission, answers: [...answerArr] }))
-    }
+        dispatch(updateSubmissionNew({ ...newSubmission, answers: [...answerArr] }));
+    };
 
     return (
         <div className='ShowCheckbox'>
@@ -54,4 +53,4 @@ export default function ShowCheckbox({ question }: { question: Question }) {
                 : null}
         </div>
     );
-}
+};

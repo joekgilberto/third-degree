@@ -26,8 +26,13 @@ export async function show(id: string) {
 };
 
 export async function create(data: Submission) {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+    }
     return axios
-        .post(BASE_URL, data)
+        .post(BASE_URL, data, config)
         .then((res) => {
             return res;
         })
@@ -38,8 +43,13 @@ export async function create(data: Submission) {
 };
 
 export async function update(id: string, data: Submission) {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+    }
     return axios
-        .put(`${BASE_URL}${id}/`, data)
+        .put(`${BASE_URL}${id}/`, data, config)
         .then((res) => {
             return res;
         })
@@ -50,8 +60,13 @@ export async function update(id: string, data: Submission) {
 };
 
 export async function destroy(id: string) {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+    }
     return axios
-        .delete(`${BASE_URL}${id}/`)
+        .delete(`${BASE_URL}${id}/`, config)
         .then((res) => {
             return res;
         })

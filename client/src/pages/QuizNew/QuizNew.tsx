@@ -5,15 +5,16 @@ import * as quizServices from '../../utilities/quiz/quiz-services';
 import * as categoryServices from '../../utilities/category/category-services';
 import { selectNewQuiz, updateQuizNew } from './quizNewSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { Category, Question, Quiz } from '../../utilities/types';
-
+import { Category, Question, Quiz, User } from '../../utilities/types';
 import NewQuestion from '../../components/NewQuestion/NewQuestion';
 import { useNavigate } from 'react-router-dom';
 import { setCurrentPage } from '../../components/Nav/navSlice';
+import * as localStorageTools from '../../utilities/local-storage';
 
 export default function QuizNew() {
 
     const navigate = useNavigate();
+    //TODO: Reset quiz everytime you open the page
     const newQuiz = useSelector(selectNewQuiz);
     const dispatch = useDispatch();
 
@@ -21,6 +22,7 @@ export default function QuizNew() {
     const [newCategory, setNewCategory] = useState<string>();
     const [newQuestion, setNewQuestion] = useState<boolean>(false);
     const [categories, setCategories] = useState<Array<Category>>([]);
+    const [user, setUser] = useState<User | null>(null);
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         dispatch(updateQuizNew({ ...newQuiz, [e.target.name]: e.target.value }))
@@ -110,10 +112,16 @@ export default function QuizNew() {
 
     useEffect(() => {
         dispatch(setCurrentPage('new'));
-        handleRequest();
+        const fetchedUser: User | null = localStorage.getUser();
+        if (!fetchedUser) {
+            navigate('/auth');
+        } else {
+            setUser(fetchedUser);
+            handleRequest();
+        };
     }, [])
 
-    if (!categories?.length) {
+    if (!user || !categories?.length) {
         return <p>Loading...</p>
     }
 
@@ -144,9 +152,9 @@ export default function QuizNew() {
                     </div>
                     : null}
                 <div>
-                    {newQuiz.questions?.map((question: Question) => {
+                    {newQuiz.questions?.map((question: Question, idx) => {
                         return (<>
-                            <NewQuestion key={question.id} question={question} />
+                            <NewQuestion key={idx} question={question} />
                             <hr />
                         </>)
                     })}

@@ -12,7 +12,7 @@ export default function SubmissionRadio({ question, guess }: { question: Questio
             return 'incorrect';
         }
         return '';
-    }
+    };
 
     return (
         <div className='SubmissionRadio'>
@@ -43,4 +43,4 @@ export default function SubmissionRadio({ question, guess }: { question: Questio
             }
         </div >
     );
-}
+};

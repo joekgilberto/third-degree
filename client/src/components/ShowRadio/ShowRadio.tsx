@@ -1,20 +1,21 @@
 import './ShowRadio.css';
 
 import React from 'react';
-import { updateSubmissionNew, selectSubmission } from '../../pages/QuizShow/quizShowSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { Answer, Question, Submission } from '../../utilities/types';
+import { selectSubmission, updateSubmissionNew } from '../../pages/QuizShow/quizShowSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { Question, Submission, Answer } from '../../utilities/types';
 
 export default function ShowRadio({ question }: { question: Question }) {
 
     const newSubmission: Submission = useSelector(selectSubmission);
     const dispatch = useDispatch();
 
-    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-        const answerArr: Array<Answer> = [...newSubmission.answers]
-        answerArr[question.id] = { ...answerArr[question.id], guess: e.target.value }
-        dispatch(updateSubmissionNew({ ...newSubmission, answers: [...answerArr] }))
-    }
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
+        const answerArr: Array<Answer> = [...newSubmission.answers];
+        answerArr[question.id] = { ...answerArr[question.id], guess: e.target.value };
+        const submissionCache: Submission = { ...newSubmission, answers: [...answerArr] };
+        dispatch(updateSubmissionNew(submissionCache));
+    };
 
     return (
         <div className='ShowRadio'>
@@ -43,4 +44,4 @@ export default function ShowRadio({ question }: { question: Question }) {
                 : null}
         </div>
     );
-}
+};

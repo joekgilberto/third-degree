@@ -1,10 +1,11 @@
 import './SubmissionQuestion.css';
 
 import React from 'react';
-import { Answer, Question } from '../../utilities/types';
+import { Question, Answer } from '../../utilities/types';
+
+import SubmissionText from '../SubmissionText/SubmissionText';
 import SubmissionRadio from '../SubmissionRadio/SubmissionRadio';
 import SubmissionCheckbox from '../SubmissionCheckbox/SubmissionCheckbox';
-import SubmissionText from '../SubmissionText/SubmissionText';
 
 export default function SubmissionQuestion({ question, answer }: { question: Question, answer: Answer }) {
     
@@ -23,4 +24,4 @@ export default function SubmissionQuestion({ question, answer }: { question: Que
             <hr />
         </div>
     );
-}
+};

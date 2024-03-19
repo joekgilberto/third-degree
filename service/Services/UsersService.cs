@@ -1,7 +1,9 @@
 ﻿using System;
+using Amazon.SecurityToken.Model;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using service.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace service.Services
 {
@@ -18,6 +20,11 @@ namespace service.Services
             _usersCollection = mongoDatabase.GetCollection<User>(thirdDegreeDatabaseSettings.Value.UsersCollectionName);
         }
 
+        public async Task<User?> GetByIdAsync(string id)
+        {
+            return await _usersCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+        }
+
         public async Task<User?> GetByUsernameAsync(string username)
         {
             return await _usersCollection.Find(x => x.Username == username).FirstOrDefaultAsync();
@@ -31,6 +38,15 @@ namespace service.Services
         public async Task CreateAsync(User newUser)
         {
             await _usersCollection.InsertOneAsync(newUser);
+        }
+
+        public async Task<User?> UpdateAsync(string id, User updatedUser)
+        {
+            var options = new FindOneAndReplaceOptions<User>
+            {
+                ReturnDocument = ReturnDocument.After
+            };
+            return await _usersCollection.FindOneAndReplaceAsync<User>(x => x.Id == id, updatedUser, options);
         }
     }
 }

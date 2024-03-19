@@ -13,11 +13,16 @@ namespace service.Models
 
         public string Username { get; set; }
 
-        public string Password { get; set; }
+        public string? Password { get; set; }
 
-        public List<string> Submissions { get; set; }
+        public List<string> Submissions { get; set; } = new List<string>();
 
-        public int Clearance { get; set; }
+        public int Clearance { get; set; } = 0;
+
+        public User(Creds credentials)
+        {
+            Username = credentials.Username;
+            Password = credentials.Password;
+        }
     }
 }
-
