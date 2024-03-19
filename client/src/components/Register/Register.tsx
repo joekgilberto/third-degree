@@ -1,12 +1,12 @@
 import './Register.css';
 
-import React, { useEffect } from 'react';
-import { updateReEnter, updateCredentials } from '../../pages/Auth/authSlice';
-import { useDispatch } from 'react-redux';
-import * as userServices from '../../utilities/user/user-services';
-import { User, Credentials } from '../../utilities/types';
-import { setUser, setUserToken } from '../../utilities/local-storage';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { updateReEnter, updateCredentials } from '../../pages/Auth/authSlice';
+import * as userServices from '../../utilities/user/user-services';
+import { setUser, setUserToken } from '../../utilities/local-storage';
+import { User, Credentials } from '../../utilities/types';
 
 export default function Register({ credentials, reEnter }: { credentials: Credentials, reEnter: string }) {
 

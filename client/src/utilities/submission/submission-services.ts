@@ -19,7 +19,7 @@ export async function getSubmission(id: string) {
     }
 }
 
-export async function getQuizSubmissions(ids: Array<string>) {
+export async function getSubmissionList(ids: Array<string>): Promise<any> {
     try {
         const data: Array<Submission> = [];
         for (let id of ids){
