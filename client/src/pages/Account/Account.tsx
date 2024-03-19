@@ -2,10 +2,11 @@ import './Account.css';
 
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import * as quizServices from '../../utilities/quiz/quiz-services';
 import * as submissionServices from '../../utilities/submission/submission-services';
 import * as localStoage from '../../utilities/local-storage';
-import { Quiz, Submission, User } from '../../utilities/types';
+import { Submission, User } from '../../utilities/types';
+
+import SubmissionCard from '../../components/SubmissionCard/SubmissionCard';
 
 export default function Account() {
 

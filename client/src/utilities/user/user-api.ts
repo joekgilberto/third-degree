@@ -15,7 +15,6 @@ export async function show(id: string) {
 };
 
 export async function register(data: Credentials) {
-    console.log(BASE_URL)
     return axios
         .post(`${BASE_URL}register/`, data)
         .then((res) => {
@@ -30,6 +29,23 @@ export async function register(data: Credentials) {
 export async function login(data: Credentials) {
     return axios
         .put(`${BASE_URL}login/`, data)
+        .then((res) => {
+            return res;
+        })
+        .catch((err) => {
+            return err;
+        });
+
+};
+
+export async function submit(id: string, data: Array<string>) {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+    }
+    return axios
+        .put(`${BASE_URL}submit/${id}/`, data, config)
         .then((res) => {
             return res;
         })

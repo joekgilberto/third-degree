@@ -27,3 +27,12 @@ export async function loginUser(data: Credentials) {
         return err;
     }
 }
+
+export async function addSubmission(id: string, submissions: Array<string>){
+    try {
+        const res = await usersApi.submit(id, submissions);
+        return res.data;
+    } catch (err) {
+        return err;
+    }
+}

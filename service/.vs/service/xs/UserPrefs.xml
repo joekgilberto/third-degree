@@ -1,30 +1,31 @@
 ﻿<Properties StartupConfiguration="{A2A19300-3E6D-4CD8-AA10-3F7A5B418F45}|https">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/UsersController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Program.cs">
     <Files>
       <File FileName="Models/Submission.cs" />
-      <File FileName="Services/UsersService.cs" />
-      <File FileName="Controllers/UsersController.cs" Line="98" Column="10" />
-      <File FileName="Models/User.cs" Line="20" Column="2" />
+      <File FileName="Services/UsersService.cs" Line="30" Column="31" />
+      <File FileName="Controllers/UsersController.cs" Line="128" Column="32" />
+      <File FileName="Models/User.cs" Line="27" Column="6" />
       <File FileName="Controllers/QuizzesController.cs" Line="69" Column="1" />
-      <File FileName="Controllers/SubmissionsController.cs" Line="69" Column="20" />
-      <File FileName="Models/Question.cs" />
+      <File FileName="Controllers/SubmissionsController.cs" Line="50" Column="1" />
+      <File FileName="Models/Question.cs" Line="1" Column="1" />
       <File FileName="Models/ThirdDegreeDatabaseSettings.cs" Line="6" Column="113" />
-      <File FileName="Program.cs" Line="54" Column="45" />
-      <File FileName="Services/SubmissionsService.cs" Line="26" Column="9" />
+      <File FileName="Program.cs" Line="44" Column="1" />
+      <File FileName="Services/SubmissionsService.cs" Line="36" Column="1" />
       <File FileName="appsettings.json" Line="12" Column="22" />
       <File FileName="Controllers/CategoriesController.cs" Line="67" Column="20" />
-      <File FileName="Models/Token.cs" Line="12" Column="8" />
-      <File FileName="Services/JwtService.cs" Line="14" Column="1" />
       <File FileName="Services/CategoriesService.cs" Line="1" Column="1" />
+      <File FileName="Models/Category.cs" Line="1" Column="1" />
+      <File FileName="Models/Choices.cs" Line="1" Column="1" />
+      <File FileName="Models/Quiz.cs" Line="1" Column="1" />
+      <File FileName="Models/Answer.cs" Line="1" Column="1" />
+      <File FileName="Models/Creds.cs" Line="8" Column="22" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="service">
             <Node name="service" selected="True">
-              <Node name="Controllers" expanded="True" />
               <Node name="Models" expanded="True" />
-              <Node name="Services" expanded="True" />
             </Node>
           </Node>
         </State>

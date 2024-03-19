@@ -10,6 +10,7 @@ import { Credentials } from '../../utilities/types';
 
 export default function Auth() {
 
+    //TODO: Reset credentials everytime you open the page
     const credentials: Credentials = useSelector(selectCredentials);
     const reEnter: string = useSelector(selectReEnter);
     const [toggle, setToggle] = useState<boolean>(false);

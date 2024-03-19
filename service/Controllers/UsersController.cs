@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 namespace service.Controllers
 {
@@ -80,7 +81,7 @@ namespace service.Controllers
 
             var issuer = Environment.GetEnvironmentVariable("ASPNETCORE_ISSUER");
             var audience = Environment.GetEnvironmentVariable("ASPNETCORE_AUDIENCE");
-            var key = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("ASPNETCORE_KEY"));
+            var key = Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("ASPNETCORE_KEY"));
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[]
@@ -102,6 +103,29 @@ namespace service.Controllers
             loggedIn.Add("token", stringToken);
 
             return loggedIn;
+        }
+
+        [HttpPut("submit/{id:length(24)}")]
+        [Authorize]
+        public async Task<ActionResult<User>> Submit(string id, List<string> submissions)
+        {
+            User? user = await _usersService.GetByIdAsync(id);
+
+            if (user is null)
+            {
+                return NotFound();
+            }
+
+            user.Submissions = submissions;
+
+            User? updatedUser = await _usersService.UpdateAsync(id, user);
+
+            if (updatedUser is null)
+            {
+                return NotFound();
+            }
+
+            return updatedUser;
         }
     }
 }

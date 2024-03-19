@@ -18,7 +18,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development",
         "ASPNETCORE_MONGODB": "mongodb://localhost:27017",
         "ASPNETCORE_ISSUER": "https://localhost:7078/",
-        "ASPNETCORE_AUDIENCE": "https://localhost:7078/",
+        "ASPNETCORE_AUDIENCE": "http://localhost:3000/",
         "ASPNETCORE_KEY": "My-0n3-4nd-0nly-Sup3r-S3cr3t-K3y-F0r-L0c4l-D3v3l0pm3nt-0nly-Y33h4w!"
       },
       "dotnetRunMessages": true
@@ -32,7 +32,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development",
         "ASPNETCORE_MONGODB": "mongodb://localhost:27017",
         "ASPNETCORE_ISSUER": "https://localhost:7078/",
-        "ASPNETCORE_AUDIENCE": "https://localhost:7078/",
+        "ASPNETCORE_AUDIENCE": "http://localhost:3000/",
         "ASPNETCORE_KEY": "My-0n3-4nd-0nly-Sup3r-S3cr3t-K3y-F0r-L0c4l-D3v3l0pm3nt-0nly-Y33h4w!"
       },
       "dotnetRunMessages": true

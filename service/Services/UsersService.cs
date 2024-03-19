@@ -3,6 +3,7 @@ using Amazon.SecurityToken.Model;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using service.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace service.Services
 {
@@ -37,6 +38,15 @@ namespace service.Services
         public async Task CreateAsync(User newUser)
         {
             await _usersCollection.InsertOneAsync(newUser);
+        }
+
+        public async Task<User?> UpdateAsync(string id, User updatedUser)
+        {
+            var options = new FindOneAndReplaceOptions<User>
+            {
+                ReturnDocument = ReturnDocument.After
+            };
+            return await _usersCollection.FindOneAndReplaceAsync<User>(x => x.Id == id, updatedUser, options);
         }
     }
 }

@@ -14,6 +14,7 @@ import { setCurrentPage } from '../../components/Nav/navSlice';
 export default function QuizNew() {
 
     const navigate = useNavigate();
+    //TODO: Reset quiz everytime you open the page
     const newQuiz = useSelector(selectNewQuiz);
     const dispatch = useDispatch();
 
@@ -144,9 +145,9 @@ export default function QuizNew() {
                     </div>
                     : null}
                 <div>
-                    {newQuiz.questions?.map((question: Question) => {
+                    {newQuiz.questions?.map((question: Question, idx) => {
                         return (<>
-                            <NewQuestion key={question.id} question={question} />
+                            <NewQuestion key={idx} question={question} />
                             <hr />
                         </>)
                     })}

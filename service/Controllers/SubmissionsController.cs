@@ -18,14 +18,12 @@ namespace service.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<List<Submission>> Index()
         {
             return await _submissionsService.GetAsync();
         }
 
         [HttpGet("{id:length(24)}")]
-        [Authorize]
         public async Task<ActionResult<Submission>> Get(string id)
         {
             Submission? submission = await _submissionsService.GetByIdAsync(id);
