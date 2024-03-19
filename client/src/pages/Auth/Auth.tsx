@@ -6,11 +6,11 @@ import Login from '../../components/Login/Login';
 import Register from '../../components/Register/Register';
 import { useSelector } from 'react-redux';
 import { selectCredentials, selectReEnter } from './authSlice';
-import { User } from '../../utilities/types';
+import { Credentials } from '../../utilities/types';
 
 export default function Auth() {
 
-    const credentials: User = useSelector(selectCredentials);
+    const credentials: Credentials = useSelector(selectCredentials);
     const reEnter: string = useSelector(selectReEnter);
     const [toggle, setToggle] = useState<boolean>(false);
 

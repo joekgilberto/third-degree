@@ -6,22 +6,22 @@ import { useDispatch } from 'react-redux';
 import { updateCredentials } from '../../pages/Auth/authSlice';
 import * as userServices from '../../utilities/user/user-services';
 import { setUser, setUserToken } from '../../utilities/local-storage';
-import { User } from '../../utilities/types';
+import { User, Credentials } from '../../utilities/types';
 
-export default function Login({ credentials }: { credentials: User }) {
+export default function Login({ credentials }: { credentials: Credentials }) {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
-    const update: User = { ...credentials, [e.target.name]: e.target.value };
+    const update: Credentials = { ...credentials, [e.target.name]: e.target.value };
     dispatch(updateCredentials(update));
   };
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (credentials.password) {
-      await userServices.loginUser({ username: credentials.username, password: credentials.password }).then((loggedIn: { user: User, token: string }) => {
+      await userServices.loginUser(credentials).then((loggedIn: { user: User, token: string }) => {
         setUserToken(loggedIn.token);
         setUser(loggedIn.user);
         navigate('/');

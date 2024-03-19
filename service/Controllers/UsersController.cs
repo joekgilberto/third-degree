@@ -51,11 +51,19 @@ namespace service.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(User newUser)
+        public async Task<IActionResult> Register(Creds credentials)
         {
-            await _usersService.CreateAsync(newUser);
+            User? exists = await _usersService.GetByUsernameAsync(credentials.Username);
 
-            return CreatedAtAction(nameof(Get), new { id = newUser.Id }, newUser);
+            if (exists is null)
+            {
+                User newUser = new User(credentials);
+                await _usersService.CreateAsync(newUser);
+
+                return CreatedAtAction(nameof(Get), new { id = newUser.Id }, newUser);
+            }
+
+            return BadRequest();
         }
 
         [HttpPut("login")]

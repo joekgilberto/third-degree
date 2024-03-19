@@ -25,19 +25,16 @@ export interface Category {
     title: string;
 }
 
-export interface Profile {
-    id: string;
-    username: string;
+export interface User {
+    id: string,
+    username: string,
     submissions: Array<string>;
     clearance: number;
 }
 
-export interface User {
-    id?: string,
+export interface Credentials {
     username: string,
-    password?: string,
-    submissions: Array<string>;
-    clearance: number;
+    password: string
 }
 
 export interface Question {

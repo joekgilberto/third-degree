@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { User } from '../../utilities/types';
+import { Credentials } from '../../utilities/types';
 
 //TODO: make username and author specific to logged in user
 const authSlice = createSlice({
@@ -7,9 +7,7 @@ const authSlice = createSlice({
     initialState: {
         credentials: {
             username: '',
-            password: '',
-            submissions: [],
-            clearance: 0
+            password: ''
         },
         reEnter: ''
     },
@@ -23,7 +21,7 @@ const authSlice = createSlice({
     }
 })
 
-export const selectCredentials = (state: { auth: { credentials: User; }; }) => state.auth.credentials;
+export const selectCredentials = (state: { auth: { credentials: Credentials; }; }) => state.auth.credentials;
 export const selectReEnter = (state: { auth: { reEnter: string; }; }) => state.auth.reEnter;
 
 export const { updateCredentials, updateReEnter } = authSlice.actions
