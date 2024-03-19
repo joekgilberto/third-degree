@@ -2,6 +2,10 @@
 using service.Models;
 using service.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace service.Controllers
 {
@@ -26,7 +30,7 @@ namespace service.Controllers
                 return NotFound();
             }
 
-            user.Cred.Password = null;
+            user.Password = null;
 
             return user;
         }
@@ -41,7 +45,7 @@ namespace service.Controllers
                 return NotFound();
             }
 
-            user.Cred.Password = null;
+            user.Password = null;
 
             return user;
         }
@@ -55,18 +59,41 @@ namespace service.Controllers
         }
 
         [HttpPut("login")]
-        public async Task<ActionResult<User>> Login(Cred credentials)
+        public async Task<ActionResult<Dictionary<string, object>>> Login(Creds credentials)
         {
-            User? user = await _usersService.GetByCredentialsAsync(credentials);
+            User? user = await _usersService.GetByCredentialsAsync(credentials.Username, credentials.Password);
 
             if (user is null)
             {
                 return NotFound();
             }
 
-            user.Cred.Password = null;
+            user.Password = null;
 
-            return user;
+            var issuer = Environment.GetEnvironmentVariable("ASPNETCORE_ISSUER");
+            var audience = Environment.GetEnvironmentVariable("ASPNETCORE_AUDIENCE");
+            var key = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("ASPNETCORE_KEY"));
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[]
+                {
+                    new Claim(JwtRegisteredClaimNames.NameId, user.Id),
+                }),
+                Expires = DateTime.UtcNow.AddHours(10),
+                Issuer = issuer,
+                Audience = audience,
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512Signature)
+            };
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            string stringToken = tokenHandler.WriteToken(token);
+
+            Dictionary<string, object> loggedIn = new Dictionary<string, object>();
+
+            loggedIn.Add("user", user);
+            loggedIn.Add("token", stringToken);
+
+            return loggedIn;
         }
     }
 }

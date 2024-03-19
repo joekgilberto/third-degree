@@ -5,13 +5,16 @@ import { updateReEnter, updateCredentials } from '../../pages/Auth/authSlice';
 import { useDispatch } from 'react-redux';
 import * as userServices from '../../utilities/user/user-services';
 import { User } from '../../utilities/types';
+import { setUser, setUserToken } from '../../utilities/local-storage';
+import { useNavigate } from 'react-router-dom';
 
 export default function Register({ credentials, reEnter }: { credentials: User, reEnter: string }) {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-        const update: User = { ...credentials, cred: { ...credentials.cred, [e.target.name]: e.target.value } };
+        const update: User = { ...credentials, [e.target.name]: e.target.value};
         dispatch(updateCredentials(update));
     }
 
@@ -22,9 +25,17 @@ export default function Register({ credentials, reEnter }: { credentials: User, 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         console.log(credentials)
-        if(credentials.cred.password===reEnter){
-            await userServices.registerUser(credentials).then((user: User)=>{
-                console.log(user);
+        if (credentials.password === reEnter) {
+            await userServices.registerUser(credentials).then(async (user: User) => {
+                if(user && credentials.password){
+                    await userServices.loginUser({username: credentials.username, password: credentials.password}).then((loggedIn: {user: User, token: string}) => {
+                        setUserToken(loggedIn.token);
+                        setUser(loggedIn.user);
+                        navigate('/');
+                    })
+                } else {
+                    console.log('Error: user not successfully created');
+                }
             })
         } else {
             console.log('Error: Passwords do not match!')
@@ -39,8 +50,8 @@ export default function Register({ credentials, reEnter }: { credentials: User, 
     return (
         <form className='Register' onSubmit={handleSubmit}>
             <h2>Register to start your journey...</h2>
-            <input name='username' value={credentials.cred.username} placeholder='Enter a username...' onChange={handleChange} required />
-            <input name='password' value={credentials.cred.password} type='password' placeholder='Enter a password...' onChange={handleChange} required />
+            <input name='username' value={credentials.username} placeholder='Enter a username...' onChange={handleChange} required />
+            <input name='password' value={credentials.password} type='password' placeholder='Enter a password...' onChange={handleChange} required />
             <input name='reEnter' value={reEnter} type='password' placeholder='Re-Enter your password...' onChange={handleReEnter} required />
             <input type='submit' value='Register' />
         </form>

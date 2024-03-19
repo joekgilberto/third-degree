@@ -34,14 +34,10 @@ export interface Profile {
 
 export interface User {
     id?: string,
-    cred: Cred,
+    username: string,
+    password?: string,
     submissions: Array<string>;
     clearance: number;
-}
-
-export interface Cred {
-    username: string,
-    password?: string
 }
 
 export interface Question {

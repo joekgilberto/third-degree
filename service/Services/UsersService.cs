@@ -26,12 +26,12 @@ namespace service.Services
 
         public async Task<User?> GetByUsernameAsync(string username)
         {
-            return await _usersCollection.Find(x => x.Cred.Username == username).FirstOrDefaultAsync();
+            return await _usersCollection.Find(x => x.Username == username).FirstOrDefaultAsync();
         }
 
-        public async Task<User?> GetByCredentialsAsync(Cred credentials)
+        public async Task<User?> GetByCredentialsAsync(string username, string password)
         {
-            return await _usersCollection.Find(x => x.Cred.Username == credentials.Username && x.Cred.Password == credentials.Password).FirstOrDefaultAsync();
+            return await _usersCollection.Find(x => x.Username == username && x.Password == password).FirstOrDefaultAsync();
         }
 
         public async Task CreateAsync(User newUser)

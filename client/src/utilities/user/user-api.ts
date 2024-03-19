@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Cred, User } from '../types';
+import { User } from '../types';
 
 const BASE_URL = `${process.env.REACT_APP_API_URL}Users/`;
 
@@ -27,7 +27,7 @@ export async function register(data: User) {
 
 };
 
-export async function login(data: Cred) {
+export async function login(data: {username: string, password: string}) {
     return axios
         .put(`${BASE_URL}login/`, data)
         .then((res) => {

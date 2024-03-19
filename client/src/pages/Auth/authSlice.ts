@@ -6,11 +6,9 @@ const authSlice = createSlice({
     name: 'auth',
     initialState: {
         credentials: {
-            cred: {
-                username: '',
-                password: ''
-            },
-        submissions: [],
+            username: '',
+            password: '',
+            submissions: [],
             clearance: 0
         },
         reEnter: ''

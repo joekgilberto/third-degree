@@ -1,5 +1,5 @@
 import * as usersApi from './user-api';
-import { Cred, User } from '../types';
+import { User } from '../types';
 
 export async function getUser(username: string) {
     try {
@@ -19,7 +19,7 @@ export async function registerUser(data: User) {
     }
 }
 
-export async function loginUser(data: Cred) {
+export async function loginUser(data: {username: string, password: string}) {
     try {
         const res = await usersApi.login(data);
         return res.data;

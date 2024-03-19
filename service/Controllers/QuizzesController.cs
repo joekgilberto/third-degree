@@ -2,6 +2,7 @@
 using service.Models;
 using service.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace service.Controllers
 {
@@ -23,6 +24,7 @@ namespace service.Controllers
         }
 
         [HttpGet("{id:length(24)}")]
+        [Authorize]
         public async Task<ActionResult<Quiz>> Get(string id)
         {
             Quiz? quiz = await _quizzesService.GetByIdAsync(id);
@@ -42,6 +44,7 @@ namespace service.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Post(Quiz newQuiz)
         {
             await _quizzesService.CreateAsync(newQuiz);
@@ -50,6 +53,7 @@ namespace service.Controllers
         }
 
         [HttpPut("{id:length(24)}")]
+        [Authorize]
         public async Task<IActionResult> Update(string id, Quiz updatedQuiz)
         {
             Quiz? quiz = await _quizzesService.GetByIdAsync(id);
@@ -67,6 +71,7 @@ namespace service.Controllers
         }
 
         [HttpDelete("{id:length(24)}")]
+        [Authorize]
         public async Task<IActionResult> Remove(string id)
         {
             Quiz? quiz = await _quizzesService.GetByIdAsync(id);

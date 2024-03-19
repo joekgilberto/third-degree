@@ -12,7 +12,7 @@ const quizNewSlice = createSlice({
       submissions: [],
       postingDate: new Date(),
       username: 'joekgilberto',
-      author: '65ee2084f86b1b2bc8530705',
+      author: '65f909f26f46ccb55d4c7665',
       category: ''
     }
   },
