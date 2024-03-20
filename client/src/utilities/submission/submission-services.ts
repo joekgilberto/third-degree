@@ -25,11 +25,14 @@ export async function getSubmission(id: string | undefined) {
 export async function getSubmissionList(ids: Array<string>): Promise<any> {
     try {
         const data: Array<Submission> = [];
-        for (let id of ids){
-            const res = await submissionsApi.show(id);
-            data.push(res.data);
+        if(ids.length){
+            for (let id of ids){
+                const res = await submissionsApi.show(id);
+                data.push(res.data);
+            }
         }
         return data;
+
     } catch (err) {
         return err;
     }

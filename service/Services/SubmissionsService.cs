@@ -33,9 +33,14 @@ namespace service.Services
             await _submissionsCollection.InsertOneAsync(newSubmission);
         }
 
-        public async Task UpdateAsync(string id, Submission updatedSubmission)
+        public async Task<Submission?> UpdateAsync(string id, Submission updatedSubmission)
         {
-            await _submissionsCollection.ReplaceOneAsync(x => x.Id == id, updatedSubmission);
+            var options = new FindOneAndReplaceOptions<Submission>
+            {
+                ReturnDocument = ReturnDocument.After
+            };
+
+            return await _submissionsCollection.FindOneAndReplaceAsync<Submission>(x => x.Id == id, updatedSubmission, options);
         }
 
         public async Task RemoveAsync(string id)

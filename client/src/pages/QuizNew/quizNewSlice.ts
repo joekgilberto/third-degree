@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { Quiz } from '../../utilities/types';
 
-//TODO: make username and author specific to logged in user
 const quizNewSlice = createSlice({
   name: 'quizNew',
   initialState: {

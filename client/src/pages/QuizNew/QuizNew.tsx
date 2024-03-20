@@ -112,6 +112,15 @@ export default function QuizNew() {
 
     useEffect(() => {
         dispatch(setCurrentPage('new'));
+        dispatch(updateQuizNew({
+            title: '',
+            questions: [],
+            submissions: [],
+            postingDate: new Date(),
+            username: '',
+            author: '',
+            category: ''
+          }))
         const fetchedUser: User | null = localStorageTools.getUser();
         if (!fetchedUser) {
             navigate('/auth');

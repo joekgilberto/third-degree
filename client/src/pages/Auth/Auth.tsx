@@ -1,19 +1,25 @@
 import './Auth.css';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Login from '../../components/Login/Login';
 import Register from '../../components/Register/Register';
 import { useSelector } from 'react-redux';
-import { selectCredentials, selectReEnter } from './authSlice';
+import { selectCredentials, selectReEnter, updateCredentials, updateReEnter } from './authSlice';
 import { Credentials } from '../../utilities/types';
+import { useDispatch } from 'react-redux';
 
 export default function Auth() {
 
-    //TODO: Reset credentials everytime you open the page
+    const dispatch = useDispatch();
     const credentials: Credentials = useSelector(selectCredentials);
     const reEnter: string = useSelector(selectReEnter);
     const [toggle, setToggle] = useState<boolean>(false);
+
+    useEffect(()=>{
+        dispatch(updateCredentials({username: '', password: ''}));
+        dispatch(updateReEnter(''));
+    },[])
 
     return (
         <div className='Auth'>

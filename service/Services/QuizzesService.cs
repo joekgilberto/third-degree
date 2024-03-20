@@ -38,9 +38,14 @@ namespace service.Services
 			await _quizzesCollection.InsertOneAsync(newQuiz);
 		}
 
-		public async Task UpdateAsync(string id, Quiz updatedQuiz)
+		public async Task<Quiz?> UpdateAsync(string id, Quiz updatedQuiz)
 		{
-			await _quizzesCollection.ReplaceOneAsync(x => x.Id == id, updatedQuiz);
+            var options = new FindOneAndReplaceOptions<Quiz>
+            {
+                ReturnDocument = ReturnDocument.After
+            };
+
+            return await _quizzesCollection.FindOneAndReplaceAsync<Quiz>(x => x.Id == id, updatedQuiz, options);
 		}
 
 		public async Task RemoveAsync(string id)

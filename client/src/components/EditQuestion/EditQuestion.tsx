@@ -40,7 +40,7 @@ export default function EditQuestion({ question }: { question: Question }) {
     return (
         <div className='EditQuestion'>
             <h3>Question #{question.id + 1} <button onClick={handleDelete}>X</button></h3>
-            <input name='query' placeholder='Type a question' onChange={handleChangeQuery} required />
+            <input name='query' value={question.query} placeholder='Type a question' onChange={handleChangeQuery} required />
             {question.type === 'text' ?
                 <EditText question={question} />
                 : question.type === 'radio' ?

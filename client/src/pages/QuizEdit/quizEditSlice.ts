@@ -3,13 +3,13 @@ import * as quizServices from '../../utilities/quiz/quiz-services';
 import { Quiz } from '../../utilities/types';
 
 export const loadQuiz = createAsyncThunk(
-    'quizEdit/loadQuiz',
-    async (id: string | undefined) => {
-        if (!id) {
-            return 'Error: Invalid id.';
-        }
-        return await quizServices.getQuiz(id);
+  'quizEdit/loadQuiz',
+  async (id: string | undefined) => {
+    if (!id) {
+      throw Error('Error: id undefined.');
     }
+    return await quizServices.getQuiz(id);
+  }
 );
 
 const quizEditSlice = createSlice({
@@ -28,28 +28,28 @@ const quizEditSlice = createSlice({
     hasQuizError: false
   },
   extraReducers: (builder) => {
-      builder
-          .addCase(loadQuiz.pending, (state) => {
-              state.isLoadingQuiz = true;
-              state.hasQuizError = false;
-          })
-          .addCase(loadQuiz.fulfilled, (state, action) => {
-              state.isLoadingQuiz = false;
-              state.quiz = action.payload;
-          })
-          .addCase(loadQuiz.rejected, (state) => {
-              state.isLoadingQuiz = false;
-              state.hasQuizError = true;
-              state.quiz = {
-                title: '',
-                questions: [],
-                submissions: [],
-                postingDate: '',
-                username: '',
-                author: '',
-                category: ''
-              };
-          });
+    builder
+      .addCase(loadQuiz.pending, (state) => {
+        state.isLoadingQuiz = true;
+        state.hasQuizError = false;
+      })
+      .addCase(loadQuiz.fulfilled, (state, action) => {
+        state.isLoadingQuiz = false;
+        state.quiz = action.payload;
+      })
+      .addCase(loadQuiz.rejected, (state) => {
+        state.isLoadingQuiz = false;
+        state.hasQuizError = true;
+        state.quiz = {
+          title: '',
+          questions: [],
+          submissions: [],
+          postingDate: '',
+          username: '',
+          author: '',
+          category: ''
+        };
+      });
   },
   reducers: {
     updateQuizEdit(state, action) {
@@ -59,6 +59,10 @@ const quizEditSlice = createSlice({
 })
 
 export const selectEditQuiz = (state: { quizEdit: { quiz: Quiz; }; }) => state.quizEdit.quiz;
+
+export const isLoading = (state: { quizEdit: { isLoadingQuiz: boolean; }; }) => state.quizEdit.isLoadingQuiz;
+
+export const hasError = (state: { quizEdit: { hasQuizError: boolean; }; }) => state.quizEdit.hasQuizError;
 
 export const { updateQuizEdit } = quizEditSlice.actions
 

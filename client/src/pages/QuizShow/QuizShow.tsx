@@ -17,20 +17,23 @@ export default function QuizShow() {
 
     const { id } = useParams();
     const navigate = useNavigate();
+    const dispatch = useDispatch<AppDispatch>();
     const [user, setUser] = useState<User | null>(null);
     const [retakeId, setRetakeId] = useState<string | null>(null);
     const quiz = useSelector(selectQuiz);
     const newSubmission = useSelector(selectSubmission);
-    const dispatch = useDispatch<AppDispatch>();
 
     async function handleRetake(u: User) {
         await submissionServices.getSubmissionList(u.submissions).then((s) => {
-            const found: Submission | undefined = s.find((submission: Submission) => {
-                return submission.quiz === id
-            })
-
-            if (found?.id) {
-                setRetakeId(found.id);
+            console.log(s)
+            if(s.length){
+                const found: Submission | undefined = s.find((submission: Submission) => {
+                    return submission.quiz === id
+                })
+    
+                if (found?.id) {
+                    setRetakeId(found.id);
+                }
             }
         })
     }

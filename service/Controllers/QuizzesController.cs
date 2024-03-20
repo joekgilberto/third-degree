@@ -54,7 +54,7 @@ namespace service.Controllers
 
         [HttpPut("{id:length(24)}")]
         [Authorize]
-        public async Task<IActionResult> Update(string id, Quiz updatedQuiz)
+        public async Task<ActionResult<Quiz>> Update(string id, Quiz updatedQuiz)
         {
             Quiz? quiz = await _quizzesService.GetByIdAsync(id);
 
@@ -65,9 +65,15 @@ namespace service.Controllers
 
             updatedQuiz.Id = quiz.Id;
 
-            await _quizzesService.UpdateAsync(id, updatedQuiz);
+            Quiz? update = await _quizzesService.UpdateAsync(id, updatedQuiz);
 
-            return NoContent();
+
+            if (update is null)
+            {
+                return NotFound();
+            }
+
+            return update;
         }
 
         [HttpDelete("{id:length(24)}")]
