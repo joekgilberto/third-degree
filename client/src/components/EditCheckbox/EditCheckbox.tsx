@@ -1,36 +1,36 @@
-import './NewCheckbox.css';
+import './EditCheckbox.css';
 
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectNewQuiz, updateQuizNew } from '../../pages/QuizNew/quizNewSlice';
+import { selectEditQuiz, updateQuizEdit } from '../../pages/QuizEdit/quizEditSlice';
 import { Quiz, Question, Choices } from '../../utilities/types';
 
-export default function NewCheckbox({ question }: { question: Question }) {
+export default function EditCheckbox({ question }: { question: Question }) {
 
-    const newQuiz: Quiz = useSelector(selectNewQuiz);
+    const editQuiz: Quiz = useSelector(selectEditQuiz);
     const dispatch = useDispatch();
 
     function handleAddChoice(e: React.MouseEvent<HTMLButtonElement>): void {
-        if (!newQuiz.questions[question.id].choices.c?.length && newQuiz.questions[question.id].choices.c !== '') {
-            let cache: Choices = { ...newQuiz.questions[question.id].choices }
+        if (!editQuiz.questions[question.id].choices.c?.length && editQuiz.questions[question.id].choices.c !== '') {
+            let cache: Choices = { ...editQuiz.questions[question.id].choices }
             cache.c = '';
 
-            const questionArr: Array<Question> = [...newQuiz.questions]
+            const questionArr: Array<Question> = [...editQuiz.questions]
             questionArr[question.id] = { ...questionArr[question.id], choices: { ...cache } }
-            dispatch(updateQuizNew({ ...newQuiz, questions: [...questionArr] }))
-        } else if (!newQuiz.questions[question.id].choices.d?.length && newQuiz.questions[question.id].choices.d !== '') {
-            let cache: Choices = { ...newQuiz.questions[question.id].choices }
+            dispatch(updateQuizEdit({ ...editQuiz, questions: [...questionArr] }))
+        } else if (!editQuiz.questions[question.id].choices.d?.length && editQuiz.questions[question.id].choices.d !== '') {
+            let cache: Choices = { ...editQuiz.questions[question.id].choices }
             cache.d = '';
 
-            const questionArr: Array<Question> = [...newQuiz.questions]
+            const questionArr: Array<Question> = [...editQuiz.questions]
             questionArr[question.id] = { ...questionArr[question.id], choices: { ...cache } }
-            dispatch(updateQuizNew({ ...newQuiz, questions: [...questionArr] }))
+            dispatch(updateQuizEdit({ ...editQuiz, questions: [...questionArr] }))
         };
     };
 
     function handleDeleteChoice(e: React.MouseEvent<HTMLButtonElement>): void {
-        let choicesCache: Choices = { ...newQuiz.questions[question.id].choices };
-        let answersCache: Array<string> = [...newQuiz.questions[question.id].answers];
+        let choicesCache: Choices = { ...editQuiz.questions[question.id].choices };
+        let answersCache: Array<string> = [...editQuiz.questions[question.id].answers];
 
         if ('d' in choicesCache) {
             delete choicesCache.d;
@@ -46,42 +46,50 @@ export default function NewCheckbox({ question }: { question: Question }) {
             };
         };
 
-        const questionArr: Array<Question> = [...newQuiz.questions];
+        const questionArr: Array<Question> = [...editQuiz.questions];
         questionArr[question.id] = { ...questionArr[question.id], choices: { ...choicesCache }, answers: answersCache };
-        dispatch(updateQuizNew({ ...newQuiz, questions: [...questionArr] }));
+        dispatch(updateQuizEdit({ ...editQuiz, questions: [...questionArr] }));
     };
 
     function handleChangeChoice(e: React.ChangeEvent<HTMLInputElement>): void {
-        let cache: Choices = newQuiz.questions[question.id].choices;
+        let cache: Choices = editQuiz.questions[question.id].choices;
         cache = { ...cache, [e.target.name]: e.target.value };
 
-        const questionArr: Array<Question> = [...newQuiz.questions]
+        const questionArr: Array<Question> = [...editQuiz.questions]
         questionArr[question.id] = { ...questionArr[question.id], choices: cache };
-        dispatch(updateQuizNew({ ...newQuiz, questions: [...questionArr] }));
+        dispatch(updateQuizEdit({ ...editQuiz, questions: [...questionArr] }));
     };
 
     function handleAnswer(e: React.ChangeEvent<HTMLInputElement>): void {
-        let cache: Array<string> = newQuiz.questions[question.id].answers;
+        let cache: Array<string> = editQuiz.questions[question.id].answers;
 
         cache = [...cache]
         if (!cache.includes(e.target.value)) {
             cache = [...cache, e.target.value];
 
-            const questionArr: Array<Question> = [...newQuiz.questions];
+            const questionArr: Array<Question> = [...editQuiz.questions];
             questionArr[question.id] = { ...questionArr[question.id], answers: cache };
-            dispatch(updateQuizNew({ ...newQuiz, questions: [...questionArr] }));
+            dispatch(updateQuizEdit({ ...editQuiz, questions: [...questionArr] }));
         } else {
             const idx: number = cache.indexOf(e.target.value);
             cache.splice(idx, 1);
 
-            const questionArr: Array<Question> = [...newQuiz.questions];
+            const questionArr: Array<Question> = [...editQuiz.questions];
             questionArr[question.id] = { ...questionArr[question.id], answers: cache };
-            dispatch(updateQuizNew({ ...newQuiz, questions: [...questionArr] }));
+            dispatch(updateQuizEdit({ ...editQuiz, questions: [...questionArr] }));
         };
     };
 
+    function handleCehcked(value: string): boolean{
+        if (editQuiz.questions[question.id].answers.includes(value)){
+            return true;
+        }
+
+        return false;
+    }
+
     return (
-        <div className='NewCheckbox'>
+        <div className='EditCheckbox'>
             <div className='radio-choices'>
                 <label>A&#41;
                     <input name='a' placeholder='Enter choice A' onChange={handleChangeChoice} required />
@@ -89,42 +97,40 @@ export default function NewCheckbox({ question }: { question: Question }) {
                 <label>B&#41;
                     <input name='b' placeholder='Enter choice B' onChange={handleChangeChoice} required />
                 </label>
-                {newQuiz.questions[question.id].choices.c?.length || newQuiz.questions[question.id].choices.c === '' ?
+                {editQuiz.questions[question.id].choices.c?.length || editQuiz.questions[question.id].choices.c === '' ?
                     <label>C&#41;
                         <input name='c' placeholder='Enter choice C' onChange={handleChangeChoice} required />
-                        {newQuiz.questions[question.id].choices.d?.length || newQuiz.questions[question.id].choices.d !== '' ?
+                        {editQuiz.questions[question.id].choices.d?.length || editQuiz.questions[question.id].choices.d !== '' ?
                             <button onClick={handleDeleteChoice}>X</button>
                             : null}
                     </label>
                     : null}
-                {newQuiz.questions[question.id].choices.d?.length || newQuiz.questions[question.id].choices.d === '' ?
+                {editQuiz.questions[question.id].choices.d?.length || editQuiz.questions[question.id].choices.d === '' ?
                     <label>D&#41;
                         <input name='d' placeholder='Enter choice D' onChange={handleChangeChoice} required />
                         <button onClick={handleDeleteChoice}>X</button>
                     </label>
-                    :
-                    <button onClick={handleAddChoice}>+ Add a Choice</button>
-                }
+                    : <button onClick={handleAddChoice}>+ Add a Choice</button>}
             </div>
             <div>
                 <h3>Answer #{question.id + 1}</h3>
                 <label>
-                    <input type='checkbox' value='a' onChange={handleAnswer} />
+                    <input type='checkbox' value='a' onChange={handleAnswer} checked={handleCehcked('a')} />
                     A
                 </label>
                 <label>
-                    <input type='checkbox' value='b' onChange={handleAnswer} />
+                    <input type='checkbox' value='b' onChange={handleAnswer} checked={handleCehcked('b')} />
                     B
                 </label>
-                {newQuiz.questions[question.id].choices.c?.length || newQuiz.questions[question.id].choices.c === '' ?
+                {editQuiz.questions[question.id].choices.c?.length || editQuiz.questions[question.id].choices.c === '' ?
                     <label>
-                        <input type='checkbox' value='c' onChange={handleAnswer} />
+                        <input type='checkbox' value='c' onChange={handleAnswer} checked={handleCehcked('c')} />
                         C
                     </label>
                     : null}
-                {newQuiz.questions[question.id].choices.d?.length || newQuiz.questions[question.id].choices.d === '' ?
+                {editQuiz.questions[question.id].choices.d?.length || editQuiz.questions[question.id].choices.d === '' ?
                     <label>
-                        <input type='checkbox' value='d' onChange={handleAnswer} />
+                        <input type='checkbox' value='d' onChange={handleAnswer} checked={handleCehcked('d')} />
                         D
                     </label>
                     : null}

@@ -31,7 +31,6 @@ export default function QuizShow() {
 
             if (found?.id) {
                 setRetakeId(found.id);
-                console.log(found.id);
             }
         })
     }
@@ -61,7 +60,7 @@ export default function QuizShow() {
     }
 
     async function handleQuizUpdate(s: Submission) {
-        if (s.id && quiz.id) {
+        if (s.id) {
             const updatedQuiz: Quiz = { ...quiz };
             if (updatedQuiz.submissions) {
                 updatedQuiz.submissions = [...updatedQuiz.submissions, s.id];
@@ -84,7 +83,7 @@ export default function QuizShow() {
         e.preventDefault();
         if (user) {
             await submissionServices.createSubmission({ ...newSubmission, score: handleScore(newSubmission) }).then(async (submission: Submission) => {
-                if (submission?.id && quiz?.id) {
+                if (submission?.id) {
                     if (retakeId) {
                         const submissions: Array<string> = [...user.submissions];
                         const idx: number = submissions.indexOf(retakeId);
@@ -118,7 +117,7 @@ export default function QuizShow() {
     }, [])
 
     useEffect(() => {
-        if (quiz?.id) {
+        if (quiz) {
             const answerArr: Array<Answer> = [];
             for (let i = 0; i < quiz.questions.length; i++) {
                 answerArr.push({

@@ -10,8 +10,11 @@ export async function getAllSubmissions() {
     }
 }
 
-export async function getSubmission(id: string) {
+export async function getSubmission(id: string | undefined) {
     try {
+        if(!id){
+            throw Error('Error: id undefined.');
+        }
         const res = await submissionsApi.show(id);
         return res.data;
     } catch (err) {
@@ -41,8 +44,11 @@ export async function createSubmission(data: Submission) {
     }
 }
 
-export async function updateSubmission(id: string, data: Submission) {
+export async function updateSubmission(id: string | undefined, data: Submission) {
     try {
+        if(!id){
+            throw Error('Error: id undefined.');
+        }
         const res = await submissionsApi.update(id, data);
         return res.data;
     } catch (err) {
@@ -50,8 +56,11 @@ export async function updateSubmission(id: string, data: Submission) {
     }
 }
 
-export async function destroySubmission(id: string) {
+export async function destroySubmission(id: string | undefined) {
     try {
+        if(!id){
+            throw Error('Error: id undefined.');
+        }
         const res = await submissionsApi.destroy(id);
         return res.data;
     } catch (err) {

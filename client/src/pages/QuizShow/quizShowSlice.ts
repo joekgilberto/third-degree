@@ -24,8 +24,8 @@ export const quizSlice = createSlice({
             answers: [],
             score: 0,
             submissionDate: new Date(),
-            username: 'joekgilberto',
-            challenger: '65f909f26f46ccb55d4c7665',
+            username: '',
+            challenger: '',
             quiz: ''
         },
         isLoadingQuiz: false,
@@ -44,7 +44,15 @@ export const quizSlice = createSlice({
             .addCase(loadQuiz.rejected, (state) => {
                 state.isLoadingQuiz = false;
                 state.hasQuizError = true;
-                state.quiz = {};
+                state.quiz = {
+                    title: '',
+                    questions: [],
+                    submissions: [],
+                    postingDate: '',
+                    username: '',
+                    author: '',
+                    category: ''
+                  };
             });
     },
     reducers: {

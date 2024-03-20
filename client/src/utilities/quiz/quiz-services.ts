@@ -37,8 +37,11 @@ export async function getHardestQuizzes() {
     }
 }
 
-export async function getQuiz(id: string) {
+export async function getQuiz(id: string | undefined) {
     try {
+        if(!id){
+            throw Error('Error: id undefined.');
+        }
         const res = await quizzesApi.show(id);
         return res.data;
     } catch (err) {
@@ -47,10 +50,10 @@ export async function getQuiz(id: string) {
 }
 
 export async function getQuizByCategory(id: string | undefined) {
-    if (!id) {
-        return 'Error: id not defined.';
-    }
     try {
+        if(!id){
+            throw Error('Error: id undefined.');
+        }
         const res = await quizzesApi.byCategory(id);
         res.data.sort((a: Quiz, b: Quiz) => a.title.localeCompare(b.title))
         return res.data;
@@ -68,8 +71,11 @@ export async function createQuiz(data: Quiz) {
     }
 }
 
-export async function updateQuiz(id: string, data: Quiz) {
+export async function updateQuiz(id: string | undefined, data: Quiz) {
     try {
+        if(!id){
+            throw Error('Error: id undefined.');
+        }
         const res = await quizzesApi.update(id, data);
         return res.data;
     } catch (err) {
@@ -77,8 +83,11 @@ export async function updateQuiz(id: string, data: Quiz) {
     }
 }
 
-export async function destroyQuiz(id: string) {
+export async function destroyQuiz(id: string | undefined) {
     try {
+        if(!id){
+            throw Error('Error: id undefined.');
+        }
         const res = await quizzesApi.destroy(id);
         return res.data;
     } catch (err) {

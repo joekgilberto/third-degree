@@ -112,11 +112,12 @@ export default function QuizNew() {
 
     useEffect(() => {
         dispatch(setCurrentPage('new'));
-        const fetchedUser: User | null = localStorage.getUser();
+        const fetchedUser: User | null = localStorageTools.getUser();
         if (!fetchedUser) {
             navigate('/auth');
         } else {
             setUser(fetchedUser);
+            dispatch(updateQuizNew({...newQuiz, username: fetchedUser.username, author: fetchedUser.id}))
             handleRequest();
         };
     }, [])
@@ -129,7 +130,7 @@ export default function QuizNew() {
         <div className='QuizNew'>
             <h2>New Quiz</h2>
             <form onSubmit={handleSubmit}>
-                <div className='new-header'>
+                <div className='form-header'>
                     <input name='title' placeholder='Enter Title' onChange={handleChange} />
                     {!newCategoryToggle ?
                         <select name='category' defaultValue={''} onChange={handleCategory} required>
@@ -147,7 +148,7 @@ export default function QuizNew() {
                     }
                 </div>
                 {newCategoryToggle ?
-                    <div className='new-note'>
+                    <div className='form-note'>
                         <p>*Please create a new category at your own discretion.  We here at Third Degree recommend keeping category names concise and relevant.  Admins reserve the right to edit, merge, or delete any new categories.</p>
                     </div>
                     : null}
@@ -162,7 +163,7 @@ export default function QuizNew() {
                         {!newQuestion ?
                             <button onClick={(e) => setNewQuestion(true)}>+ Add a Question</button>
                             :
-                            <div className='new-question-options'>
+                            <div className='form-question-options'>
                                 <button onClick={(e) => addQuestion('text')}>Short Answer</button>
                                 <button onClick={(e) => addQuestion('radio')}>Multiple Choice</button>
                                 <button onClick={(e) => addQuestion('checkbox')}>Select All</button>
