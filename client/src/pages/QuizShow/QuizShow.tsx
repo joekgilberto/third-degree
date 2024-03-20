@@ -85,6 +85,7 @@ export default function QuizShow() {
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         if (user) {
+            console.log({ ...newSubmission, score: handleScore(newSubmission) })
             await submissionServices.createSubmission({ ...newSubmission, score: handleScore(newSubmission) }).then(async (submission: Submission) => {
                 if (submission?.id) {
                     if (retakeId) {
@@ -92,14 +93,14 @@ export default function QuizShow() {
                         const idx: number = submissions.indexOf(retakeId);
                         submissions.splice(idx, 1, submission.id)
                         await userServices.addSubmission(user.id, submissions).then((u: User) => {
-                            localStorage.setUser(u);
+                            localStorageTools.setUser(u);
                             handleQuizUpdate(submission);
                         })
                     } else {
                         const submissions: Array<string> = [...user.submissions];
                         submissions.push(submission.id);
                         await userServices.addSubmission(user.id, submissions).then((u: User) => {
-                            localStorage.setUser(u);
+                            localStorageTools.setUser(u);
                             handleQuizUpdate(submission);
                         })
                     }
@@ -115,7 +116,6 @@ export default function QuizShow() {
             navigate('/auth');
         } else {
             setUser(fetchedUser);
-            handleRetake(fetchedUser);
         };
     }, [])
 
@@ -136,6 +136,17 @@ export default function QuizShow() {
             }))
         }
     }, [quiz])
+
+    useEffect(()=>{
+        if(user){
+            handleRetake(user);
+            dispatch(updateSubmissionNew({
+                ...newSubmission,
+                username: user.username,
+                challenger: user.id,
+            }))
+        }
+    },[user])
 
     if (!user || !quiz?.id || !newSubmission.answers?.length) {
         return <p>Loading...</p>
