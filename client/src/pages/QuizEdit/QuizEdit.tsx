@@ -114,7 +114,8 @@ export default function QuizEdit() {
 
     useEffect(() => {
         dispatch(setCurrentPage('new'));
-        if (!user.id) {
+        const fetchedUser = localStorageTools.getUser()
+        if (!fetchedUser) {
             navigate('/auth');
         } else {
             dispatch(loadQuiz(id));

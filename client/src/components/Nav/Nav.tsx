@@ -41,7 +41,7 @@ export default function Nav() {
           </Link>
         </div>
         {/* TODO: Toggle Login to profile link when logged in */}
-        {user ?
+        {user.id ?
           <Link to='/account'>
             <button className='auth'>@ {user.username}</button>
           </Link>

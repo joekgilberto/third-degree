@@ -31,7 +31,9 @@ export default function SubmissionShow() {
     }
     
     useEffect(() => {
-        if (!user.id) {
+        const fetchedUser = localStorageTools.getUser()
+
+        if (!fetchedUser) {
             navigate('/auth');
         } else {
             handleRequest();

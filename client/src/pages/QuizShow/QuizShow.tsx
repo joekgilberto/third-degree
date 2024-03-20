@@ -127,7 +127,8 @@ export default function QuizShow() {
     }
 
     useEffect(() => {
-        if (!user.id) {
+        const fetchedUser = localStorageTools.getUser()
+        if (!fetchedUser) {
             navigate('/auth');
         } else {
             dispatch(loadQuiz(id))

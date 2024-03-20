@@ -123,7 +123,8 @@ export default function QuizNew() {
             category: ''
 
         }))
-        if (!user.id) {
+        const fetchedUser = localStorageTools.getUser()
+        if (!fetchedUser) {
             navigate('/auth');
         } else {
             dispatch(updateQuizNew({ ...newQuiz, username: user.username, author: user.id }))
