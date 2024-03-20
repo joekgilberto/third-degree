@@ -12,7 +12,10 @@ import QuizEdit from '../../pages/QuizEdit/QuizEdit';
 import SubmissionShow from '../../pages/SubmissionShow/SubmissionShow';
 import Account from '../../pages/Account/Account';
 import Auth from '../../pages/Auth/Auth';
+import PrivateRoute from '../CustomRoutes/PrivateRoute';
 
+//TODO adds PrivateRoutes
+//TODO if logged in, redirect Auth to Account
 export default function Main() {
   return (
     <main>

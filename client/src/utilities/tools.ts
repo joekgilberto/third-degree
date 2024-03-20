@@ -1,6 +1,6 @@
 import { jwtDecode } from 'jwt-decode';
 
-export function decodeToken(token: string) {
+export function decodeToken(token: string): {aud: string, exp: number, iat: number, iss: string, nameid: string, nbf: number} {
     return jwtDecode(token);
 };
 
