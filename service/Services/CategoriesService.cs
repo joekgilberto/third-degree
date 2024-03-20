@@ -33,9 +33,14 @@ namespace service.Services
             await _categoriesCollection.InsertOneAsync(newCategory);
         }
 
-        public async Task UpdateAsync(string id, Category updatedCategory)
+        public async Task<Category?> UpdateAsync(string id, Category updatedCategory)
         {
-            await _categoriesCollection.ReplaceOneAsync(x => x.Id == id, updatedCategory);
+            var options = new FindOneAndReplaceOptions<Category>
+            {
+                ReturnDocument = ReturnDocument.After
+            };
+
+            return await _categoriesCollection.FindOneAndReplaceAsync<Category>(x => x.Id == id, updatedCategory, options);
         }
 
         public async Task RemoveAsync(string id)

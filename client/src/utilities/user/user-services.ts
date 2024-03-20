@@ -28,8 +28,11 @@ export async function loginUser(data: Credentials) {
     }
 }
 
-export async function addSubmission(id: string, submissions: Array<string>){
+export async function addSubmission(id: string | undefined, submissions: Array<string>){
     try {
+        if(!id){
+            throw Error('Error: id undefined.');
+        }
         const res = await usersApi.submit(id, submissions);
         return res.data;
     } catch (err) {

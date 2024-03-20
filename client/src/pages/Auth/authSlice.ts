@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Credentials } from '../../utilities/types';
 
-//TODO: make username and author specific to logged in user
 const authSlice = createSlice({
     name: 'auth',
     initialState: {

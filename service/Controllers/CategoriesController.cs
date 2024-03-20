@@ -47,7 +47,7 @@ namespace service.Controllers
 
         [HttpPut("{id:length(24)}")]
         [Authorize]
-        public async Task<IActionResult> Update(string id, Category updatedCategory)
+        public async Task<ActionResult<Category>> Update(string id, Category updatedCategory)
         {
             Category? category = await _categoriesService.GetByIdAsync(id);
 
@@ -58,9 +58,14 @@ namespace service.Controllers
 
             updatedCategory.Id = category.Id;
 
-            await _categoriesService.UpdateAsync(id, updatedCategory);
+            Category? update = await _categoriesService.UpdateAsync(id, updatedCategory);
 
-            return NoContent();
+            if (update is null)
+            {
+                return NotFound();
+            }
+
+            return update;
         }
 
         [HttpDelete("{id:length(24)}")]

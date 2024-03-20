@@ -1,15 +1,12 @@
-//Imports thunk and slice tools from Redux toolkit and custom tvmaze and review services API tools
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import * as quizServices from '../../utilities/quiz/quiz-services';
-import * as submissionServices from '../../utilities/submission/submission-services';
 import { Quiz, Submission } from '../../utilities/types';
 
-//Creates an async thunk to call a shows based on a passed through id, along with its reviews, and then calculates the average of its reviews
 export const loadQuiz = createAsyncThunk(
     'quizShow/loadQuiz',
     async (id: string | undefined) => {
         if (!id) {
-            return 'Error: Invalid id.';
+            throw Error('Error: id undefined.');
         }
         return await quizServices.getQuiz(id);
     }
@@ -19,13 +16,21 @@ export const loadQuiz = createAsyncThunk(
 export const quizSlice = createSlice({
     name: 'quizShow',
     initialState: {
-        quiz: {},
+        quiz: {
+            title: '',
+            questions: [],
+            submissions: [],
+            postingDate: '',
+            username: '',
+            author: '',
+            category: ''
+          },
         submission: {
             answers: [],
             score: 0,
             submissionDate: new Date(),
-            username: 'joekgilberto',
-            challenger: '65f909f26f46ccb55d4c7665',
+            username: '',
+            challenger: '',
             quiz: ''
         },
         isLoadingQuiz: false,
@@ -44,7 +49,15 @@ export const quizSlice = createSlice({
             .addCase(loadQuiz.rejected, (state) => {
                 state.isLoadingQuiz = false;
                 state.hasQuizError = true;
-                state.quiz = {};
+                state.quiz = {
+                    title: '',
+                    questions: [],
+                    submissions: [],
+                    postingDate: '',
+                    username: '',
+                    author: '',
+                    category: ''
+                  };
             });
     },
     reducers: {

@@ -1,40 +1,42 @@
-import './QuizNew.css';
+import './QuizEdit.css';
 
 import React, { useEffect, useState } from 'react';
 import * as quizServices from '../../utilities/quiz/quiz-services';
 import * as categoryServices from '../../utilities/category/category-services';
-import { selectNewQuiz, updateQuizNew } from './quizNewSlice';
+import { selectEditQuiz, updateQuizEdit, loadQuiz, isLoading } from './quizEditSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Category, Question, Quiz, User } from '../../utilities/types';
-import NewQuestion from '../../components/NewQuestion/NewQuestion';
-import { useNavigate } from 'react-router-dom';
+import EditQuestion from '../../components/EditQuestion/EditQuestion';
+import { useNavigate, useParams } from 'react-router-dom';
 import { setCurrentPage } from '../../components/Nav/navSlice';
 import * as localStorageTools from '../../utilities/local-storage';
+import { AppDispatch } from '../../App/store';
 import { selectUser } from '../../App/appSlice';
 
-export default function QuizNew() {
+export default function QuizEdit() {
 
+    const { id } = useParams();
     const navigate = useNavigate();
-    //TODO: Reset quiz everytime you open the page
-    const newQuiz = useSelector(selectNewQuiz);
-    const dispatch = useDispatch();
+    const editQuiz = useSelector(selectEditQuiz);
+    const loading = useSelector(isLoading);
+    const dispatch = useDispatch<AppDispatch>();
 
     const [newCategoryToggle, setNewCategoryToggle] = useState<boolean>(false);
     const [newCategory, setNewCategory] = useState<string>();
-    const [newQuestion, setNewQuestion] = useState<boolean>(false);
+    const [editQuestion, setEditQuestion] = useState<boolean>(false);
     const [categories, setCategories] = useState<Array<Category>>([]);
     const user = useSelector(selectUser);
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-        dispatch(updateQuizNew({ ...newQuiz, [e.target.name]: e.target.value }))
+        dispatch(updateQuizEdit({ ...editQuiz, [e.target.name]: e.target.value }))
     }
 
     function handleCategory(e: React.ChangeEvent<HTMLSelectElement>) {
         if (e.target.value === 'new') {
             setNewCategoryToggle(true);
-            dispatch(updateQuizNew({ ...newQuiz, category: '' }))
+            dispatch(updateQuizEdit({ ...editQuiz, category: '' }))
         } else {
-            dispatch(updateQuizNew({ ...newQuiz, category: e.target.value }))
+            dispatch(updateQuizEdit({ ...editQuiz, category: e.target.value }))
         };
     };
 
@@ -43,16 +45,16 @@ export default function QuizNew() {
     }
 
     function handleExitCategory() {
-        dispatch(updateQuizNew({ ...newQuiz, category: '' }))
+        dispatch(updateQuizEdit({ ...editQuiz, category: '' }))
         setNewCategoryToggle(false);
     }
 
     function addQuestion(type: string) {
-        setNewQuestion(false)
-        dispatch(updateQuizNew({
-            ...newQuiz,
-            questions: [...newQuiz.questions, {
-                id: newQuiz.questions.length,
+        setEditQuestion(false)
+        dispatch(updateQuizEdit({
+            ...editQuiz,
+            questions: [...editQuiz.questions, {
+                id: editQuiz.questions.length,
                 type: type,
                 query: '',
                 choices: {
@@ -67,22 +69,22 @@ export default function QuizNew() {
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        for (let i = 0; i < newQuiz.questions.length; i++) {
-            if (newQuiz.questions[i].type === 'checkbox') {
-                if (!newQuiz.questions[i].answers.length) {
+        for (let i = 0; i < editQuiz.questions.length; i++) {
+            if (editQuiz.questions[i].type === 'checkbox') {
+                if (!editQuiz.questions[i].answers.length) {
                     console.log(`Error: No answer selected on question #${i + 1}`)
                     return;
                 }
             }
         }
-
+        
         if (newCategory) {
             categoryServices.createCategory({ title: newCategory }).then(async (category: Category) => {
                 if (category.id) {
-                    let cache = { ...newQuiz, category: category.id };
+                    let cache = { ...editQuiz, category: category.id };
                     try {
-                        await quizServices.createQuiz(cache).then((quiz: Quiz) => {
-                            navigate(`/categories/${quiz.category}`)
+                        await quizServices.updateQuiz(id, cache).then((quiz: Quiz) => {
+                            navigate(`/quiz/${quiz.id}`)
                         });
                     } catch (err) {
                         console.log(err)
@@ -95,8 +97,8 @@ export default function QuizNew() {
             })
         } else {
             try {
-                await quizServices.createQuiz(newQuiz).then((quiz: Quiz) => {
-                    navigate(`/categories/${quiz.category}`)
+                await quizServices.updateQuiz(id, editQuiz).then((quiz: Quiz) => {
+                    navigate(`/quiz/${quiz.id}`)
                 });
             } catch (err) {
                 console.log(err)
@@ -106,49 +108,47 @@ export default function QuizNew() {
 
     async function handleRequest() {
         await categoryServices.getAllCategories().then((categories: Array<Category>) => {
-            console.log(categories)
             setCategories(categories)
         })
     }
 
     useEffect(() => {
         dispatch(setCurrentPage('new'));
-        dispatch(updateQuizNew({
-            title: '',
-            questions: [],
-            submissions: [],
-            postingDate: new Date(),
-            username: '',
-            author: '',
-            category: ''
-
-        }))
         const fetchedUser = localStorageTools.getUser()
         if (!fetchedUser) {
             navigate('/auth');
         } else {
-            dispatch(updateQuizNew({ ...newQuiz, username: user.username, author: user.id }))
-            handleRequest();
-        };
+            dispatch(loadQuiz(id));
+        }
     }, [])
+
+    useEffect(()=>{
+        if(editQuiz.id){
+            if (user.id !== editQuiz.author) {
+                navigate(`/quiz/${editQuiz.id}`);
+            } else {
+                handleRequest();
+            };
+        }
+    },[editQuiz])
 
     if (!categories?.length) {
         return <p>Loading...</p>
     }
 
     return (
-        <div className='QuizNew'>
-            <h2>New Quiz</h2>
+        <div className='QuizEdit'>
+            <h2>Edit Quiz</h2>
             <form onSubmit={handleSubmit}>
                 <div className='form-header'>
-                    <input name='title' placeholder='Enter Title' onChange={handleChange} />
+                    <input name='title' value={editQuiz.title} placeholder='Enter Title' onChange={handleChange} />
                     {!newCategoryToggle ?
-                        <select name='category' defaultValue={''} onChange={handleCategory} required>
+                        <select name='category' defaultValue={editQuiz.category} onChange={handleCategory} required>
                             <option disabled value=''>Choose a Category</option>
                             {categories.map((category: Category) => {
                                 return <option key={category.id} value={category.id}>{category.title}</option>
                             })}
-                            <option value='new'>(New Category)</option>
+                            <option value='form'>(New Category)</option>
                         </select>
                         :
                         <>
@@ -163,25 +163,25 @@ export default function QuizNew() {
                     </div>
                     : null}
                 <div>
-                    {newQuiz.questions?.map((question: Question, idx) => {
+                    {editQuiz.questions?.map((question: Question, idx) => {
                         return (<>
-                            <NewQuestion key={idx} question={question} />
+                            <EditQuestion key={idx} question={question} />
                             <hr />
                         </>)
                     })}
                     <div>
-                        {!newQuestion ?
-                            <button onClick={(e) => setNewQuestion(true)}>+ Add a Question</button>
+                        {!editQuestion ?
+                            <button onClick={(e) => setEditQuestion(true)}>+ Add a Question</button>
                             :
                             <div className='form-question-options'>
                                 <button onClick={(e) => addQuestion('text')}>Short Answer</button>
                                 <button onClick={(e) => addQuestion('radio')}>Multiple Choice</button>
                                 <button onClick={(e) => addQuestion('checkbox')}>Select All</button>
-                                <button onClick={(e) => setNewQuestion(false)}>X</button>
+                                <button onClick={(e) => setEditQuestion(false)}>X</button>
                             </div>
                         }
-                        {newQuiz.questions.length ?
-                            <input type='submit' value='Submit' />
+                        {editQuiz.questions.length ?
+                            <input type='submit' value='Save' />
                             :
                             null}
                     </div>

@@ -7,12 +7,14 @@ import * as submissionServices from '../../utilities/submission/submission-servi
 import * as quizServices from '../../utilities/quiz/quiz-services';
 import * as localStorageTools from '../../utilities/local-storage';
 import SubmissionQuestion from '../../components/SubmissionQuestion/SubmissionQuestion';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../App/appSlice';
 
 export default function SubmissionShow() {
 
     const { id } = useParams();
     const navigate = useNavigate();
-    const [user, setUser] = useState<User | null>(null);
+    const user = useSelector(selectUser);
     const [submission, setSubmission] = useState<Submission>();
     const [quiz, setQuiz] = useState<Quiz>();
 
@@ -29,16 +31,16 @@ export default function SubmissionShow() {
     }
     
     useEffect(() => {
-        const fetchedUser: User | null = localStorageTools.getUser();
+        const fetchedUser = localStorageTools.getUser()
+
         if (!fetchedUser) {
             navigate('/auth');
         } else {
-            setUser(fetchedUser);
             handleRequest();
         };
     }, [])
 
-    if (!user || !submission?.id || !quiz?.id) {
+    if (!submission?.id || !quiz?.id) {
         return <p>Loading...</p>
     }
 

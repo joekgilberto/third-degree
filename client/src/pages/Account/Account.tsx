@@ -4,35 +4,48 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as submissionServices from '../../utilities/submission/submission-services';
 import * as localStorageTools from '../../utilities/local-storage';
-import { Submission, User } from '../../utilities/types';
+import { Submission } from '../../utilities/types';
 
 import SubmissionCard from '../../components/SubmissionCard/SubmissionCard';
+import { useSelector } from 'react-redux';
+import { selectUser, updateUser } from '../../App/appSlice';
+import { useDispatch } from 'react-redux';
 
 export default function Account() {
 
     const navigate = useNavigate();
-    const [user, setUser] = useState<User | null>(null);
+    const dispatch = useDispatch();
+    const user = useSelector(selectUser);
     const [submissions, setSubmissions] = useState<Array<Submission> | null>(null);
 
     useEffect(() => {
-        const fetchedUser: User | null = localStorageTools.getUser();
-        if (!fetchedUser) {
-            navigate('/auth');
+        const fetchedUser = localStorageTools.getUser()
+        if(!fetchedUser){
+            navigate('/auth')
         } else {
-            setUser(fetchedUser);
-        };
+            handleReqeust();
+        }
     }, [])
 
-    async function handleReqeust(u: User) {
-        await submissionServices.getSubmissionList(u.submissions).then(async (s) => {
+    async function handleReqeust() {
+        await submissionServices.getSubmissionList(user).then(async (s) => {
+            console.log(s)
             if (s.length) {
                 setSubmissions(s)
             }
         })
     }
 
-    if (!user) {
-        return <p>Loading...</p>
+    function handleLogout(e: React.MouseEvent<HTMLButtonElement, MouseEvent>){
+        localStorageTools.clearUser();
+        localStorageTools.clearUserToken();
+        dispatch((updateUser({
+            id: '',
+            username: '',
+            submissions: [],
+            clearance: 0
+        })))
+        navigate('/')
     }
 
     return (
@@ -41,11 +54,12 @@ export default function Account() {
             <hr />
             <h3>Submissions:</h3>
             {submissions?.length ?
-                submissions.map((s: Submission)=>{
+                submissions.map((s: Submission) => {
                     return <SubmissionCard submission={s} />
                 })
                 :
                 <p>No submissions, yet!</p>}
+                <button onClick={handleLogout}>Logout</button>
         </div>
     );
 };

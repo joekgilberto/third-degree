@@ -47,7 +47,7 @@ namespace service.Controllers
 
         [HttpPut("{id:length(24)}")]
         [Authorize]
-        public async Task<IActionResult> Update(string id, Submission updatedSubmission)
+        public async Task<ActionResult<Submission>> Update(string id, Submission updatedSubmission)
         {
             Submission? submission = await _submissionsService.GetByIdAsync(id);
 
@@ -58,9 +58,14 @@ namespace service.Controllers
 
             updatedSubmission.Id = submission.Id;
 
-            await _submissionsService.UpdateAsync(id, updatedSubmission);
+            Submission? update = await _submissionsService.UpdateAsync(id, updatedSubmission);
 
-            return NoContent();
+            if (update is null)
+            {
+                return NotFound();
+            }
+
+            return update;
         }
 
         [HttpDelete("{id:length(24)}")]

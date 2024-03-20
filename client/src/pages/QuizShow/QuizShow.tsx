@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadQuiz, selectQuiz, selectSubmission, updateSubmissionNew } from './quizShowSlice';
 import { Answer, Question, Quiz, Submission, User } from '../../utilities/types';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { AppDispatch } from '../../App/store';
 import * as submissionServices from '../../utilities/submission/submission-services';
 import * as quizServices from '../../utilities/quiz/quiz-services';
@@ -12,28 +12,42 @@ import * as userServices from '../../utilities/user/user-services';
 import * as localStorageTools from '../../utilities/local-storage';
 
 import ShowQuestion from '../../components/ShowQuestion/ShowQuestion';
+import { selectUser, updateUser } from '../../App/appSlice';
 
 export default function QuizShow() {
 
     const { id } = useParams();
     const navigate = useNavigate();
-    const [user, setUser] = useState<User | null>(null);
+    const dispatch = useDispatch<AppDispatch>();
+    const user = useSelector(selectUser);
     const [retakeId, setRetakeId] = useState<string | null>(null);
+    const [deleteToggle, setDeleteToggle] = useState<boolean>(false)
     const quiz = useSelector(selectQuiz);
     const newSubmission = useSelector(selectSubmission);
-    const dispatch = useDispatch<AppDispatch>();
+
+
+    async function handleDelete(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+        quizServices.destroyQuiz(quiz.id).then(() => {
+            //TODO: remove deleted quiz submissions and all ids from submission lists in users- try to do this on the service side
+            navigate(`/`);
+        })
+    }
 
     async function handleRetake(u: User) {
-        await submissionServices.getSubmissionList(u.submissions).then((s) => {
-            const found: Submission | undefined = s.find((submission: Submission) => {
-                return submission.quiz === id
-            })
+        if (u.submissions.length) {
+            await submissionServices.getSubmissionList(u).then((s) => {
+                if (s.length) {
+                    console.log(s)
+                    const found: Submission | undefined = s.find((submission: Submission) => {
+                        return submission.quiz === id
+                    })
 
-            if (found?.id) {
-                setRetakeId(found.id);
-                console.log(found.id);
-            }
-        })
+                    if (found?.id) {
+                        setRetakeId(found.id);
+                    }
+                }
+            })
+        }
     }
 
     function handleScore(submission: Submission): number {
@@ -60,8 +74,31 @@ export default function QuizShow() {
         return (correct / quiz.questions.length) * 100;
     }
 
+    async function handleAddSubmission(submission: Submission) {
+        if (submission?.id && user) {
+            if (retakeId) {
+                const submissions: Array<string> = [...user.submissions];
+                const idx: number = submissions.indexOf(retakeId);
+                submissions.splice(idx, 1, submission.id)
+                await userServices.addSubmission(user.id, submissions).then((u: User) => {
+                    localStorageTools.setUser(u);
+                    dispatch(updateUser(u))
+                    handleQuizUpdate(submission);
+                })
+            } else {
+                const submissions: Array<string> = [...user.submissions];
+                submissions.push(submission.id);
+                await userServices.addSubmission(user.id, submissions).then((u: User) => {
+                    localStorageTools.setUser(u);
+                    dispatch(updateUser(u))
+                    handleQuizUpdate(submission);
+                })
+            }
+        }
+    }
+
     async function handleQuizUpdate(s: Submission) {
-        if (s.id && quiz.id) {
+        if (s.id) {
             const updatedQuiz: Quiz = { ...quiz };
             if (updatedQuiz.submissions) {
                 updatedQuiz.submissions = [...updatedQuiz.submissions, s.id];
@@ -84,41 +121,23 @@ export default function QuizShow() {
         e.preventDefault();
         if (user) {
             await submissionServices.createSubmission({ ...newSubmission, score: handleScore(newSubmission) }).then(async (submission: Submission) => {
-                if (submission?.id && quiz?.id) {
-                    if (retakeId) {
-                        const submissions: Array<string> = [...user.submissions];
-                        const idx: number = submissions.indexOf(retakeId);
-                        submissions.splice(idx, 1, submission.id)
-                        await userServices.addSubmission(user.id, submissions).then((u: User) => {
-                            localStorage.setUser(u);
-                            handleQuizUpdate(submission);
-                        })
-                    } else {
-                        const submissions: Array<string> = [...user.submissions];
-                        submissions.push(submission.id);
-                        await userServices.addSubmission(user.id, submissions).then((u: User) => {
-                            localStorage.setUser(u);
-                            handleQuizUpdate(submission);
-                        })
-                    }
-                }
+                handleAddSubmission(submission);
             })
         }
     }
 
     useEffect(() => {
-        dispatch(loadQuiz(id))
-        const fetchedUser: User | null = localStorageTools.getUser();
+        const fetchedUser = localStorageTools.getUser()
         if (!fetchedUser) {
             navigate('/auth');
         } else {
-            setUser(fetchedUser);
-            handleRetake(fetchedUser);
-        };
+            dispatch(loadQuiz(id))
+            handleRetake(user);
+        }
     }, [])
 
     useEffect(() => {
-        if (quiz?.id) {
+        if (quiz) {
             const answerArr: Array<Answer> = [];
             for (let i = 0; i < quiz.questions.length; i++) {
                 answerArr.push({
@@ -130,12 +149,14 @@ export default function QuizShow() {
             dispatch(updateSubmissionNew({
                 ...newSubmission,
                 answers: answerArr,
-                quiz: quiz.id
+                quiz: quiz.id,
+                username: user.username,
+                challenger: user.id
             }))
         }
     }, [quiz])
 
-    if (!user || !quiz?.id || !newSubmission.answers?.length) {
+    if (!quiz?.id || !newSubmission.answers?.length) {
         return <p>Loading...</p>
     }
 
@@ -156,6 +177,22 @@ export default function QuizShow() {
                     return <ShowQuestion question={question} />
                 })}
                 <input type='submit' value='Submit' />
+                {user.id === quiz.author ?
+                    <>
+                        <Link to={`/quiz/edit/${quiz.id}`}>
+                            <button>Edit</button>
+                        </Link>
+                        {!deleteToggle ?
+                            <button onClick={(e) => setDeleteToggle(true)}>Delete</button>
+                            :
+                            <div>
+                                <p>Are you sure you want to delete your spectacular, one-of-a-kind quiz?</p>
+                                <button onClick={handleDelete}>Confirm</button>
+                                <button onClick={(e) => setDeleteToggle(false)}>Exit</button>
+                            </div>
+                        }
+                    </>
+                    : null}
             </form>
         </div>
     );

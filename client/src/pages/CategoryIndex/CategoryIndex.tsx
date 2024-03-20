@@ -32,7 +32,7 @@ export default function CategoryIndex() {
   return (
     <div className='CategoryIndex'>
       <h2>Smart your engines!</h2>
-      <p>And pick your <span className='bold'>category</span>:</p>
+      <p>And pick your <span className='special bold'>category</span>:</p>
       <hr />
       {categories.map((category) => {
         return (

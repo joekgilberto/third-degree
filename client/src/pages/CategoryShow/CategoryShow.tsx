@@ -34,7 +34,7 @@ export default function CategoryShow() {
   return (
     <div className='CategoryShow'>
       <h2>{category.title} Category</h2>
-      <p>Find a <span className='bold'>quiz</span>:</p>
+      <p>Find a <span className='special bold'>quiz</span>:</p>
       <hr/>
       {quizzes.map((quiz: Quiz)=>{
         return (
