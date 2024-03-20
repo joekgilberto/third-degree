@@ -11,6 +11,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { setCurrentPage } from '../../components/Nav/navSlice';
 import * as localStorageTools from '../../utilities/local-storage';
 import { AppDispatch } from '../../App/store';
+import { selectUser } from '../../App/appSlice';
 
 export default function QuizEdit() {
 
@@ -24,7 +25,7 @@ export default function QuizEdit() {
     const [newCategory, setNewCategory] = useState<string>();
     const [editQuestion, setEditQuestion] = useState<boolean>(false);
     const [categories, setCategories] = useState<Array<Category>>([]);
-    const [user, setUser] = useState<User | null>(null);
+    const user = useSelector(selectUser);
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         dispatch(updateQuizEdit({ ...editQuiz, [e.target.name]: e.target.value }))
@@ -113,26 +114,24 @@ export default function QuizEdit() {
 
     useEffect(() => {
         dispatch(setCurrentPage('new'));
-        dispatch(loadQuiz(id));
+        if (!user.id) {
+            navigate('/auth');
+        } else {
+            dispatch(loadQuiz(id));
+        }
     }, [])
 
     useEffect(()=>{
         if(editQuiz.id){
-            const fetchedUser: User | null = localStorageTools.getUser();
-            setUser(fetchedUser);
-
-            if (!fetchedUser) {
-                navigate('/auth');
-            } else if (fetchedUser.id !== editQuiz.author) {
+            if (user.id !== editQuiz.author) {
                 navigate(`/quiz/${editQuiz.id}`);
             } else {
-                setUser(fetchedUser);
                 handleRequest();
             };
         }
     },[editQuiz])
 
-    if (!user || !categories?.length) {
+    if (!categories?.length) {
         return <p>Loading...</p>
     }
 

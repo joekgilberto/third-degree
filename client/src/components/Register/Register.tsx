@@ -3,6 +3,7 @@ import './Register.css';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { updateUser } from '../../App/appSlice';
 import { updateReEnter, updateCredentials } from '../../pages/Auth/authSlice';
 import * as userServices from '../../utilities/user/user-services';
 import { setUser, setUserToken } from '../../utilities/local-storage';
@@ -30,6 +31,7 @@ export default function Register({ credentials, reEnter }: { credentials: Creden
                     await userServices.loginUser(credentials).then((loggedIn: {user: User, token: string}) => {
                         setUserToken(loggedIn.token);
                         setUser(loggedIn.user);
+                        dispatch(updateUser(loggedIn.user))
                         navigate('/');
                     })
                 } else {

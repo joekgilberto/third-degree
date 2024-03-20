@@ -7,32 +7,30 @@ import * as localStorageTools from '../../utilities/local-storage';
 import { Submission, User } from '../../utilities/types';
 
 import SubmissionCard from '../../components/SubmissionCard/SubmissionCard';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../App/appSlice';
 
 export default function Account() {
 
     const navigate = useNavigate();
-    const [user, setUser] = useState<User | null>(null);
+    const user = useSelector(selectUser);
     const [submissions, setSubmissions] = useState<Array<Submission> | null>(null);
 
     useEffect(() => {
-        const fetchedUser: User | null = localStorageTools.getUser();
-        if (!fetchedUser) {
-            navigate('/auth');
+        if(!user.id){
+            navigate('/auth')
         } else {
-            setUser(fetchedUser);
-        };
+            handleReqeust();
+        }
     }, [])
 
-    async function handleReqeust(u: User) {
-        await submissionServices.getSubmissionList(u.submissions).then(async (s) => {
+    async function handleReqeust() {
+        await submissionServices.getSubmissionList(user).then(async (s) => {
+            console.log(s)
             if (s.length) {
                 setSubmissions(s)
             }
         })
-    }
-
-    if (!user) {
-        return <p>Loading...</p>
     }
 
     return (
@@ -41,7 +39,7 @@ export default function Account() {
             <hr />
             <h3>Submissions:</h3>
             {submissions?.length ?
-                submissions.map((s: Submission)=>{
+                submissions.map((s: Submission) => {
                     return <SubmissionCard submission={s} />
                 })
                 :

@@ -10,6 +10,7 @@ import NewQuestion from '../../components/NewQuestion/NewQuestion';
 import { useNavigate } from 'react-router-dom';
 import { setCurrentPage } from '../../components/Nav/navSlice';
 import * as localStorageTools from '../../utilities/local-storage';
+import { selectUser } from '../../App/appSlice';
 
 export default function QuizNew() {
 
@@ -22,7 +23,7 @@ export default function QuizNew() {
     const [newCategory, setNewCategory] = useState<string>();
     const [newQuestion, setNewQuestion] = useState<boolean>(false);
     const [categories, setCategories] = useState<Array<Category>>([]);
-    const [user, setUser] = useState<User | null>(null);
+    const user = useSelector(selectUser);
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         dispatch(updateQuizNew({ ...newQuiz, [e.target.name]: e.target.value }))
@@ -120,18 +121,17 @@ export default function QuizNew() {
             username: '',
             author: '',
             category: ''
-          }))
-        const fetchedUser: User | null = localStorageTools.getUser();
-        if (!fetchedUser) {
+
+        }))
+        if (!user.id) {
             navigate('/auth');
         } else {
-            setUser(fetchedUser);
-            dispatch(updateQuizNew({...newQuiz, username: fetchedUser.username, author: fetchedUser.id}))
+            dispatch(updateQuizNew({ ...newQuiz, username: user.username, author: user.id }))
             handleRequest();
         };
     }, [])
 
-    if (!user || !categories?.length) {
+    if (!categories?.length) {
         return <p>Loading...</p>
     }
 

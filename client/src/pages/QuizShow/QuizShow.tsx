@@ -12,13 +12,14 @@ import * as userServices from '../../utilities/user/user-services';
 import * as localStorageTools from '../../utilities/local-storage';
 
 import ShowQuestion from '../../components/ShowQuestion/ShowQuestion';
+import { selectUser, updateUser } from '../../App/appSlice';
 
 export default function QuizShow() {
 
     const { id } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
-    const [user, setUser] = useState<User | null>(null);
+    const user = useSelector(selectUser);
     const [retakeId, setRetakeId] = useState<string | null>(null);
     const [deleteToggle, setDeleteToggle] = useState<boolean>(false)
     const quiz = useSelector(selectQuiz);
@@ -34,8 +35,7 @@ export default function QuizShow() {
 
     async function handleRetake(u: User) {
         if (u.submissions.length) {
-            await submissionServices.getSubmissionList(u.submissions).then((s) => {
-                console.log(s)
+            await submissionServices.getSubmissionList(u).then((s) => {
                 if (s.length) {
                     console.log(s)
                     const found: Submission | undefined = s.find((submission: Submission) => {
@@ -82,6 +82,7 @@ export default function QuizShow() {
                 submissions.splice(idx, 1, submission.id)
                 await userServices.addSubmission(user.id, submissions).then((u: User) => {
                     localStorageTools.setUser(u);
+                    dispatch(updateUser(u))
                     handleQuizUpdate(submission);
                 })
             } else {
@@ -89,6 +90,7 @@ export default function QuizShow() {
                 submissions.push(submission.id);
                 await userServices.addSubmission(user.id, submissions).then((u: User) => {
                     localStorageTools.setUser(u);
+                    dispatch(updateUser(u))
                     handleQuizUpdate(submission);
                 })
             }
@@ -125,13 +127,12 @@ export default function QuizShow() {
     }
 
     useEffect(() => {
-        dispatch(loadQuiz(id))
-        const fetchedUser: User | null = localStorageTools.getUser();
-        if (!fetchedUser) {
+        if (!user.id) {
             navigate('/auth');
         } else {
-            setUser(fetchedUser);
-        };
+            dispatch(loadQuiz(id))
+            handleRetake(user);
+        }
     }, [])
 
     useEffect(() => {
@@ -147,23 +148,14 @@ export default function QuizShow() {
             dispatch(updateSubmissionNew({
                 ...newSubmission,
                 answers: answerArr,
-                quiz: quiz.id
+                quiz: quiz.id,
+                username: user.username,
+                challenger: user.id
             }))
         }
     }, [quiz])
 
-    useEffect(() => {
-        if (user) {
-            handleRetake(user);
-            dispatch(updateSubmissionNew({
-                ...newSubmission,
-                username: user.username,
-                challenger: user.id,
-            }))
-        }
-    }, [user])
-
-    if (!user || !quiz?.id || !newSubmission.answers?.length) {
+    if (!quiz?.id || !newSubmission.answers?.length) {
         return <p>Loading...</p>
     }
 
