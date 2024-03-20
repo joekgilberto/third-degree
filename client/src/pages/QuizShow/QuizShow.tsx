@@ -27,6 +27,7 @@ export default function QuizShow() {
 
     async function handleDelete(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         quizServices.destroyQuiz(quiz.id).then(() => {
+            //TODO: remove deleted quiz submissions and all ids from submission lists in users- try to do this on the service side
             navigate(`/`);
         })
     }

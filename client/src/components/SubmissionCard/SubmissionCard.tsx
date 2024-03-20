@@ -11,11 +11,7 @@ export default function SubmissionCard({ submission }: { submission: Submission 
 
     async function handleRequest(): Promise<void> {
         await quizServices.getQuiz(submission.quiz).then((quiz: Quiz) => {
-            if(quiz.id){
-                setQuiz(quiz);
-            } else {
-                //TODO: remove deleted quiz submission from list
-            }
+            setQuiz(quiz);
         })
     }
 
