@@ -27,7 +27,7 @@ export default function Account() {
     }, [user])
     
 
-    async function handleReqeust() {
+    async function handleReqeust(): Promise<void> {
         await submissionServices.getUserSubmissions(user).then(async (s) => {
             if (s.length) {
                 setSubmissions(s)
@@ -41,7 +41,7 @@ export default function Account() {
         })
     }
 
-    function handleLogout(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    function handleLogout(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
         localStorageTools.clearUser();
         localStorageTools.clearUserToken();
         dispatch((updateUser({

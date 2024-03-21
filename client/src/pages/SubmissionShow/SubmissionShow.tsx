@@ -13,7 +13,7 @@ export default function SubmissionShow() {
     const [submission, setSubmission] = useState<Submission>();
     const [quiz, setQuiz] = useState<Quiz>();
 
-    async function handleRequest() {
+    async function handleRequest(): Promise<void> {
         if (id) {
             await submissionServices.getSubmission(id).then(async (s: Submission) => {
                 console.log(s)

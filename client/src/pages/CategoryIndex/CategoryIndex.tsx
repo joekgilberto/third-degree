@@ -14,7 +14,7 @@ export default function CategoryIndex() {
   const dispatch = useDispatch();
   const [categories, setCategories] = useState<Array<Category>>([]);
 
-  async function handleRequest() {
+  async function handleRequest(): Promise<void> {
     await categoryServices.getAllCategories().then((c: Array<Category>) => {
       setCategories(c);
     })

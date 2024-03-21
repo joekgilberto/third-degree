@@ -26,13 +26,13 @@ export default function QuizShow() {
     const newSubmission = useSelector(selectSubmission);
 
 
-    async function handleDelete(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    async function handleDelete(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): Promise<void> {
         quizServices.destroyQuiz(quiz.id).then(() => {
             navigate(`/`);
         })
     }
 
-    async function handleRetake(u: User) {
+    async function handleRetake(u: User): Promise<void> {
         if (u.submissions.length) {
             await submissionServices.getUserSubmissions(u).then((s) => {
                 if (s.length) {
@@ -73,7 +73,7 @@ export default function QuizShow() {
         return (correct / quiz.questions.length) * 100;
     }
 
-    async function handleAddSubmission(submission: Submission) {
+    async function handleAddSubmission(submission: Submission): Promise<void> {
         if (submission?.id && user) {
             if (retakeId) {
                 const submissions: Array<string> = [...user.submissions];
@@ -96,7 +96,7 @@ export default function QuizShow() {
         }
     }
 
-    async function handleQuizUpdate(s: Submission) {
+    async function handleQuizUpdate(s: Submission): Promise<void> {
         if (s.id) {
             const updatedQuiz: Quiz = { ...quiz };
             if (updatedQuiz.submissions) {
@@ -116,7 +116,7 @@ export default function QuizShow() {
         }
     }
 
-    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>): Promise<void> {
         e.preventDefault();
         await submissionServices.createSubmission({ ...newSubmission, score: handleScore(newSubmission) }).then(async (submission: Submission) => {
             handleAddSubmission(submission);

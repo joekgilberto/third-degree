@@ -15,7 +15,7 @@ export default function Home() {
   const [hardestQuizzes, setHardestQuizzes] = useState<Array<Quiz>>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  async function handleRequest() {
+  async function handleRequest(): Promise<void> {
     await quizServices.getHardestQuizzes().then((quizzes) => {
       setHardestQuizzes(quizzes);
       setIsLoading(false);

@@ -1,44 +1,44 @@
 import { User } from "./types";
 
 //Returns local storage of token
-function getUserToken(){
+function getUserToken(): string | null {
     return localStorage.getItem("token");
 };
 
 //Set local storage by token
-function setUserToken(token: string){
-    if(token){
-        return localStorage.setItem("token", token);
+function setUserToken(token: string): void {
+    if (token) {
+        localStorage.setItem("token", token);
     }
 };
 
 //Clears token instance of local storage
-function clearUserToken(){
-    return localStorage.setItem("token", "");
+function clearUserToken(): void {
+    localStorage.setItem("token", "");
 };
 
 //Returns local storage of user
-function getUser(){
-    if(localStorage.getItem("user")){
+function getUser(): User | undefined | null {
+    if (localStorage.getItem("user")) {
         const user: string | null = localStorage.getItem("user");
-        if(user){
+        if (user) {
             return JSON.parse(user);
         }
     } else {
-        return "";
+        return null;
     }
 };
 
 //Set local storage by user
-function setUser(user: User){
-    if(user){
-        return localStorage.setItem("user", JSON.stringify(user));
+function setUser(user: User): void {
+    if (user) {
+        localStorage.setItem("user", JSON.stringify(user));
     }
 };
 
 //Clears user instance of local storage
-function clearUser(){
-    return localStorage.setItem("user", "");
+function clearUser(): void {
+    localStorage.setItem("user", "");
 };
 
 // Exports local storage functions

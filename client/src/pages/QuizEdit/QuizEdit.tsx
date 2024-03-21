@@ -26,11 +26,11 @@ export default function QuizEdit() {
     const [categories, setCategories] = useState<Array<Category>>([]);
     const user = useSelector(selectUser);
 
-    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
         dispatch(updateQuizEdit({ ...editQuiz, [e.target.name]: e.target.value }))
     }
 
-    function handleCategory(e: React.ChangeEvent<HTMLSelectElement>) {
+    function handleCategory(e: React.ChangeEvent<HTMLSelectElement>): void {
         if (e.target.value === 'new') {
             setNewCategoryToggle(true);
             dispatch(updateQuizEdit({ ...editQuiz, category: '' }))
@@ -39,16 +39,16 @@ export default function QuizEdit() {
         };
     };
 
-    function handleNewCategory(e: React.ChangeEvent<HTMLInputElement>) {
+    function handleNewCategory(e: React.ChangeEvent<HTMLInputElement>): void {
         setNewCategory(e.target.value);
     }
 
-    function handleExitCategory() {
+    function handleExitCategory(): void {
         dispatch(updateQuizEdit({ ...editQuiz, category: '' }))
         setNewCategoryToggle(false);
     }
 
-    function addQuestion(type: string) {
+    function addQuestion(type: string): void {
         setEditQuestion(false)
         dispatch(updateQuizEdit({
             ...editQuiz,
@@ -66,7 +66,7 @@ export default function QuizEdit() {
         }));
     }
 
-    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>): Promise<void> {
         e.preventDefault();
         for (let i: number = 0; i < editQuiz.questions.length; i++) {
             if (editQuiz.questions[i].type === 'checkbox') {
@@ -105,7 +105,7 @@ export default function QuizEdit() {
         }
     }
 
-    async function handleRequest() {
+    async function handleRequest(): Promise<void> {
         await categoryServices.getAllCategories().then((categories: Array<Category>) => {
             setCategories(categories)
         })

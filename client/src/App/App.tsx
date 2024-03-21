@@ -15,7 +15,7 @@ export default function App() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState<boolean>(true);
 
-  function handleLogout(){
+  function handleLogout(): void{
     localStorageTools.clearUserToken();
     localStorageTools.clearUser();
     dispatch((updateUser({

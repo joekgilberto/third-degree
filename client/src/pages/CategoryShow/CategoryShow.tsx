@@ -14,7 +14,7 @@ export default function CategoryShow() {
   const [category, setCategory] = useState<Category>();
   const [quizzes, setQuizzes] = useState<Array<Quiz>>();
 
-  async function handleRequest() {
+  async function handleRequest():Promise<void> {
     await categoryServices.getCategory(id).then(async (c) => {
       setCategory(c);
       await quizServices.getQuizByCategory(id).then((q) => {

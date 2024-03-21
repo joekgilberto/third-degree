@@ -37,7 +37,7 @@ export async function getUserSubmissions(user: User): Promise<any> {
                         idsCache.splice(i, 1);
                         await userServices.addSubmission(user.id, idsCache).then((updatedUser: User)=>{
                             const currentUser = localStorageTools.getUser();
-                            if(user.id === currentUser.id){
+                            if(user.id === currentUser?.id){
                                 localStorageTools.setUser(updatedUser);
                             }
                         });
