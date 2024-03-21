@@ -1,6 +1,6 @@
 import './App.css';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as localStorageTools from '../utilities/local-storage';
 import { useDispatch } from 'react-redux';
 import { updateUser } from './appSlice';
@@ -13,6 +13,7 @@ import { decodeToken } from '../utilities/tools';
 export default function App() {
 
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState<boolean>(true);
 
   function handleLogout(){
     localStorageTools.clearUserToken();

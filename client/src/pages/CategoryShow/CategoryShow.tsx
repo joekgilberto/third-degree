@@ -1,6 +1,6 @@
 import './CategoryShow.css';
 
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import * as categoryServices from '../../utilities/category/category-services';
 import * as quizServices from '../../utilities/quiz/quiz-services';
@@ -14,20 +14,20 @@ export default function CategoryShow() {
   const [category, setCategory] = useState<Category>();
   const [quizzes, setQuizzes] = useState<Array<Quiz>>();
 
-  async function handleRequest(){
-    await categoryServices.getCategory(id).then(async (c)=>{
+  async function handleRequest() {
+    await categoryServices.getCategory(id).then(async (c) => {
       setCategory(c);
-      await quizServices.getQuizByCategory(id).then((q)=>{
+      await quizServices.getQuizByCategory(id).then((q) => {
         setQuizzes(q);
       })
     })
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     handleRequest()
-  },[])
+  }, [])
 
-  if(!category || !quizzes){
+  if (!category || !quizzes) {
     return <p>Loading...</p>
   }
 
@@ -35,12 +35,10 @@ export default function CategoryShow() {
     <div className='CategoryShow'>
       <h2>{category.title} Category</h2>
       <p>Find a <span className='special bold'>quiz</span>:</p>
-      <hr/>
-      {quizzes.map((quiz: Quiz)=>{
+      <hr />
+      {quizzes.map((quiz: Quiz) => {
         return (
-          <Link to={`/quiz/${quiz.id}`}>
-            <QuizCard key={quiz.id} quiz={quiz} />
-          </Link>
+          <QuizCard key={quiz.id} quiz={quiz} />
         )
       })}
     </div>

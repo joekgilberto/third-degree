@@ -41,6 +41,22 @@ export async function byCategory(id: string) {
         });
 };
 
+export async function byAuthor(id: string) {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+    }
+    return axios
+        .get(`${BASE_URL}author/${id}/`, config)
+        .then((res) => {
+            return res;
+        })
+        .catch((err) => {
+            return err;
+        });
+};
+
 export async function create(data: Quiz) {
     const config = {
         headers: {

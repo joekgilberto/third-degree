@@ -18,7 +18,6 @@ export default function QuizEdit() {
     const { id } = useParams();
     const navigate = useNavigate();
     const editQuiz = useSelector(selectEditQuiz);
-    const loading = useSelector(isLoading);
     const dispatch = useDispatch<AppDispatch>();
 
     const [newCategoryToggle, setNewCategoryToggle] = useState<boolean>(false);
@@ -114,8 +113,11 @@ export default function QuizEdit() {
 
     useEffect(() => {
         dispatch(setCurrentPage('new'));
-        dispatch(loadQuiz(id));
     }, [])
+
+    useEffect(()=>{
+        dispatch(loadQuiz(id));
+    },[dispatch])
 
     useEffect(() => {
         if (editQuiz.id) {

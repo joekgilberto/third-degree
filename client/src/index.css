@@ -35,10 +35,15 @@ button {
 
 a {
   color: inherit;
+  text-decoration: none;
 }
 
 .bold {
   font-weight: bold !important;  
+}
+
+.underline {
+  text-decoration: underline !important;
 }
 
 .special{

@@ -2,19 +2,14 @@ import './SubmissionShow.css';
 
 import React, { useEffect, useState } from 'react';
 import { Quiz, Submission, Question, User } from '../../utilities/types';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import * as submissionServices from '../../utilities/submission/submission-services';
 import * as quizServices from '../../utilities/quiz/quiz-services';
-import * as localStorageTools from '../../utilities/local-storage';
 import SubmissionQuestion from '../../components/SubmissionQuestion/SubmissionQuestion';
-import { useSelector } from 'react-redux';
-import { selectUser } from '../../App/appSlice';
 
 export default function SubmissionShow() {
 
     const { id } = useParams();
-    const navigate = useNavigate();
-    const user = useSelector(selectUser);
     const [submission, setSubmission] = useState<Submission>();
     const [quiz, setQuiz] = useState<Quiz>();
 

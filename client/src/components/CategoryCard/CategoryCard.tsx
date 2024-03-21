@@ -1,12 +1,15 @@
 import './CategoryCard.css';
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Category } from '../../utilities/types';
 
-export default function CategoryCard({category}:{category: Category}) {
+export default function CategoryCard({ category }: { category: Category }) {
   return (
     <div className='CategoryCard'>
-      <h3>{category.title}</h3>
+      <Link to={`/categories/${category.id}`}>
+        <h3>{category.title}</h3>
+      </Link>
     </div>
   );
 };

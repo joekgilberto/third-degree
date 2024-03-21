@@ -24,7 +24,7 @@ export async function getSubmission(id: string | undefined) {
     }
 }
 
-export async function getSubmissionList(user: User): Promise<any> {
+export async function getUserSubmissions(user: User): Promise<any> {
     try {
         const data: Array<Submission> = [];
         if (user.submissions.length) {

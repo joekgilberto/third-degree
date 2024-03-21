@@ -2,32 +2,42 @@ import './Account.css';
 
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectUser, updateUser } from '../../App/appSlice';
+import * as quizServices from '../../utilities/quiz/quiz-services';
 import * as submissionServices from '../../utilities/submission/submission-services';
 import * as localStorageTools from '../../utilities/local-storage';
-import { Submission } from '../../utilities/types';
+import { Quiz, Submission } from '../../utilities/types';
 
 import SubmissionCard from '../../components/SubmissionCard/SubmissionCard';
-import { useSelector } from 'react-redux';
-import { selectUser, updateUser } from '../../App/appSlice';
-import { useDispatch } from 'react-redux';
+import QuizCard from '../../components/QuizCard/QuizCard';
 
 export default function Account() {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const user = useSelector(selectUser);
+    const [quizzes, setQuizzes] = useState<Array<Quiz> | null>(null);
     const [submissions, setSubmissions] = useState<Array<Submission> | null>(null);
 
     useEffect(() => {
-        handleReqeust();
-    }, [])
+        if(user.id){
+            handleReqeust();
+        }
+    }, [user])
+    
 
     async function handleReqeust() {
-        await submissionServices.getSubmissionList(user).then(async (s) => {
-            console.log(s)
+        await submissionServices.getUserSubmissions(user).then(async (s) => {
             if (s.length) {
                 setSubmissions(s)
             }
+            console.log(user)
+            await quizServices.getQuizsesByAuthor(user.id).then(async (q) => {
+                if (q.length) {
+                    setQuizzes(q)
+                }
+            })
         })
     }
 
@@ -54,6 +64,14 @@ export default function Account() {
                 })
                 :
                 <p>No submissions, yet!</p>}
+            <hr />
+            <h3>Quizzes:</h3>
+            {quizzes?.length ?
+                quizzes.map((q: Quiz) => {
+                    return <QuizCard quiz={q} />
+                })
+                :
+                <p>No quizzes made, yet!</p>}
             <button onClick={handleLogout}>Logout</button>
         </div>
     );

@@ -26,10 +26,9 @@ export default function SubmissionCard({ submission }: { submission: Submission 
     return (
         <div className='SubmissionCard'>
             <Link to={`/submission/${submission.id}`}>
-                <h3>{quiz.title}</h3>
-                <hr />
-                <p>Your Score: {submission.score}</p>
-                <p>Average Score: {quiz.avgScore}</p>
+                <h3 className='underline'>{quiz.title}</h3>
+                <p>Your Score: {submission.score.toFixed(2)}%</p>
+                <p>Average Score: {quiz.avgScore?.toFixed(2)}%</p>
             </Link>
         </div>
 

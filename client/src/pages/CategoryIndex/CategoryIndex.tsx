@@ -1,6 +1,6 @@
 import './CategoryIndex.css';
 
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import * as categoryServices from '../../utilities/category/category-services';
 import { Category } from '../../utilities/types';
@@ -14,18 +14,18 @@ export default function CategoryIndex() {
   const dispatch = useDispatch();
   const [categories, setCategories] = useState<Array<Category>>([]);
 
-  async function handleRequest(){
-    await categoryServices.getAllCategories().then((c: Array<Category>)=>{
+  async function handleRequest() {
+    await categoryServices.getAllCategories().then((c: Array<Category>) => {
       setCategories(c);
     })
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(setCurrentPage('categories'));
     handleRequest();
-  },[])
+  }, [])
 
-  if(!categories.length){
+  if (!categories.length) {
     return <p>Loading...</p>
   }
 
@@ -36,9 +36,7 @@ export default function CategoryIndex() {
       <hr />
       {categories.map((category) => {
         return (
-          <Link to={`/categories/${category.id}`}>
-            <CategoryCard key={category.id} category={category} />
-          </Link>
+          <CategoryCard key={category.id} category={category} />
         )
       })}
     </div>

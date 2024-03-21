@@ -33,6 +33,11 @@ namespace service.Services
             return await _quizzesCollection.Find(x => x.Category == id).ToListAsync();
         }
 
+        public async Task<List<Quiz>> GetByAuthorAsync(string id)
+        {
+            return await _quizzesCollection.Find(x => x.Author == id).ToListAsync();
+        }
+
         public async Task CreateAsync(Quiz newQuiz)
 		{
 			await _quizzesCollection.InsertOneAsync(newQuiz);

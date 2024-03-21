@@ -43,6 +43,13 @@ namespace service.Controllers
             return await _quizzesService.GetByCategoryAsync(id);
         }
 
+        [HttpGet("author/{id:length(24)}")]
+        [Authorize]
+        public async Task<List<Quiz>> GetByAuthor(string id)
+        {
+            return await _quizzesService.GetByAuthorAsync(id);
+        }
+
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> Post(Quiz newQuiz)

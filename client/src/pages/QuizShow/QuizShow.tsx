@@ -28,14 +28,13 @@ export default function QuizShow() {
 
     async function handleDelete(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         quizServices.destroyQuiz(quiz.id).then(() => {
-            //TODO: remove deleted quiz submissions and all ids from submission lists in users- try to do this on the service side
             navigate(`/`);
         })
     }
 
     async function handleRetake(u: User) {
         if (u.submissions.length) {
-            await submissionServices.getSubmissionList(u).then((s) => {
+            await submissionServices.getUserSubmissions(u).then((s) => {
                 if (s.length) {
                     console.log(s)
                     const found: Submission | undefined = s.find((submission: Submission) => {
@@ -119,20 +118,21 @@ export default function QuizShow() {
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        if (user) {
-            await submissionServices.createSubmission({ ...newSubmission, score: handleScore(newSubmission) }).then(async (submission: Submission) => {
-                handleAddSubmission(submission);
-            })
-        }
+        await submissionServices.createSubmission({ ...newSubmission, score: handleScore(newSubmission) }).then(async (submission: Submission) => {
+            handleAddSubmission(submission);
+        })
     }
 
     useEffect(() => {
-        dispatch(loadQuiz(id))
         handleRetake(user);
     }, [])
 
     useEffect(() => {
-        if (quiz) {
+        dispatch(loadQuiz(id));
+    }, [dispatch])
+
+    useEffect(() => {
+        if (quiz.id) {
             const answerArr: Array<Answer> = [];
             for (let i: number = 0; i < quiz.questions.length; i++) {
                 answerArr.push({

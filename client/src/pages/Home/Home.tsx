@@ -38,11 +38,7 @@ export default function Home() {
         :
         hardestQuizzes.length ?
           hardestQuizzes.map((quiz: Quiz) => {
-            return (
-              <Link to={`/quiz/${quiz.id}`}>
-                <QuizCard key={quiz.id} quiz={quiz} />
-              </Link>
-            )
+            return <QuizCard key={quiz.id} quiz={quiz} />;
           })
           :
           <p>No quizzes yet- start building!</p>}
