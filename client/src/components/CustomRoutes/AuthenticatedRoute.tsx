@@ -6,24 +6,17 @@ import * as localStorageTools from '../../utilities/local-storage';
 
 //Exports route that takes in child components and renders them, unless there is no token or if there is no user or if the user id doesnt equare to the JWT token's decoded id- then the user is routed to the Auth page
 //Inteded to protect pages so only properly logged in users can access it
-export default function PrivateRoute({ children }:{children: JSX.Element}) {
+export default function AuthenticatedRoute({ children }:{children: JSX.Element}) {
     const navigate = useNavigate();
 
     useEffect(() => {
         const user = localStorageTools.getUser();
         const token = localStorageTools.getUserToken();
         
-        if (!user || !token) {
-            navigate("/auth");
+        if (user && token) {
+            navigate("/account");
         }
-
-        if(token){
-            const userDecoded = tools.decodeToken(token);
-            console.log(userDecoded)
-            if (user?.id !== userDecoded.nameid) {
-                navigate("/auth");
-            }
-        }    }, []);
+    }, []);
 
     return children;
 }
