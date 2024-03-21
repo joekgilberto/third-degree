@@ -106,7 +106,6 @@ export default function QuizNew() {
 
     async function handleRequest() {
         await categoryServices.getAllCategories().then((categories: Array<Category>) => {
-            console.log(categories)
             setCategories(categories)
         })
     }
@@ -118,18 +117,12 @@ export default function QuizNew() {
             questions: [],
             submissions: [],
             postingDate: new Date(),
-            username: '',
-            author: '',
+            username: user.username,
+            author: user.id,
             category: ''
 
         }))
-        const fetchedUser = localStorageTools.getUser()
-        if (!fetchedUser) {
-            navigate('/auth');
-        } else {
-            dispatch(updateQuizNew({ ...newQuiz, username: user.username, author: user.id }))
-            handleRequest();
-        };
+        handleRequest();
     }, [])
 
     if (!categories?.length) {

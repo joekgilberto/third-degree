@@ -29,15 +29,9 @@ export default function SubmissionShow() {
             })
         }
     }
-    
-    useEffect(() => {
-        const fetchedUser = localStorageTools.getUser()
 
-        if (!fetchedUser) {
-            navigate('/auth');
-        } else {
-            handleRequest();
-        };
+    useEffect(() => {
+        handleRequest();
     }, [])
 
     if (!submission?.id || !quiz?.id) {

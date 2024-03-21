@@ -77,7 +77,7 @@ export default function QuizEdit() {
                 }
             }
         }
-        
+
         if (newCategory) {
             categoryServices.createCategory({ title: newCategory }).then(async (category: Category) => {
                 if (category.id) {
@@ -114,23 +114,18 @@ export default function QuizEdit() {
 
     useEffect(() => {
         dispatch(setCurrentPage('new'));
-        const fetchedUser = localStorageTools.getUser()
-        if (!fetchedUser) {
-            navigate('/auth');
-        } else {
-            dispatch(loadQuiz(id));
-        }
+        dispatch(loadQuiz(id));
     }, [])
 
-    useEffect(()=>{
-        if(editQuiz.id){
+    useEffect(() => {
+        if (editQuiz.id) {
             if (user.id !== editQuiz.author) {
                 navigate(`/quiz/${editQuiz.id}`);
             } else {
                 handleRequest();
             };
         }
-    },[editQuiz])
+    }, [editQuiz])
 
     if (!categories?.length) {
         return <p>Loading...</p>

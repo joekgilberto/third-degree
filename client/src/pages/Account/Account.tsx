@@ -19,12 +19,7 @@ export default function Account() {
     const [submissions, setSubmissions] = useState<Array<Submission> | null>(null);
 
     useEffect(() => {
-        const fetchedUser = localStorageTools.getUser()
-        if(!fetchedUser){
-            navigate('/auth')
-        } else {
-            handleReqeust();
-        }
+        handleReqeust();
     }, [])
 
     async function handleReqeust() {
@@ -36,7 +31,7 @@ export default function Account() {
         })
     }
 
-    function handleLogout(e: React.MouseEvent<HTMLButtonElement, MouseEvent>){
+    function handleLogout(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         localStorageTools.clearUser();
         localStorageTools.clearUserToken();
         dispatch((updateUser({
@@ -59,7 +54,7 @@ export default function Account() {
                 })
                 :
                 <p>No submissions, yet!</p>}
-                <button onClick={handleLogout}>Logout</button>
+            <button onClick={handleLogout}>Logout</button>
         </div>
     );
 };
