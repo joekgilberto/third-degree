@@ -12,7 +12,11 @@ import QuizEdit from '../../pages/QuizEdit/QuizEdit';
 import SubmissionShow from '../../pages/SubmissionShow/SubmissionShow';
 import Account from '../../pages/Account/Account';
 import Auth from '../../pages/Auth/Auth';
+import PrivateRoute from '../CustomRoutes/PrivateRoute';
+import AuthenticatedRoute from '../CustomRoutes/AuthenticatedRoute';
 
+//TODO adds PrivateRoutes
+//TODO if logged in, redirect Auth to Account
 export default function Main() {
   return (
     <main>
@@ -20,12 +24,36 @@ export default function Main() {
         <Route path='/' element={<Home />} />
         <Route path='/categories' element={<CategoryIndex />} />
         <Route path='/categories/:id' element={<CategoryShow />} />
-        <Route path='/quiz/new' element={<QuizNew />} />
-        <Route path='/quiz/:id' element={<QuizShow />} />
-        <Route path='/quiz/edit/:id' element={<QuizEdit />} />
-        <Route path='/submission/:id' element={<SubmissionShow />} />
-        <Route path='/account' element={<Account />} />
-        <Route path='/auth' element={<Auth />} />
+        <Route path='/quiz/new' element={
+          <PrivateRoute>
+            <QuizNew />
+          </PrivateRoute>
+        } />
+        <Route path='/quiz/:id' element={
+          <PrivateRoute>
+            <QuizShow />
+          </PrivateRoute>
+        } />
+        <Route path='/quiz/edit/:id' element={
+          <PrivateRoute>
+            <QuizEdit />
+          </PrivateRoute>
+        } />
+        <Route path='/submission/:id' element={
+          <PrivateRoute>
+            <SubmissionShow />
+          </PrivateRoute>
+        } />
+        <Route path='/account' element={
+          <PrivateRoute>
+            <Account />
+          </PrivateRoute>
+        } />
+        <Route path='/auth' element={
+          <AuthenticatedRoute>
+            <Auth />
+          </AuthenticatedRoute>
+        } />
       </Routes>
     </main>
   );
