@@ -1,7 +1,6 @@
 import './EditRadio.css';
 
 import React from 'react';
-
 import { selectEditQuiz, updateQuizEdit } from '../../pages/QuizEdit/quizEditSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { Quiz, Question, Choices } from '../../utilities/types';
@@ -12,21 +11,17 @@ export default function EditRadio({ question }: { question: Question }) {
     const dispatch = useDispatch();
 
     function handleAddChoice(e: React.MouseEvent<HTMLButtonElement>): void {
+        let cache: Choices = { ...editQuiz.questions[question.id].choices };
+
         if (!editQuiz.questions[question.id].choices.c?.length && editQuiz.questions[question.id].choices.c !== '') {
-            let cache: Choices = { ...editQuiz.questions[question.id].choices };
             cache.c = '';
-
-            const questionArr: Array<Question> = [...editQuiz.questions];
-            questionArr[question.id] = { ...questionArr[question.id], choices: { ...cache } };
-            dispatch(updateQuizEdit({ ...editQuiz, questions: [...questionArr] }));
         } else if (!editQuiz.questions[question.id].choices.d?.length && editQuiz.questions[question.id].choices.d !== '') {
-            let cache: Choices = { ...editQuiz.questions[question.id].choices };
             cache.d = '';
-
-            const questionArr: Array<Question> = [...editQuiz.questions];
-            questionArr[question.id] = { ...questionArr[question.id], choices: { ...cache } };
-            dispatch(updateQuizEdit({ ...editQuiz, questions: [...questionArr] }));
         };
+        
+        const questionArr: Array<Question> = [...editQuiz.questions];
+        questionArr[question.id] = { ...questionArr[question.id], choices: { ...cache } };
+        dispatch(updateQuizEdit({ ...editQuiz, questions: [...questionArr] }));
     };
 
     function handleDeleteChoice(e: React.MouseEvent<HTMLButtonElement>): void {
@@ -37,14 +32,12 @@ export default function EditRadio({ question }: { question: Question }) {
             delete cache.d;
             if(questionArr[question.id].answer === 'd'){
                 questionArr[question.id] = { ...questionArr[question.id], answer: '' }
-            }
-            dispatch(updateQuizEdit({ ...editQuiz, questions: [...questionArr] }))
+            };
         } else {
             delete cache.c;
             if(questionArr[question.id].answer === 'c'){
                 questionArr[question.id] = { ...questionArr[question.id], answer: '' }
-            }
-            dispatch(updateQuizEdit({ ...editQuiz, questions: [...questionArr] }))
+            };
         };
 
         questionArr[question.id] = { ...questionArr[question.id], choices: { ...cache } }

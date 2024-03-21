@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { updateUser } from './appSlice';
 import { AppDispatch } from './store';
 
-import Nav from '../components/Nav/Nav';
+import Header from '../components/Header/Header';
 import Main from '../components/Main/Main';
 import { decodeToken } from '../utilities/tools';
 
@@ -46,7 +46,7 @@ export default function App() {
 
   return (
     <div className='App' >
-      <Nav />
+      <Header />
       <Main />
     </div>
   );

@@ -7,7 +7,7 @@ import { Category } from '../../utilities/types';
 
 import CategoryCard from '../../components/CategoryCard/CategoryCard';
 import { useDispatch } from 'react-redux';
-import { setCurrentPage } from '../../components/Nav/navSlice';
+import { setCurrentPage } from '../../components/Header/navSlice';
 
 export default function CategoryIndex() {
 

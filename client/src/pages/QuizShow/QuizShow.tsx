@@ -52,7 +52,7 @@ export default function QuizShow() {
 
     function handleScore(submission: Submission): number {
         let correct: number = 0;
-        for (let i = 0; i < quiz.questions.length; i++) {
+        for (let i: number = 0; i < quiz.questions.length; i++) {
             if (quiz.questions[i].type === 'text' || quiz.questions[i].type === 'radio') {
                 if (quiz.questions[i].answer === submission.answers[i].guess) {
                     correct++;
@@ -107,8 +107,8 @@ export default function QuizShow() {
                 } else {
                     let scoreMinusAvg: number = s.score - updatedQuiz.avgScore;
                     let count: number = updatedQuiz.submissions.length;
-                    let increase: number = scoreMinusAvg / count;
-                    updatedQuiz.avgScore += increase;
+                    let difference: number = scoreMinusAvg / count;
+                    updatedQuiz.avgScore += difference;
                 }
                 await quizServices.updateQuiz(quiz.id, updatedQuiz).then(() => {
                     navigate(`/submission/${s.id}`);
@@ -134,7 +134,7 @@ export default function QuizShow() {
     useEffect(() => {
         if (quiz) {
             const answerArr: Array<Answer> = [];
-            for (let i = 0; i < quiz.questions.length; i++) {
+            for (let i: number = 0; i < quiz.questions.length; i++) {
                 answerArr.push({
                     id: i,
                     guess: '',

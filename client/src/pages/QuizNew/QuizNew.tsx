@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Category, Question, Quiz, User } from '../../utilities/types';
 import NewQuestion from '../../components/NewQuestion/NewQuestion';
 import { useNavigate } from 'react-router-dom';
-import { setCurrentPage } from '../../components/Nav/navSlice';
+import { setCurrentPage } from '../../components/Header/navSlice';
 import * as localStorageTools from '../../utilities/local-storage';
 import { selectUser } from '../../App/appSlice';
 
@@ -67,7 +67,7 @@ export default function QuizNew() {
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        for (let i = 0; i < newQuiz.questions.length; i++) {
+        for (let i: number = 0; i < newQuiz.questions.length; i++) {
             if (newQuiz.questions[i].type === 'checkbox') {
                 if (!newQuiz.questions[i].answers.length) {
                     console.log(`Error: No answer selected on question #${i + 1}`)

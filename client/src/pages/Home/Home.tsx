@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import * as quizServices from '../../utilities/quiz/quiz-services';
 import { useDispatch } from 'react-redux';
 import { Quiz } from '../../utilities/types';
-import { setCurrentPage } from '../../components/Nav/navSlice';
+import { setCurrentPage } from '../../components/Header/navSlice';
 
 import QuizCard from '../../components/QuizCard/QuizCard';
 import { Link } from 'react-router-dom';

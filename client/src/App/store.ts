@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import app from '../App/appSlice';
-import navReducer from '../components/Nav/navSlice';
+import navReducer from '../components/Header/navSlice';
 import quizNewReducer from '../pages/QuizNew/quizNewSlice';
 import quizShowReducer from '../pages/QuizShow/quizShowSlice';
 import quizEditReducer from '../pages/QuizEdit/quizEditSlice';

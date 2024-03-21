@@ -1,17 +1,16 @@
-import './Nav.css';
+import './Header.css';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { selectCurrentPage } from './navSlice';
-import * as localStorageTools from '../../utilities/local-storage';
-import { User } from '../../utilities/types';
 import { selectUser } from '../../App/appSlice';
+import { selectCurrentPage } from './navSlice';
+import { User } from '../../utilities/types';
 
-export default function Nav() {
+export default function Header() {
 
   const currentPage: string = useSelector(selectCurrentPage);
-  const user = useSelector(selectUser);
+  const user: User | null = useSelector(selectUser);
 
   function handlePage(page: string): string {
     if (page === currentPage) {
@@ -40,7 +39,6 @@ export default function Nav() {
             <button className={handlePage('new')}>Build a Quiz</button>
           </Link>
         </div>
-        {/* TODO: Toggle Login to profile link when logged in */}
         {user.id ?
           <Link to='/account'>
             <button className='auth'>@ {user.username}</button>

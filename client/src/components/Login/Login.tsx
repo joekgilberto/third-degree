@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { updateUser } from '../../App/appSlice';
 import { updateCredentials } from '../../pages/Auth/authSlice';
 import * as userServices from '../../utilities/user/user-services';
-import { setUser, setUserToken } from '../../utilities/local-storage';
+import * as localStorageTools from '../../utilities/local-storage';
 import { User, Credentials } from '../../utilities/types';
 
 export default function Login({ credentials }: { credentials: Credentials }) {
@@ -19,23 +19,21 @@ export default function Login({ credentials }: { credentials: Credentials }) {
     dispatch(updateCredentials(update));
   };
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>): Promise<void> {
     e.preventDefault();
-    if (credentials.password) {
-      await userServices.loginUser(credentials).then((loggedIn: { user: User, token: string }) => {
-        setUserToken(loggedIn.token);
-        setUser(loggedIn.user);
-        dispatch(updateUser(loggedIn.user));
-        navigate('/');
-      });
-    };
+    await userServices.loginUser(credentials).then((loggedIn: { user: User, token: string }) => {
+      localStorageTools.setUserToken(loggedIn.token);
+      localStorageTools.setUser(loggedIn.user);
+      dispatch(updateUser(loggedIn.user));
+      navigate('/');
+    });
   };
 
   return (
     <form className='Login' onSubmit={handleSubmit}>
       <h2>Login to continue your journey...</h2>
-      <input name='username' value={credentials.username} placeholder='Enter your username...' onChange={handleChange} required />
-      <input name='password' type='password' value={credentials.password} placeholder='Enter your password...' onChange={handleChange} required />
+      <input name='username' value={credentials.username} placeholder='Enter your username...' onChange={handleChange} autoComplete='username' required />
+      <input type='password' name='password' value={credentials.password} placeholder='Enter your password...' onChange={handleChange} autoComplete='current-password' required />
       <input type='submit' value='Login' />
     </form>
   );

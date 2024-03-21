@@ -18,7 +18,7 @@ const appSlice = createSlice({
       state.user = action.payload;
     }
   }
-})
+});
 
 export const selectUser = (state: { app: { user: User; }; }) => state.app.user;
 
@@ -26,6 +26,6 @@ export const isLoading = (state: { app: { isLoadingUser: boolean; }; }) => state
 
 export const hasError = (state: { app: { hasUserError: boolean; }; }) => state.app.hasUserError;
 
-export const { updateUser } = appSlice.actions
+export const { updateUser } = appSlice.actions;
 
-export default appSlice.reducer
+export default appSlice.reducer;

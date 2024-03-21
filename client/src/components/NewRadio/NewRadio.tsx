@@ -12,21 +12,17 @@ export default function NewRadio({ question }: { question: Question }) {
     const dispatch = useDispatch();
 
     function handleAddChoice(e: React.MouseEvent<HTMLButtonElement>): void {
+        let cache: Choices = { ...newQuiz.questions[question.id].choices };
+
         if (!newQuiz.questions[question.id].choices.c?.length && newQuiz.questions[question.id].choices.c !== '') {
-            let cache: Choices = { ...newQuiz.questions[question.id].choices };
             cache.c = '';
-
-            const questionArr: Array<Question> = [...newQuiz.questions];
-            questionArr[question.id] = { ...questionArr[question.id], choices: { ...cache } };
-            dispatch(updateQuizNew({ ...newQuiz, questions: [...questionArr] }));
         } else if (!newQuiz.questions[question.id].choices.d?.length && newQuiz.questions[question.id].choices.d !== '') {
-            let cache: Choices = { ...newQuiz.questions[question.id].choices };
             cache.d = '';
-
-            const questionArr: Array<Question> = [...newQuiz.questions];
-            questionArr[question.id] = { ...questionArr[question.id], choices: { ...cache } };
-            dispatch(updateQuizNew({ ...newQuiz, questions: [...questionArr] }));
         };
+
+        const questionArr: Array<Question> = [...newQuiz.questions];
+        questionArr[question.id] = { ...questionArr[question.id], choices: { ...cache } };
+        dispatch(updateQuizNew({ ...newQuiz, questions: [...questionArr] }));
     };
 
     function handleDeleteChoice(e: React.MouseEvent<HTMLButtonElement>): void {
@@ -38,13 +34,11 @@ export default function NewRadio({ question }: { question: Question }) {
             if(questionArr[question.id].answer === 'd'){
                 questionArr[question.id] = { ...questionArr[question.id], answer: '' }
             }
-            dispatch(updateQuizNew({ ...newQuiz, questions: [...questionArr] }))
         } else {
             delete cache.c;
             if(questionArr[question.id].answer === 'c'){
                 questionArr[question.id] = { ...questionArr[question.id], answer: '' }
             }
-            dispatch(updateQuizNew({ ...newQuiz, questions: [...questionArr] }))
         };
 
         questionArr[question.id] = { ...questionArr[question.id], choices: { ...cache } }
@@ -61,7 +55,6 @@ export default function NewRadio({ question }: { question: Question }) {
     };
 
     function handleAnswer(e: React.ChangeEvent<HTMLSelectElement>): void {
-        console.log('hit')
         let cache: Question = newQuiz.questions[question.id];
         cache = { ...cache, answer: e.target.value };
 

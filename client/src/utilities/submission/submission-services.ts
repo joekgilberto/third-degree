@@ -28,7 +28,7 @@ export async function getSubmissionList(user: User): Promise<any> {
     try {
         const data: Array<Submission> = [];
         if (user.submissions.length) {
-            for (let i = 0; i < user.submissions.length; i++) {
+            for (let i: number = 0; i < user.submissions.length; i++) {
                 await submissionsApi.show(user.submissions[i]).then(async (res) => {
                     if (res.data) {
                         data.push(res.data);

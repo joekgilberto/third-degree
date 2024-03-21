@@ -15,8 +15,6 @@ import Auth from '../../pages/Auth/Auth';
 import PrivateRoute from '../CustomRoutes/PrivateRoute';
 import AuthenticatedRoute from '../CustomRoutes/AuthenticatedRoute';
 
-//TODO adds PrivateRoutes
-//TODO if logged in, redirect Auth to Account
 export default function Main() {
   return (
     <main>

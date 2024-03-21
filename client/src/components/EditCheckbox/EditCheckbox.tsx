@@ -11,21 +11,16 @@ export default function EditCheckbox({ question }: { question: Question }) {
     const dispatch = useDispatch();
 
     function handleAddChoice(e: React.MouseEvent<HTMLButtonElement>): void {
+        let cache: Choices = { ...editQuiz.questions[question.id].choices }
+
         if (!editQuiz.questions[question.id].choices.c?.length && editQuiz.questions[question.id].choices.c !== '') {
-            let cache: Choices = { ...editQuiz.questions[question.id].choices }
             cache.c = '';
-
-            const questionArr: Array<Question> = [...editQuiz.questions]
-            questionArr[question.id] = { ...questionArr[question.id], choices: { ...cache } }
-            dispatch(updateQuizEdit({ ...editQuiz, questions: [...questionArr] }))
         } else if (!editQuiz.questions[question.id].choices.d?.length && editQuiz.questions[question.id].choices.d !== '') {
-            let cache: Choices = { ...editQuiz.questions[question.id].choices }
             cache.d = '';
-
-            const questionArr: Array<Question> = [...editQuiz.questions]
-            questionArr[question.id] = { ...questionArr[question.id], choices: { ...cache } }
-            dispatch(updateQuizEdit({ ...editQuiz, questions: [...questionArr] }))
         };
+        const questionArr: Array<Question> = [...editQuiz.questions]
+        questionArr[question.id] = { ...questionArr[question.id], choices: { ...cache } }
+        dispatch(updateQuizEdit({ ...editQuiz, questions: [...questionArr] }))
     };
 
     function handleDeleteChoice(e: React.MouseEvent<HTMLButtonElement>): void {
@@ -60,33 +55,28 @@ export default function EditCheckbox({ question }: { question: Question }) {
         dispatch(updateQuizEdit({ ...editQuiz, questions: [...questionArr] }));
     };
 
+    function handleCehcked(value: string): boolean {
+        if (editQuiz.questions[question.id].answers.includes(value)) {
+            return true;
+        }
+        return false;
+    }
+
     function handleAnswer(e: React.ChangeEvent<HTMLInputElement>): void {
         let cache: Array<string> = editQuiz.questions[question.id].answers;
 
         cache = [...cache]
         if (!cache.includes(e.target.value)) {
             cache = [...cache, e.target.value];
-
-            const questionArr: Array<Question> = [...editQuiz.questions];
-            questionArr[question.id] = { ...questionArr[question.id], answers: cache };
-            dispatch(updateQuizEdit({ ...editQuiz, questions: [...questionArr] }));
         } else {
             const idx: number = cache.indexOf(e.target.value);
             cache.splice(idx, 1);
-
-            const questionArr: Array<Question> = [...editQuiz.questions];
-            questionArr[question.id] = { ...questionArr[question.id], answers: cache };
-            dispatch(updateQuizEdit({ ...editQuiz, questions: [...questionArr] }));
         };
+
+        const questionArr: Array<Question> = [...editQuiz.questions];
+        questionArr[question.id] = { ...questionArr[question.id], answers: cache };
+        dispatch(updateQuizEdit({ ...editQuiz, questions: [...questionArr] }));
     };
-
-    function handleCehcked(value: string): boolean{
-        if (editQuiz.questions[question.id].answers.includes(value)){
-            return true;
-        }
-
-        return false;
-    }
 
     return (
         <div className='EditCheckbox'>
