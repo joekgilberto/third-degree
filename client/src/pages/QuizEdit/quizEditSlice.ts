@@ -56,7 +56,7 @@ const quizEditSlice = createSlice({
       state.quiz = action.payload;
     }
   }
-})
+});
 
 export const selectEditQuiz = (state: { quizEdit: { quiz: Quiz; }; }) => state.quizEdit.quiz;
 
@@ -64,6 +64,6 @@ export const isLoading = (state: { quizEdit: { isLoadingQuiz: boolean; }; }) => 
 
 export const hasError = (state: { quizEdit: { hasQuizError: boolean; }; }) => state.quizEdit.hasQuizError;
 
-export const { updateQuizEdit } = quizEditSlice.actions
+export const { updateQuizEdit } = quizEditSlice.actions;
 
-export default quizEditSlice.reducer
+export default quizEditSlice.reducer;

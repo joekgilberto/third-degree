@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-
 import { Quiz } from '../../utilities/types';
 
 const quizNewSlice = createSlice({
@@ -20,10 +19,10 @@ const quizNewSlice = createSlice({
       state.quiz = action.payload;
     }
   }
-})
+});
 
 export const selectNewQuiz = (state: { quizNew: { quiz: Quiz; }; }) => state.quizNew.quiz;
 
-export const { updateQuizNew } = quizNewSlice.actions
+export const { updateQuizNew } = quizNewSlice.actions;
 
-export default quizNewSlice.reducer
+export default quizNewSlice.reducer;

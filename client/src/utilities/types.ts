@@ -8,7 +8,7 @@ export interface Quiz {
     username: string;
     author: string;
     category: string;
-}
+};
 
 export interface Submission {
     id?: string;
@@ -18,24 +18,24 @@ export interface Submission {
     username: string;
     challenger: string;
     quiz: string;
-}
+};
 
 export interface Category {
     id?: string;
     title: string;
-}
+};
 
 export interface User {
     id: string,
     username: string,
     submissions: Array<string>;
     clearance: number;
-}
+};
 
 export interface Credentials {
     username: string,
     password: string
-}
+};
 
 export interface Question {
     id: number,
@@ -45,7 +45,7 @@ export interface Question {
     choices: Choices,
     answer: string,
     answers: Array<string>
-}
+};
 
 export interface Choices {
     a: string,
@@ -58,4 +58,4 @@ export interface Answer {
     id: number,
     guess: string,
     guesses: string[]
-}
+};

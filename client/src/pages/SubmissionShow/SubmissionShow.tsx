@@ -1,11 +1,13 @@
 import './SubmissionShow.css';
 
 import React, { useEffect, useState } from 'react';
-import { Quiz, Submission, Question, User } from '../../utilities/types';
 import { Link, useParams } from 'react-router-dom';
 import * as submissionServices from '../../utilities/submission/submission-services';
 import * as quizServices from '../../utilities/quiz/quiz-services';
+import { Quiz, Submission, Question } from '../../utilities/types';
+
 import SubmissionQuestion from '../../components/SubmissionQuestion/SubmissionQuestion';
+import Loading from '../../components/Loading/Loading';
 
 export default function SubmissionShow() {
 
@@ -16,22 +18,21 @@ export default function SubmissionShow() {
     async function handleRequest(): Promise<void> {
         if (id) {
             await submissionServices.getSubmission(id).then(async (s: Submission) => {
-                console.log(s)
                 setSubmission(s);
                 await quizServices.getQuiz(s.quiz).then((q) => {
                     setQuiz(q);
-                })
-            })
-        }
-    }
+                });
+            });
+        };
+    };
 
     useEffect(() => {
         handleRequest();
     }, [])
 
     if (!submission?.id || !quiz?.id) {
-        return <p>Loading...</p>
-    }
+        return <Loading />;
+    };
 
     return (
         <div className='SubmissionShow'>

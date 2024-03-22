@@ -9,20 +9,20 @@ export async function getAllCategories() {
         return res.data;
     } catch (err) {
         return err;
-    }
-}
+    };
+};
 
 export async function getCategory(id: string | undefined) {
     try {
         if(!id){
             throw Error('Error: id undefined.');
-        }
+        };
         const res = await categoriesApi.show(id);
         return res.data;
     } catch (err) {
         return err;
-    }
-}
+    };
+};
 
 export async function createCategory(data: Category) {
     try {
@@ -31,29 +31,29 @@ export async function createCategory(data: Category) {
         return res.data;
     } catch (err) {
         return err;
-    }
-}
+    };
+};
 
 export async function updateCategory(id: string | undefined, data: Category) {
     try {
         if(!id){
             throw Error('Error: id undefined.');
-        }
+        };
         const res = await categoriesApi.update(id, data);
         return res.data;
     } catch (err) {
         return err;
-    }
-}
+    };
+};
 
 export async function destroyCategory(id: string | undefined) {
     try {
         if(!id){
             throw Error('Error: id undefined.');
-        }
+        };
         const res = await categoriesApi.destroy(id);
         return res.data;
     } catch (err) {
-        return err
-    }
-}
+        return err;
+    };
+};

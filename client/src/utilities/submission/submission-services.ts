@@ -3,7 +3,7 @@ import * as userServices from '../user/user-services';
 import * as localStorageTools from '../local-storage';
 import { Submission, User } from '../types';
 
-export async function getAllSubmissions() {
+export async function getAllSubmissions(): Promise<any> {
     try {
         const res = await submissionsApi.index();
         return res.data;
@@ -12,7 +12,7 @@ export async function getAllSubmissions() {
     }
 }
 
-export async function getSubmission(id: string | undefined) {
+export async function getSubmission(id: string | undefined): Promise<any> {
     try {
         if (!id) {
             throw Error('Error: id undefined.');
@@ -52,7 +52,7 @@ export async function getUserSubmissions(user: User): Promise<any> {
     }
 }
 
-export async function createSubmission(data: Submission) {
+export async function createSubmission(data: Submission): Promise<any> {
     try {
         const res = await submissionsApi.create(data);
         return res.data;
@@ -61,7 +61,7 @@ export async function createSubmission(data: Submission) {
     }
 }
 
-export async function updateSubmission(id: string | undefined, data: Submission) {
+export async function updateSubmission(id: string | undefined, data: Submission): Promise<any> {
     try {
         if (!id) {
             throw Error('Error: id undefined.');
@@ -73,7 +73,7 @@ export async function updateSubmission(id: string | undefined, data: Submission)
     }
 }
 
-export async function destroySubmission(id: string | undefined) {
+export async function destroySubmission(id: string | undefined): Promise<any> {
     try {
         if (!id) {
             throw Error('Error: id undefined.');

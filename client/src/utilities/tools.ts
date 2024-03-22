@@ -11,4 +11,4 @@ export function capitalize(title: string): string {
     }
     const newTitle: string = titleArr.join(' ');
     return newTitle;
-}
+};

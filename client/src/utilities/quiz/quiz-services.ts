@@ -9,8 +9,8 @@ export async function getAllQuizzes() {
         return res.data;
     } catch (err) {
         return err;
-    }
-}
+    };
+};
 
 export async function getHardestQuizzes() {
     try {
@@ -33,46 +33,45 @@ export async function getHardestQuizzes() {
         };
 
         return res.data;
-
     } catch (err) {
         return err;
-    }
-}
+    };
+};
 
 export async function getQuiz(id: string | undefined) {
     try {
         if (!id) {
             throw Error('Error: id undefined.');
-        }
+        };
         const res = await quizzesApi.show(id);
         return res.data;
     } catch (err) {
         return err;
-    }
-}
+    };
+};
 
 export async function getQuizByCategory(id: string | undefined) {
     try {
         if (!id) {
             throw Error('Error: id undefined.');
-        }
+        };
         const res = await quizzesApi.byCategory(id);
         res.data.sort((a: Quiz, b: Quiz) => a.title.localeCompare(b.title))
         return res.data;
     } catch (err) {
         return err;
-    }
-}
+    };
+};
 
 export async function getQuizsesByAuthor(id: string) {
     try {
         const res = await quizzesApi.byAuthor(id);
-        res.data.sort((a: Quiz, b: Quiz) => a.title.localeCompare(b.title))
+        res.data.sort((a: Quiz, b: Quiz) => a.title.localeCompare(b.title));
         return res.data;
     } catch (err) {
         return err;
-    }
-}
+    };
+};
 
 export async function createQuiz(data: Quiz) {
     try {
@@ -80,53 +79,50 @@ export async function createQuiz(data: Quiz) {
         return res.data;
     } catch (err) {
         return err;
-    }
-}
+    };
+};
 
 export async function updateQuiz(id: string | undefined, data: Quiz) {
     try {
         if (!id) {
             throw Error('Error: id undefined.');
-        }
+        };
         const res = await quizzesApi.update(id, data);
         return res.data;
     } catch (err) {
         return err;
-    }
-}
+    };
+};
 
 export async function destroyQuiz(id: string | undefined) {
     try {
         if (!id) {
             throw Error('Error: id undefined.');
-        }
-        const res = await quizzesApi.destroy(id).then(async () => {
-            await submissionServices.getAllSubmissions().then(async (submissions: Array<Submission>) => {
+        };
+        return await quizzesApi.destroy(id).then(async () => {
+            return await submissionServices.getAllSubmissions().then(async (submissions: Array<Submission>) => {
                 if (submissions.length) {
                     const quizSubmissions = submissions.filter((submission: Submission) => {
                         return submission.quiz === id;
-                    })
+                    });
                     for (let submission of quizSubmissions) {
                         await userServices.getUser(submission.challenger).then(async (user: User) => {
                             if (submission.id) {
-
                                 const userSubmissions: Array<string> = [...user.submissions];
                                 const idx: number = userSubmissions.indexOf(submission.id);
                                 if (idx !== -1){
                                     userSubmissions.splice(idx,1);
                                     await userServices.addSubmission(user.id, userSubmissions);
-                                }
-                            }
-                        })
-                        await submissionServices.destroySubmission(submission.id)
-
-                    }
-                }
-            })
+                                };
+                            };
+                        });
+                        await submissionServices.destroySubmission(submission.id);
+                        return {};
+                    };
+                };
+            });
         });
-
-        return {};
     } catch (err) {
         return err;
-    }
-}
+    };
+};

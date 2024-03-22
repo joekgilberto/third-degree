@@ -1,13 +1,13 @@
 import './CategoryIndex.css';
 
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setCurrentPage } from '../../components/Header/navSlice';
 import * as categoryServices from '../../utilities/category/category-services';
 import { Category } from '../../utilities/types';
 
 import CategoryCard from '../../components/CategoryCard/CategoryCard';
-import { useDispatch } from 'react-redux';
-import { setCurrentPage } from '../../components/Header/navSlice';
+import Loading from '../../components/Loading/Loading';
 
 export default function CategoryIndex() {
 
@@ -17,16 +17,16 @@ export default function CategoryIndex() {
   async function handleRequest(): Promise<void> {
     await categoryServices.getAllCategories().then((c: Array<Category>) => {
       setCategories(c);
-    })
-  }
+    });
+  };
 
   useEffect(() => {
     dispatch(setCurrentPage('categories'));
     handleRequest();
-  }, [])
+  }, []);
 
   if (!categories.length) {
-    return <p>Loading...</p>
+    return <Loading />;
   }
 
   return (
@@ -41,4 +41,4 @@ export default function CategoryIndex() {
       })}
     </div>
   );
-}
+};

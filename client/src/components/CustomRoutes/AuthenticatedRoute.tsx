@@ -8,7 +8,7 @@ export default function AuthenticatedRoute({ children }: { children: JSX.Element
     const navigate = useNavigate();
 
     useEffect(() => {
-        const user: User | null = localStorageTools.getUser();
+        const user: User | null | undefined = localStorageTools.getUser();
         const token: string | null = localStorageTools.getUserToken();
 
         if (user && token) {

@@ -1,55 +1,54 @@
 import './QuizEdit.css';
 
 import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectEditQuiz, updateQuizEdit, loadQuiz } from './quizEditSlice';
+import { selectUser } from '../../App/appSlice';
 import * as quizServices from '../../utilities/quiz/quiz-services';
 import * as categoryServices from '../../utilities/category/category-services';
-import { selectEditQuiz, updateQuizEdit, loadQuiz, isLoading } from './quizEditSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { Category, Question, Quiz, User } from '../../utilities/types';
-import EditQuestion from '../../components/EditQuestion/EditQuestion';
-import { useNavigate, useParams } from 'react-router-dom';
-import { setCurrentPage } from '../../components/Header/navSlice';
-import * as localStorageTools from '../../utilities/local-storage';
 import { AppDispatch } from '../../App/store';
-import { selectUser } from '../../App/appSlice';
+import { Category, Question, Quiz, User } from '../../utilities/types';
+
+import EditQuestion from '../../components/EditQuestion/EditQuestion';
+import Loading from '../../components/Loading/Loading';
 
 export default function QuizEdit() {
 
     const { id } = useParams();
     const navigate = useNavigate();
-    const editQuiz = useSelector(selectEditQuiz);
     const dispatch = useDispatch<AppDispatch>();
-
-    const [newCategoryToggle, setNewCategoryToggle] = useState<boolean>(false);
-    const [newCategory, setNewCategory] = useState<string>();
-    const [editQuestion, setEditQuestion] = useState<boolean>(false);
+    const editQuiz: Quiz = useSelector(selectEditQuiz);
+    const user: User = useSelector(selectUser);
     const [categories, setCategories] = useState<Array<Category>>([]);
-    const user = useSelector(selectUser);
+    const [newCategory, setNewCategory] = useState<string>();
+    const [newCategoryToggle, setNewCategoryToggle] = useState<boolean>(false);
+    const [editQuestion, setEditQuestion] = useState<boolean>(false);
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
-        dispatch(updateQuizEdit({ ...editQuiz, [e.target.name]: e.target.value }))
-    }
+        dispatch(updateQuizEdit({ ...editQuiz, [e.target.name]: e.target.value }));
+    };
 
     function handleCategory(e: React.ChangeEvent<HTMLSelectElement>): void {
         if (e.target.value === 'new') {
             setNewCategoryToggle(true);
-            dispatch(updateQuizEdit({ ...editQuiz, category: '' }))
+            dispatch(updateQuizEdit({ ...editQuiz, category: '' }));
         } else {
-            dispatch(updateQuizEdit({ ...editQuiz, category: e.target.value }))
+            dispatch(updateQuizEdit({ ...editQuiz, category: e.target.value }));
         };
     };
 
     function handleNewCategory(e: React.ChangeEvent<HTMLInputElement>): void {
         setNewCategory(e.target.value);
-    }
+    };
 
     function handleExitCategory(): void {
-        dispatch(updateQuizEdit({ ...editQuiz, category: '' }))
+        dispatch(updateQuizEdit({ ...editQuiz, category: '' }));
         setNewCategoryToggle(false);
-    }
+    };
 
     function addQuestion(type: string): void {
-        setEditQuestion(false)
+        setEditQuestion(false);
         dispatch(updateQuizEdit({
             ...editQuiz,
             questions: [...editQuiz.questions, {
@@ -64,18 +63,18 @@ export default function QuizEdit() {
                 answers: []
             }]
         }));
-    }
+    };
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>): Promise<void> {
         e.preventDefault();
         for (let i: number = 0; i < editQuiz.questions.length; i++) {
             if (editQuiz.questions[i].type === 'checkbox') {
                 if (!editQuiz.questions[i].answers.length) {
-                    console.log(`Error: No answer selected on question #${i + 1}`)
+                    console.log(`Error: No answer selected on question #${i + 1}`);
                     return;
-                }
-            }
-        }
+                };
+            };
+        };
 
         if (newCategory) {
             categoryServices.createCategory({ title: newCategory }).then(async (category: Category) => {
@@ -83,41 +82,36 @@ export default function QuizEdit() {
                     let cache = { ...editQuiz, category: category.id };
                     try {
                         await quizServices.updateQuiz(id, cache).then((quiz: Quiz) => {
-                            navigate(`/quiz/${quiz.id}`)
+                            navigate(`/quiz/${quiz.id}`);
                         });
                     } catch (err) {
-                        console.log(err)
-                    }
+                        console.log(err);
+                    };
                 } else {
-                    console.log(`Error: Unable to create new category, "${newCategory}"`)
+                    console.log(`Error: Unable to create new category, "${newCategory}"`);
                     return;
-                }
-
-            })
+                };
+            });
         } else {
             try {
                 await quizServices.updateQuiz(id, editQuiz).then((quiz: Quiz) => {
-                    navigate(`/quiz/${quiz.id}`)
+                    navigate(`/quiz/${quiz.id}`);
                 });
             } catch (err) {
-                console.log(err)
-            }
-        }
-    }
+                console.log(err);
+            };
+        };
+    };
 
     async function handleRequest(): Promise<void> {
         await categoryServices.getAllCategories().then((categories: Array<Category>) => {
-            setCategories(categories)
-        })
-    }
-
-    useEffect(() => {
-        dispatch(setCurrentPage('new'));
-    }, [])
+            setCategories(categories);
+        });
+    };
 
     useEffect(()=>{
         dispatch(loadQuiz(id));
-    },[dispatch])
+    },[dispatch]);
 
     useEffect(() => {
         if (editQuiz.id) {
@@ -126,12 +120,12 @@ export default function QuizEdit() {
             } else {
                 handleRequest();
             };
-        }
-    }, [editQuiz])
+        };
+    }, [editQuiz]);
 
     if (!categories?.length) {
-        return <p>Loading...</p>
-    }
+        return <Loading />;
+    };
 
     return (
         <div className='QuizEdit'>
@@ -186,4 +180,4 @@ export default function QuizEdit() {
             </form>
         </div>
     );
-}
+};

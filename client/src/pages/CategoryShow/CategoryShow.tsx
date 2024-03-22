@@ -1,12 +1,13 @@
 import './CategoryShow.css';
 
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import * as categoryServices from '../../utilities/category/category-services';
 import * as quizServices from '../../utilities/quiz/quiz-services';
 import { Quiz, Category } from '../../utilities/types';
 
 import QuizCard from '../../components/QuizCard/QuizCard';
+import Loading from '../../components/Loading/Loading';
 
 export default function CategoryShow() {
 
@@ -19,17 +20,17 @@ export default function CategoryShow() {
       setCategory(c);
       await quizServices.getQuizByCategory(id).then((q) => {
         setQuizzes(q);
-      })
-    })
-  }
+      });
+    });
+  };
 
   useEffect(() => {
-    handleRequest()
-  }, [])
+    handleRequest();
+  }, []);
 
   if (!category || !quizzes) {
-    return <p>Loading...</p>
-  }
+    return <Loading />;
+  };
 
   return (
     <div className='CategoryShow'>

@@ -7,12 +7,11 @@ export const loadQuiz = createAsyncThunk(
     async (id: string | undefined) => {
         if (!id) {
             throw Error('Error: id undefined.');
-        }
+        };
         return await quizServices.getQuiz(id);
     }
 );
 
-//Creates and showSlice with show, reviews, average, isLoading, and error state, along with its reducers
 export const quizSlice = createSlice({
     name: 'quizShow',
     initialState: {
@@ -67,7 +66,6 @@ export const quizSlice = createSlice({
     }
 });
 
-//Exports state, actions, and reducer
 export const selectQuiz = (state: { quizShow: { quiz: Quiz; }; }) => state.quizShow.quiz;
 
 export const selectSubmission = (state: { quizShow: { submission: Submission; }; }) => state.quizShow.submission;
@@ -76,6 +74,6 @@ export const isLoading = (state: { quizShow: { isLoadingQuiz: boolean; }; }) => 
 
 export const hasError = (state: { quizShow: { hasQuizError: boolean; }; }) => state.quizShow.hasQuizError;
 
-export const { updateSubmissionNew } = quizSlice.actions
+export const { updateSubmissionNew } = quizSlice.actions;
 
 export default quizSlice.reducer;

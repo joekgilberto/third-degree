@@ -7,7 +7,7 @@ import { selectUser, updateUser } from '../../App/appSlice';
 import * as quizServices from '../../utilities/quiz/quiz-services';
 import * as submissionServices from '../../utilities/submission/submission-services';
 import * as localStorageTools from '../../utilities/local-storage';
-import { Quiz, Submission } from '../../utilities/types';
+import { Quiz, Submission, User } from '../../utilities/types';
 
 import SubmissionCard from '../../components/SubmissionCard/SubmissionCard';
 import QuizCard from '../../components/QuizCard/QuizCard';
@@ -16,30 +16,30 @@ export default function Account() {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const user = useSelector(selectUser);
+    const user: User = useSelector(selectUser);
     const [quizzes, setQuizzes] = useState<Array<Quiz> | null>(null);
     const [submissions, setSubmissions] = useState<Array<Submission> | null>(null);
 
     useEffect(() => {
         if(user.id){
             handleReqeust();
-        }
-    }, [user])
+        };
+    }, [user]);
     
 
     async function handleReqeust(): Promise<void> {
         await submissionServices.getUserSubmissions(user).then(async (s) => {
             if (s.length) {
-                setSubmissions(s)
-            }
+                setSubmissions(s);
+            };
             console.log(user)
             await quizServices.getQuizsesByAuthor(user.id).then(async (q) => {
                 if (q.length) {
-                    setQuizzes(q)
-                }
-            })
-        })
-    }
+                    setQuizzes(q);
+                };
+            });
+        });
+    };
 
     function handleLogout(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
         localStorageTools.clearUser();
@@ -49,9 +49,9 @@ export default function Account() {
             username: '',
             submissions: [],
             clearance: 0
-        })))
-        navigate('/')
-    }
+        })));
+        navigate('/');
+    };
 
     return (
         <div className='Account'>

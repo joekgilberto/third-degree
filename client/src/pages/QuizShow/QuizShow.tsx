@@ -1,87 +1,68 @@
 import './QuizShow.css';
 
 import React, { useEffect, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadQuiz, selectQuiz, selectSubmission, updateSubmissionNew } from './quizShowSlice';
-import { Answer, Question, Quiz, Submission, User } from '../../utilities/types';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { AppDispatch } from '../../App/store';
-import * as submissionServices from '../../utilities/submission/submission-services';
+import { selectUser, updateUser } from '../../App/appSlice';
 import * as quizServices from '../../utilities/quiz/quiz-services';
+import * as submissionServices from '../../utilities/submission/submission-services';
 import * as userServices from '../../utilities/user/user-services';
 import * as localStorageTools from '../../utilities/local-storage';
+import { AppDispatch } from '../../App/store';
+import { Answer, Question, Quiz, Submission, User } from '../../utilities/types';
 
 import ShowQuestion from '../../components/ShowQuestion/ShowQuestion';
-import { selectUser, updateUser } from '../../App/appSlice';
+import Loading from '../../components/Loading/Loading';
 
 export default function QuizShow() {
 
     const { id } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
-    const user = useSelector(selectUser);
+    const newSubmission: Submission = useSelector(selectSubmission);
+    const quiz: Quiz = useSelector(selectQuiz);
+    const user: User = useSelector(selectUser);
     const [retakeId, setRetakeId] = useState<string | null>(null);
-    const [deleteToggle, setDeleteToggle] = useState<boolean>(false)
-    const quiz = useSelector(selectQuiz);
-    const newSubmission = useSelector(selectSubmission);
+    const [deleteToggle, setDeleteToggle] = useState<boolean>(false);
 
 
     async function handleDelete(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): Promise<void> {
         quizServices.destroyQuiz(quiz.id).then(() => {
             navigate(`/`);
-        })
-    }
+        });
+    };
 
     async function handleRetake(u: User): Promise<void> {
         if (u.submissions.length) {
             await submissionServices.getUserSubmissions(u).then((s) => {
-                if (s.length) {
-                    console.log(s)
-                    const found: Submission | undefined = s.find((submission: Submission) => {
-                        return submission.quiz === id
-                    })
-
-                    if (found?.id) {
-                        setRetakeId(found.id);
-                    }
-                }
-            })
-        }
-    }
-
-    function handleScore(submission: Submission): number {
-        let correct: number = 0;
-        for (let i: number = 0; i < quiz.questions.length; i++) {
-            if (quiz.questions[i].type === 'text' || quiz.questions[i].type === 'radio') {
-                if (quiz.questions[i].answer === submission.answers[i].guess) {
-                    correct++;
-                };
-            } else if (quiz.questions[i].type === 'checkbox') {
-                let includes: boolean = true;
-                for (let j = 0; j < quiz.questions[i].answers.length; j++) {
-                    if (!submission.answers[i].guesses.includes(quiz.questions[i].answers[j])) {
-                        includes = false;
-                        break;
-                    }
-                }
-                if (includes) {
-                    correct++;
-                }
-            }
-        }
-
-        return (correct / quiz.questions.length) * 100;
-    }
+                s.forEach((foundSubmission: Submission) => {
+                    if (foundSubmission.quiz === id){
+                        setRetakeId(id);
+                    };
+                });
+            });
+        };
+    };
 
     async function handleAddSubmission(submission: Submission): Promise<void> {
         if (submission?.id && user) {
             if (retakeId) {
                 const submissions: Array<string> = [...user.submissions];
                 const idx: number = submissions.indexOf(retakeId);
-                submissions.splice(idx, 1, submission.id)
+                submissions.splice(idx, 1, submission.id);
                 await userServices.addSubmission(user.id, submissions).then((u: User) => {
                     localStorageTools.setUser(u);
-                    dispatch(updateUser(u))
+                    if (u) {
+                        dispatch(updateUser(u));
+                    } else {
+                        dispatch(updateUser({
+                            id: '',
+                            username: '',
+                            submissions: [],
+                            clearance: 0
+                        }));
+                    };
                     handleQuizUpdate(submission);
                 })
             } else {
@@ -89,12 +70,21 @@ export default function QuizShow() {
                 submissions.push(submission.id);
                 await userServices.addSubmission(user.id, submissions).then((u: User) => {
                     localStorageTools.setUser(u);
-                    dispatch(updateUser(u))
+                    if (u) {
+                        dispatch(updateUser(u));
+                    } else {
+                        dispatch(updateUser({
+                            id: '',
+                            username: '',
+                            submissions: [],
+                            clearance: 0
+                        }));
+                    };
                     handleQuizUpdate(submission);
-                })
-            }
-        }
-    }
+                });
+            };
+        };
+    };
 
     async function handleQuizUpdate(s: Submission): Promise<void> {
         if (s.id) {
@@ -112,24 +102,47 @@ export default function QuizShow() {
                 await quizServices.updateQuiz(quiz.id, updatedQuiz).then(() => {
                     navigate(`/submission/${s.id}`);
                 });
-            }
-        }
-    }
+            };
+        };
+    };
+
+    function handleScore(submission: Submission): number {
+        let correct: number = 0;
+        for (let i: number = 0; i < quiz.questions.length; i++) {
+            if (quiz.questions[i].type === 'text' || quiz.questions[i].type === 'radio') {
+                if (quiz.questions[i].answer === submission.answers[i].guess) {
+                    correct++;
+                };
+            } else if (quiz.questions[i].type === 'checkbox') {
+                let includes: boolean = true;
+                for (let j = 0; j < quiz.questions[i].answers.length; j++) {
+                    if (!submission.answers[i].guesses.includes(quiz.questions[i].answers[j])) {
+                        includes = false;
+                        break;
+                    };
+                };
+                if (includes) {
+                    correct++;
+                };
+            };
+        };
+        return (correct / quiz.questions.length) * 100;
+    };
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>): Promise<void> {
         e.preventDefault();
         await submissionServices.createSubmission({ ...newSubmission, score: handleScore(newSubmission) }).then(async (submission: Submission) => {
             handleAddSubmission(submission);
-        })
-    }
+        });
+    };
 
     useEffect(() => {
         handleRetake(user);
-    }, [])
+    }, []);
 
     useEffect(() => {
         dispatch(loadQuiz(id));
-    }, [dispatch])
+    }, [dispatch]);
 
     useEffect(() => {
         if (quiz.id) {
@@ -139,21 +152,21 @@ export default function QuizShow() {
                     id: i,
                     guess: '',
                     guesses: []
-                })
-            }
+                });
+            };
             dispatch(updateSubmissionNew({
                 ...newSubmission,
                 answers: answerArr,
                 quiz: quiz.id,
                 username: user.username,
                 challenger: user.id
-            }))
-        }
-    }, [quiz])
+            }));
+        };
+    }, [quiz]);
 
     if (!quiz?.id || !newSubmission.answers?.length) {
-        return <p>Loading...</p>
-    }
+        return <Loading />;
+    };
 
     return (
         <div className='QuizShow'>
@@ -191,4 +204,4 @@ export default function QuizShow() {
             </form>
         </div>
     );
-}
+};

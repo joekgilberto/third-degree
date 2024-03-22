@@ -32,7 +32,16 @@ export default function Register({ credentials, reEnter }: { credentials: Creden
                     await userServices.loginUser(credentials).then((loggedIn: { user: User, token: string }) => {
                         localStorageTools.setUserToken(loggedIn.token);
                         localStorageTools.setUser(loggedIn.user);
-                        dispatch(updateUser(loggedIn.user))
+                        if (loggedIn.user) {
+                            dispatch(updateUser(loggedIn.user));
+                        } else {
+                            dispatch(updateUser({
+                                id: '',
+                                username: '',
+                                submissions: [],
+                                clearance: 0
+                            }));
+                        }
                         setError(null);
                         navigate('/');
                     })

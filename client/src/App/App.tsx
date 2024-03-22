@@ -15,7 +15,7 @@ export default function App() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState<boolean>(true);
 
-  function handleLogout(): void{
+  function handleLogout(): void {
     localStorageTools.clearUserToken();
     localStorageTools.clearUser();
     dispatch((updateUser({
@@ -23,7 +23,7 @@ export default function App() {
       username: '',
       submissions: [],
       clearance: 0
-  })))
+    })))
   }
 
   useEffect(() => {

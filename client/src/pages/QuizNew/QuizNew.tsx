@@ -1,51 +1,50 @@
 import './QuizNew.css';
 
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectNewQuiz, updateQuizNew } from './quizNewSlice';
+import { setCurrentPage } from '../../components/Header/navSlice';
+import { selectUser } from '../../App/appSlice';
 import * as quizServices from '../../utilities/quiz/quiz-services';
 import * as categoryServices from '../../utilities/category/category-services';
-import { selectNewQuiz, updateQuizNew } from './quizNewSlice';
-import { useDispatch, useSelector } from 'react-redux';
 import { Category, Question, Quiz, User } from '../../utilities/types';
+
 import NewQuestion from '../../components/NewQuestion/NewQuestion';
-import { useNavigate } from 'react-router-dom';
-import { setCurrentPage } from '../../components/Header/navSlice';
-import * as localStorageTools from '../../utilities/local-storage';
-import { selectUser } from '../../App/appSlice';
+import Loading from '../../components/Loading/Loading';
 
 export default function QuizNew() {
 
     const navigate = useNavigate();
-    //TODO: Reset quiz everytime you open the page
-    const newQuiz = useSelector(selectNewQuiz);
     const dispatch = useDispatch();
-
+    const newQuiz: Quiz = useSelector(selectNewQuiz);
+    const user: User = useSelector(selectUser);
+    const [categories, setCategories] = useState<Array<Category>>([]);
     const [newCategoryToggle, setNewCategoryToggle] = useState<boolean>(false);
     const [newCategory, setNewCategory] = useState<string>();
     const [newQuestion, setNewQuestion] = useState<boolean>(false);
-    const [categories, setCategories] = useState<Array<Category>>([]);
-    const user = useSelector(selectUser);
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
-        dispatch(updateQuizNew({ ...newQuiz, [e.target.name]: e.target.value }))
-    }
+        dispatch(updateQuizNew({ ...newQuiz, [e.target.name]: e.target.value }));
+    };
 
     function handleCategory(e: React.ChangeEvent<HTMLSelectElement>): void {
         if (e.target.value === 'new') {
             setNewCategoryToggle(true);
-            dispatch(updateQuizNew({ ...newQuiz, category: '' }))
+            dispatch(updateQuizNew({ ...newQuiz, category: '' }));
         } else {
-            dispatch(updateQuizNew({ ...newQuiz, category: e.target.value }))
+            dispatch(updateQuizNew({ ...newQuiz, category: e.target.value }));
         };
     };
 
     function handleNewCategory(e: React.ChangeEvent<HTMLInputElement>): void {
         setNewCategory(e.target.value);
-    }
+    };
 
     function handleExitCategory(): void {
-        dispatch(updateQuizNew({ ...newQuiz, category: '' }))
+        dispatch(updateQuizNew({ ...newQuiz, category: '' }));
         setNewCategoryToggle(false);
-    }
+    };
 
     function addQuestion(type: string): void {
         setNewQuestion(false)
@@ -63,7 +62,7 @@ export default function QuizNew() {
                 answers: []
             }]
         }));
-    }
+    };
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>): Promise<void> {
         e.preventDefault();
@@ -72,9 +71,9 @@ export default function QuizNew() {
                 if (!newQuiz.questions[i].answers.length) {
                     console.log(`Error: No answer selected on question #${i + 1}`)
                     return;
-                }
-            }
-        }
+                };
+            };
+        };
 
         if (newCategory) {
             categoryServices.createCategory({ title: newCategory }).then(async (category: Category) => {
@@ -85,30 +84,29 @@ export default function QuizNew() {
                             navigate(`/categories/${quiz.category}`)
                         });
                     } catch (err) {
-                        console.log(err)
-                    }
+                        console.log(err);
+                    };
                 } else {
-                    console.log(`Error: Unable to create new category, "${newCategory}"`)
+                    console.log(`Error: Unable to create new category, "${newCategory}"`);
                     return;
-                }
-
-            })
+                };
+            });
         } else {
             try {
                 await quizServices.createQuiz(newQuiz).then((quiz: Quiz) => {
-                    navigate(`/categories/${quiz.category}`)
+                    navigate(`/categories/${quiz.category}`);
                 });
             } catch (err) {
-                console.log(err)
-            }
-        }
-    }
+                console.log(err);
+            };
+        };
+    };
 
     async function handleRequest(): Promise<void> {
         await categoryServices.getAllCategories().then((categories: Array<Category>) => {
-            setCategories(categories)
-        })
-    }
+            setCategories(categories);
+        });
+    };
 
     useEffect(() => {
         dispatch(setCurrentPage('new'));
@@ -121,13 +119,13 @@ export default function QuizNew() {
             author: user.id,
             category: ''
 
-        }))
+        }));
         handleRequest();
-    }, [])
+    }, []);
 
     if (!categories?.length) {
-        return <p>Loading...</p>
-    }
+        return <Loading />;
+    };
 
     return (
         <div className='QuizNew'>

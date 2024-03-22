@@ -23,6 +23,6 @@ const authSlice = createSlice({
 export const selectCredentials = (state: { auth: { credentials: Credentials; }; }) => state.auth.credentials;
 export const selectReEnter = (state: { auth: { reEnter: string; }; }) => state.auth.reEnter;
 
-export const { updateCredentials, updateReEnter } = authSlice.actions
+export const { updateCredentials, updateReEnter } = authSlice.actions;
 
-export default authSlice.reducer
+export default authSlice.reducer;

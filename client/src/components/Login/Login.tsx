@@ -24,7 +24,16 @@ export default function Login({ credentials }: { credentials: Credentials }) {
     await userServices.loginUser(credentials).then((loggedIn: { user: User, token: string }) => {
       localStorageTools.setUserToken(loggedIn.token);
       localStorageTools.setUser(loggedIn.user);
-      dispatch(updateUser(loggedIn.user));
+      if (loggedIn.user) {
+        dispatch(updateUser(loggedIn.user));
+      } else {
+        dispatch(updateUser({
+          id: '',
+          username: '',
+          submissions: [],
+          clearance: 0
+        }));
+      }
       navigate('/');
     });
   };
