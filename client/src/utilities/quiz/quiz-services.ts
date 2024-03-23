@@ -3,7 +3,7 @@ import * as submissionServices from '../submission/submission-services';
 import * as userServices from '../user/user-services';
 import { Quiz, Submission, User } from '../types';
 
-export async function getAllQuizzes() {
+export async function getAllQuizzes(): Promise<any> {
     try {
         const res = await quizzesApi.index();
         return res.data;
@@ -12,7 +12,7 @@ export async function getAllQuizzes() {
     };
 };
 
-export async function getHardestQuizzes() {
+export async function getHardestQuizzes(): Promise<any> {
     try {
         const res = await quizzesApi.index();
 
@@ -38,7 +38,7 @@ export async function getHardestQuizzes() {
     };
 };
 
-export async function getQuiz(id: string | undefined) {
+export async function getQuiz(id: string | undefined): Promise<any> {
     try {
         if (!id) {
             throw Error('Error: id undefined.');
@@ -50,7 +50,7 @@ export async function getQuiz(id: string | undefined) {
     };
 };
 
-export async function getQuizByCategory(id: string | undefined) {
+export async function getQuizByCategory(id: string | undefined): Promise<any> {
     try {
         if (!id) {
             throw Error('Error: id undefined.');
@@ -63,7 +63,7 @@ export async function getQuizByCategory(id: string | undefined) {
     };
 };
 
-export async function getQuizsesByAuthor(id: string) {
+export async function getQuizsesByAuthor(id: string): Promise<any> {
     try {
         const res = await quizzesApi.byAuthor(id);
         res.data.sort((a: Quiz, b: Quiz) => a.title.localeCompare(b.title));
@@ -73,7 +73,7 @@ export async function getQuizsesByAuthor(id: string) {
     };
 };
 
-export async function createQuiz(data: Quiz) {
+export async function createQuiz(data: Quiz): Promise<any> {
     try {
         const res = await quizzesApi.create(data);
         return res.data;
@@ -82,7 +82,7 @@ export async function createQuiz(data: Quiz) {
     };
 };
 
-export async function updateQuiz(id: string | undefined, data: Quiz) {
+export async function updateQuiz(id: string | undefined, data: Quiz): Promise<any> {
     try {
         if (!id) {
             throw Error('Error: id undefined.');
@@ -94,7 +94,7 @@ export async function updateQuiz(id: string | undefined, data: Quiz) {
     };
 };
 
-export async function destroyQuiz(id: string | undefined) {
+export async function destroyQuiz(id: string | undefined): Promise<any> {
     try {
         if (!id) {
             throw Error('Error: id undefined.');
