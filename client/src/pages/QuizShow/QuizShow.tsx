@@ -92,7 +92,7 @@ export default function QuizShow() {
             const updatedQuiz: Quiz = { ...quiz };
             if (updatedQuiz.submissions) {
                 updatedQuiz.submissions = [...updatedQuiz.submissions, s.id];
-                if (!updatedQuiz.avgScore) {
+                if (updatedQuiz.avgScore !== 0 && !updatedQuiz.avgScore) {
                     updatedQuiz.avgScore = s.score;
                 } else {
                     let scoreMinusAvg: number = s.score - updatedQuiz.avgScore;
@@ -177,7 +177,7 @@ export default function QuizShow() {
                 <p>{quiz.questions.length} Questions by {quiz.username}</p>
             </div>
             <div>
-                {quiz.avgScore ?
+                {quiz.avgScore || quiz.avgScore === 0 ?
                     <h3>{quiz.avgScore.toFixed(2)}% average score | {quiz.submissions.length} challengers</h3>
                     :
                     <h3>No challengers, yet!</h3>}

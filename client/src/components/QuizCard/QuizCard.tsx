@@ -10,7 +10,7 @@ export default function QuizCard({ quiz }: { quiz: Quiz }) {
       <Link to={`/quiz/${quiz.id}`}>
         <h3>{quiz.title}</h3>
         <div className='avg'>
-          {quiz.avgScore ?
+          {quiz.avgScore || quiz.avgScore === 0 ?
             <>
               <p className='mono'>{quiz.avgScore.toFixed(2)}%</p>
               <p> average score</p>

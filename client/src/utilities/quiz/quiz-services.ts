@@ -17,11 +17,11 @@ export async function getHardestQuizzes(): Promise<any> {
         const res = await quizzesApi.index();
 
         res.data.sort((a: Quiz, b: Quiz) => {
-            if (!a.avgScore && !b.avgScore) {
+            if ((a.avgScore !== 0 && !a.avgScore) && (b.avgScore !==0 && !b.avgScore)) {
                 return 0;
-            } else if (!a.avgScore) {
+            } else if (a.avgScore !== 0 && !a.avgScore) {
                 return 1;
-            } else if (!b.avgScore) {
+            } else if (b.avgScore !==0 && !b.avgScore) {
                 return -1;
             } else {
                 return a.avgScore - b.avgScore;
