@@ -1,18 +1,29 @@
 .QuizCard{
-    width: 150px;
+    width: 175px;
     display: flex;
     flex-direction: column;
     background-color: #fff;
     box-shadow: 2px 2px 3px #00000060;
 }
 
-.QuizCard h3{
-    height: 100px;
+.QuizCard .title{
+    height: 150px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
     margin: 0;
     padding: 10px;
+}
+
+.QuizCard .title h3{
+    margin: 0 0 5px 0;
     color: #2c3d5a;
+}
+
+.QuizCard .title p{
+    color: #59a4e8;
+    font-size: 1rem;
 }
 
 .QuizCard:hover h3{

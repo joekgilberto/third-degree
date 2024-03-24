@@ -36,12 +36,12 @@ export default function Header() {
             <button className={handlePage('categories')}>Categories</button>
           </Link>
           <Link to='/quiz/new'>
-            <button className={handlePage('new')}>Build a Quiz</button>
+            <button className={handlePage('new')}>New Quiz</button>
           </Link>
         </div>
         {user.id ?
           <Link to='/account'>
-            <button className='auth'>@ {user.username}</button>
+            <button className='auth'>@{user.username}</button>
           </Link>
           :
           <Link to='/auth'>

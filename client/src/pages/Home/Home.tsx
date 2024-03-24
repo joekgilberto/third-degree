@@ -44,11 +44,13 @@ export default function Home() {
           <Loading />
           :
           hardestQuizzes.length ?
-            hardestQuizzes.map((quiz: Quiz) => {
+            <div className='list'>
+            {hardestQuizzes.map((quiz: Quiz) => {
               return <QuizCard key={quiz.id} quiz={quiz} />;
-            })
+            })}
+            </div>
             :
-            <p>No quizzes yet- start building!</p>}
+            <p>No quizzes, yet! Start building!</p>}
       </div>
     </div>
   );

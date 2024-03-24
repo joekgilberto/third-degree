@@ -4,11 +4,15 @@
     padding: 0 !important;
 }
 
-.Home>div{
+.Home>div {
     padding: 10px;
 }
 
-.Home .image{
+.Home p {
+    font-size: 20px;
+}
+
+.Home .image {
     width: 100%;
     height: 200px;
     display: grid;
@@ -19,7 +23,7 @@
     padding: 0 !important;
 }
 
-.Home .image img{
+.Home .image img {
     width: 100%;
     height: 200px;
     grid-column: 1 /span 5;
@@ -27,7 +31,7 @@
     object-fit: cover;
 }
 
-.Home .image h2{
+.Home .image h2 {
     grid-column: 3 /span 3;
     grid-row: 1 / span 1;
     padding: 10px 15px;
@@ -38,15 +42,16 @@
     box-shadow: 2px 2px 3px #00000060;
 }
 
-.Home .hardest{
+.Home .hardest {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: #b7d9f8ff;
+    padding-bottom: 20px;
 }
 
-.Home .hardest>h3{
+.Home .hardest>h3 {
     flex: 1;
     color: #2c3d5a;
     font-size: 24px;
@@ -54,4 +59,11 @@
     font-style: italic;
     margin: 5px 0 20px 0;
     border-bottom: 3px solid #2c3d5a;
+}
+
+.Home .hardest .list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
 }
