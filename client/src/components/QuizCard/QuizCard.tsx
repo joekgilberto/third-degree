@@ -4,10 +4,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Quiz } from '../../utilities/types';
 
-export default function QuizCard({ quiz, animation }: { quiz: Quiz, animation: number }) {
-  console.log(animation)
+export default function QuizCard({ quiz, timing }: { quiz: Quiz, timing: number }) {
   return (
-    <div className='QuizCard' style={{animation: `fade-in 0.3s ${(animation*0.3)+.3}s ease-in forwards`}}>
+    <div className='QuizCard' style={{animation: `fade-in 0.3s ${(timing*0.3)+.3}s ease-in forwards`}}>
       <Link to={`/quiz/${quiz.id}`}>
         <div className='title'>
         <h3>{quiz.title}</h3>

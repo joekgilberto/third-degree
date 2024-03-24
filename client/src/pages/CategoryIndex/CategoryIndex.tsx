@@ -8,6 +8,7 @@ import { Category } from '../../utilities/types';
 
 import CategoryCard from '../../components/CategoryCard/CategoryCard';
 import Loading from '../../components/Loading/Loading';
+import Banner from '../../components/Banner/Banner';
 
 export default function CategoryIndex() {
 
@@ -31,14 +32,16 @@ export default function CategoryIndex() {
 
   return (
     <div className='CategoryIndex'>
-      <h2>Smart your engines!</h2>
-      <p>And pick your <span className='cursive bold'>category</span>:</p>
+      <Banner source='https://images.unsplash.com/photo-1544383835-bda2bc66a55d?q=80&w=1436&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' altText='brown wodden drawer' sub='Smart your engines!'/>
+      <div className='list'>
+      <p>Pick your <span className='cursive bold'>category</span>:</p>
       <hr />
       {categories.map((category) => {
         return (
           <CategoryCard key={category.id} category={category} />
         )
       })}
+      </div>
     </div>
   );
 };

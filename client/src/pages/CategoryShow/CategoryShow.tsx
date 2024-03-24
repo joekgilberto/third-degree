@@ -43,7 +43,7 @@ export default function CategoryShow() {
       <hr />
       {quizzes.map((quiz: Quiz, idx: number) => {
         return (
-          <QuizCard key={quiz.id} quiz={quiz} animation={idx} />
+          <QuizCard key={quiz.id} quiz={quiz} timing={idx} />
         )
       })}
     </div>

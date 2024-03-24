@@ -1,18 +1,5 @@
-.CategoryIndex {
-    display: flex;
-    flex-direction: column;
-    padding: 10px 0 !important;
-}
 
-.CategoryIndex>div {
-    padding: 10px 20px;
-}
-
-.CategoryIndex p {
-    font-size: 1.25rem;
-}
-
-.CategoryIndex .image {
+.Banner {
     width: 100%;
     height: 200px;
     display: grid;
@@ -24,7 +11,7 @@
     padding: 0 !important;
 }
 
-.CategoryIndex .image img {
+.Banner img {
     width: 100%;
     height: 200px;
     grid-column: 1 /span 5;
@@ -32,7 +19,7 @@
     object-fit: cover;
 }
 
-.CategoryIndex .image .subtitle {
+.Banner .subtitle {
     width: 0;
     height: 82px;
     grid-column: 3 /span 3;
@@ -45,14 +32,40 @@
     background-color: #59a4e8;
     box-shadow: 2px 2px 3px #00000060;
     overflow-x: hidden;
-    animation: overlap-in .3s .25s ease-in forwards;
+    animation: banner-in .3s .25s ease-in forwards;
 }
 
-.CategoryIndex .image .subtitle h2 {
+.Banner .subtitle h2 {
     margin: 0;
     color: transparent;
     font-size: 1.5rem;
     font-style: italic;
     text-shadow: none;
-    animation: overlap-text-in .25s .65s ease-in forwards;
+    animation: banner-text-in .25s .65s ease-in forwards;
+}
+
+
+@keyframes banner-in {
+    0% {
+        width: 0;
+    }
+  
+    100% {
+        width: 100%;
+        padding: 10px 20px;
+    }
+  }
+  
+  @keyframes banner-text-in {
+    0% {
+        display: block;
+        color: transparent;
+        text-shadow: none;
+    }
+  
+    100% {
+        display: block;
+        color: #fff;
+        text-shadow: 2px 2px 3px #00000060;
+    }
 }

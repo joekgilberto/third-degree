@@ -74,7 +74,7 @@ export default function Account() {
             <h3>Quizzes:</h3>
             {quizzes?.length ?
                 quizzes.map((q: Quiz, idx: number) => {
-                    return <QuizCard key={q.id} quiz={q} animation={idx} />
+                    return <QuizCard key={q.id} quiz={q} timing={idx} />
                 })
                 :
                 <p>No quizzes made, yet!</p>}
