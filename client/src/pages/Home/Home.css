@@ -19,6 +19,7 @@
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: 1;
     justify-content: center;
+    justify-items: flex-end;
     align-items: center;
     padding: 0 !important;
 }
@@ -31,15 +32,29 @@
     object-fit: cover;
 }
 
-.Home .image h2 {
+.Home .image .approach {
+    width: 0;
+    height: 82px;
     grid-column: 3 /span 3;
     grid-row: 1 / span 1;
-    padding: 10px 15px;
-    font-size: 1.5rem;
-    font-style: italic;
-    text-shadow: 2px 2px 3px #00000060;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
     background-color: #59a4e8;
     box-shadow: 2px 2px 3px #00000060;
+    overflow-x: hidden;
+    animation: approach-in .3s .25s ease-in forwards;
+}
+
+.Home .image .approach h2 {
+    margin: 0;
+    color: transparent;
+    font-size: 1.5rem;
+    font-style: italic;
+    text-shadow: none;
+    animation: approach-text-in .25s .65s ease-in forwards;
 }
 
 .Home .hardest {
@@ -67,4 +82,29 @@
     justify-content: center;
     flex-wrap: wrap;
     gap: 20px;
+}
+
+@keyframes approach-in {
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: 100%;
+        padding: 10px 20px;
+    }
+}
+
+@keyframes approach-text-in {
+    0% {
+        display: block;
+        color: transparent;
+        text-shadow: none;
+    }
+
+    100% {
+        display: block;
+        color: #fff;
+        text-shadow: 2px 2px 3px #00000060;
+    }
 }

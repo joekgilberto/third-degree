@@ -31,7 +31,9 @@ export default function Home() {
     <div className='Home'>
       <div className='image'>
         <img alt='brown pencil on equation paper' src='https://images.unsplash.com/photo-1518133910546-b6c2fb7d79e3?q=80&w=3024&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' />
-        <h2>A challenger approaches!</h2>
+        <div className='approach'>
+          <h2>A challenger approaches!</h2>
+        </div>
       </div>
       <div className='intro'>
         <p>Welcome to <span className='cursive bold'>Third Degree</span>, the quiz center of the known universe!</p>
@@ -45,9 +47,9 @@ export default function Home() {
           :
           hardestQuizzes.length ?
             <div className='list'>
-            {hardestQuizzes.map((quiz: Quiz) => {
-              return <QuizCard key={quiz.id} quiz={quiz} />;
-            })}
+              {hardestQuizzes.map((quiz: Quiz, idx: number) => {
+                return <QuizCard key={quiz.id} quiz={quiz} animation={idx} />;
+              })}
             </div>
             :
             <p>No quizzes, yet! Start building!</p>}

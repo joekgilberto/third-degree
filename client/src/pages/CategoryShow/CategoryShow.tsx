@@ -41,9 +41,9 @@ export default function CategoryShow() {
       <h2>{category.title} Category</h2>
       <p>Find a <span className='cursive bold'>quiz</span>:</p>
       <hr />
-      {quizzes.map((quiz: Quiz) => {
+      {quizzes.map((quiz: Quiz, idx: number) => {
         return (
-          <QuizCard key={quiz.id} quiz={quiz} />
+          <QuizCard key={quiz.id} quiz={quiz} animation={idx} />
         )
       })}
     </div>
