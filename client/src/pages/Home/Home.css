@@ -9,7 +9,7 @@
 }
 
 .Home p {
-    font-size: 20px;
+    font-size: 1.25rem;
 }
 
 .Home .image {
@@ -35,7 +35,7 @@
     grid-column: 3 /span 3;
     grid-row: 1 / span 1;
     padding: 10px 15px;
-    font-size: 24px;
+    font-size: 1.5rem;
     font-style: italic;
     text-shadow: 2px 2px 3px #00000060;
     background-color: #59a4e8;
@@ -54,7 +54,7 @@
 .Home .hardest>h3 {
     flex: 1;
     color: #2c3d5a;
-    font-size: 24px;
+    font-size: 1.5rem;
     text-align: center;
     font-style: italic;
     margin: 5px 0 20px 0;
