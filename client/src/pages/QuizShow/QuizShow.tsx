@@ -5,6 +5,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadQuiz, selectQuiz, selectSubmission, updateSubmissionNew } from './quizShowSlice';
 import { selectUser, updateUser } from '../../App/appSlice';
+import { updateCurrentPage } from '../../components/Header/navSlice';
 import * as quizServices from '../../utilities/quiz/quiz-services';
 import * as submissionServices from '../../utilities/submission/submission-services';
 import * as userServices from '../../utilities/user/user-services';
@@ -37,7 +38,7 @@ export default function QuizShow() {
         if (u.submissions.length) {
             await submissionServices.getUserSubmissions(u).then((s) => {
                 s.forEach((foundSubmission: Submission) => {
-                    if (foundSubmission.quiz === id){
+                    if (foundSubmission.quiz === id) {
                         setRetakeId(id);
                     };
                 });
@@ -137,6 +138,7 @@ export default function QuizShow() {
     };
 
     useEffect(() => {
+        dispatch(updateCurrentPage(''));
         handleRetake(user);
     }, []);
 

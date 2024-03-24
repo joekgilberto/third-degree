@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectEditQuiz, updateQuizEdit, loadQuiz } from './quizEditSlice';
 import { selectUser } from '../../App/appSlice';
+import { updateCurrentPage } from '../../components/Header/navSlice';
 import * as quizServices from '../../utilities/quiz/quiz-services';
 import * as categoryServices from '../../utilities/category/category-services';
 import { AppDispatch } from '../../App/store';
@@ -109,9 +110,10 @@ export default function QuizEdit() {
         });
     };
 
-    useEffect(()=>{
+    useEffect(() => {
+        dispatch(updateCurrentPage(''));
         dispatch(loadQuiz(id));
-    },[dispatch]);
+    }, [dispatch]);
 
     useEffect(() => {
         if (editQuiz.id) {

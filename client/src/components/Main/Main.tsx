@@ -14,6 +14,7 @@ import Account from '../../pages/Account/Account';
 import Auth from '../../pages/Auth/Auth';
 import PrivateRoute from '../CustomRoutes/PrivateRoute';
 import AuthenticatedRoute from '../CustomRoutes/AuthenticatedRoute';
+import Footer from '../../components/Footer/Footer';
 
 export default function Main() {
   return (
@@ -53,6 +54,7 @@ export default function Main() {
           </AuthenticatedRoute>
         } />
       </Routes>
+      <Footer />
     </main>
   );
 };

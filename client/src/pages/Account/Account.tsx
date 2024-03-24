@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectUser, updateUser } from '../../App/appSlice';
+import { updateCurrentPage } from '../../components/Header/navSlice';
 import * as quizServices from '../../utilities/quiz/quiz-services';
 import * as submissionServices from '../../utilities/submission/submission-services';
 import * as localStorageTools from '../../utilities/local-storage';
@@ -20,6 +21,11 @@ export default function Account() {
     const [quizzes, setQuizzes] = useState<Array<Quiz> | null>(null);
     const [submissions, setSubmissions] = useState<Array<Submission> | null>(null);
 
+
+    useEffect(() => {
+        dispatch(updateCurrentPage(''));
+      }, []);
+    
     useEffect(() => {
         if(user.id){
             handleReqeust();

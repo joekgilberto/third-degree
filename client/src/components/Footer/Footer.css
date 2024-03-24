@@ -1,0 +1,16 @@
+footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    text-align: center;
+}
+
+footer p{
+    margin: 0;
+    font-size: 12px;
+}
+
+footer:hover p a{
+    text-decoration: underline;
+}

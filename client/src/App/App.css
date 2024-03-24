@@ -3,4 +3,46 @@
   width: 100vw;
   max-height: -webkit-fill-available;
   max-width: -webkit-fill-available;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+h1,
+.cursive {
+  color: #59a4e8;
+  font-family: "UnifrakturMaguntia", cursive !important;
+  text-shadow: 2px 2px 3px #00000060;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6,
+button{
+  font-family: "Kode Mono", monospace;
+}
+
+a,
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.bold {
+  font-weight: bold !important;  
+}
+
+.underline {
+  text-decoration: underline !important;
+}
+
+.mono{
+  font-family: "Kode Mono", monospace;
 }

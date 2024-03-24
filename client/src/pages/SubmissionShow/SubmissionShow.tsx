@@ -2,6 +2,8 @@ import './SubmissionShow.css';
 
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { updateCurrentPage } from '../../components/Header/navSlice';
 import * as submissionServices from '../../utilities/submission/submission-services';
 import * as quizServices from '../../utilities/quiz/quiz-services';
 import { Quiz, Submission, Question } from '../../utilities/types';
@@ -12,6 +14,7 @@ import Loading from '../../components/Loading/Loading';
 export default function SubmissionShow() {
 
     const { id } = useParams();
+    const dispatch = useDispatch();
     const [submission, setSubmission] = useState<Submission>();
     const [quiz, setQuiz] = useState<Quiz>();
 
@@ -27,6 +30,7 @@ export default function SubmissionShow() {
     };
 
     useEffect(() => {
+            dispatch(updateCurrentPage(''));
         handleRequest();
     }, [])
 

@@ -6,7 +6,7 @@ const navSlice = createSlice({
     currentPage: ''
   },
   reducers: {
-    setCurrentPage(state, action) {
+    updateCurrentPage(state, action) {
       state.currentPage = action.payload;
     }
   }
@@ -14,6 +14,6 @@ const navSlice = createSlice({
 
 export const selectCurrentPage = (state: { nav: { currentPage: string; }; }) => state.nav.currentPage;
 
-export const { setCurrentPage } = navSlice.actions;
+export const { updateCurrentPage } = navSlice.actions;
 
 export default navSlice.reducer;

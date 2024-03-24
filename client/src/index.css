@@ -1,7 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=UnifrakturCook:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=UnifrakturMaguntia&display=swap');
 
 * {
   box-sizing: border-box;
+  color: #fff;
   font-family: "Roboto", sans-serif;
 }
 
@@ -11,41 +12,11 @@ body {
   width: 100vw;
   max-height: -webkit-fill-available;
   max-width: -webkit-fill-available;
+  background-image: linear-gradient(135deg, #455d84ff, #121d2fff);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: fixed;
+  background-attachment: fixed;
   padding: 0;
   margin: 0;
-}
-
-h1 {
-  font-family: "UnifrakturCook", cursive !important;
-}
-
-h2,
-h3,
-h4,
-h5,
-h6,
-button{
-  font-family: "Kode Mono", monospace;
-}
-
-a,
-button {
-  cursor: pointer;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.bold {
-  font-weight: bold !important;  
-}
-
-.underline {
-  text-decoration: underline !important;
-}
-
-.special{
-  font-family: "Kode Mono", monospace;
 }

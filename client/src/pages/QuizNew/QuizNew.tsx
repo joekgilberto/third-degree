@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectNewQuiz, updateQuizNew } from './quizNewSlice';
-import { setCurrentPage } from '../../components/Header/navSlice';
+import { updateCurrentPage } from '../../components/Header/navSlice';
 import { selectUser } from '../../App/appSlice';
 import * as quizServices from '../../utilities/quiz/quiz-services';
 import * as categoryServices from '../../utilities/category/category-services';
@@ -109,7 +109,7 @@ export default function QuizNew() {
     };
 
     useEffect(() => {
-        dispatch(setCurrentPage('new'));
+        dispatch(updateCurrentPage('new'));
         dispatch(updateQuizNew({
             title: '',
             questions: [],

@@ -8,12 +8,12 @@ import { AppDispatch } from './store';
 
 import Header from '../components/Header/Header';
 import Main from '../components/Main/Main';
+import Footer from '../components/Footer/Footer';
 import { decodeToken } from '../utilities/tools';
 
 export default function App() {
 
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState<boolean>(true);
 
   function handleLogout(): void {
     localStorageTools.clearUserToken();

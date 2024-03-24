@@ -1,0 +1,33 @@
+.QuizCard{
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    box-shadow: 2px 2px 3px #00000060;
+}
+
+.QuizCard h3{
+    height: 100px;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 10px;
+    color: #2c3d5a;
+}
+
+.QuizCard:hover h3{
+    text-decoration: underline;
+}
+
+.QuizCard .avg{
+    height: 55px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    background-color: #2c3d5a;
+}
+
+.QuizCard p{
+    margin: 0;
+}

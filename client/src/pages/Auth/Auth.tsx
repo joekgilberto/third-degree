@@ -3,6 +3,7 @@ import './Auth.css';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectCredentials, selectReEnter, updateCredentials, updateReEnter } from './authSlice';
+import { updateCurrentPage } from '../../components/Header/navSlice';
 import { Credentials } from '../../utilities/types';
 
 import Login from '../../components/Login/Login';
@@ -16,6 +17,7 @@ export default function Auth() {
     const [toggle, setToggle] = useState<boolean>(false);
 
     useEffect(() => {
+        dispatch(updateCurrentPage(''));
         dispatch(updateCredentials({ username: '', password: '' }));
         dispatch(updateReEnter(''));
     }, []);

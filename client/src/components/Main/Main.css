@@ -1,3 +1,8 @@
-main {
+main{
+    overflow-y: scroll;
+}
+
+main > div {
+    min-height: calc(100vh - 190px);
     padding: 10px;
 }

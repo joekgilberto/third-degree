@@ -2,7 +2,7 @@ import './CategoryIndex.css';
 
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { setCurrentPage } from '../../components/Header/navSlice';
+import { updateCurrentPage } from '../../components/Header/navSlice';
 import * as categoryServices from '../../utilities/category/category-services';
 import { Category } from '../../utilities/types';
 
@@ -21,7 +21,7 @@ export default function CategoryIndex() {
   };
 
   useEffect(() => {
-    dispatch(setCurrentPage('categories'));
+    dispatch(updateCurrentPage('categories'));
     handleRequest();
   }, []);
 
@@ -32,7 +32,7 @@ export default function CategoryIndex() {
   return (
     <div className='CategoryIndex'>
       <h2>Smart your engines!</h2>
-      <p>And pick your <span className='special bold'>category</span>:</p>
+      <p>And pick your <span className='cursive bold'>category</span>:</p>
       <hr />
       {categories.map((category) => {
         return (
