@@ -46,3 +46,12 @@ a {
 .mono{
   font-family: "Kode Mono", monospace;
 }
+
+@keyframes hover {
+  0%{
+    transform: translateY(0);
+  }
+  100%{
+    transform: translateY(-5px);
+  }
+}

@@ -6,6 +6,10 @@
     box-shadow: 2px 2px 5px #00000060;
 }
 
+.QuizCard:hover{
+    animation: hover .2s ease-in forwards;
+}
+
 .QuizCard .title{
     height: 150px;
     display: flex;
@@ -25,10 +29,6 @@
 .QuizCard .title p{
     color: #59a4e8;
     font-size: 1rem;
-}
-
-.QuizCard:hover h3{
-    text-decoration: underline;
 }
 
 .QuizCard .avg{
