@@ -23,6 +23,7 @@ export interface Submission {
 export interface Category {
     id?: string;
     title: string;
+    image?: string;
 };
 
 export interface User {
@@ -40,7 +41,6 @@ export interface Credentials {
 export interface Question {
     id: number,
     type: string,
-    image?: string,
     query: string,
     choices: Choices,
     answer: string,

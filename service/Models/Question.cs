@@ -8,8 +8,6 @@ namespace service.Models
 
         public string Type { get; set; }
 
-        public string? Image { get; set; }
-
         public string Query { get; set; }
 
         public Choices Choices { get; set; }

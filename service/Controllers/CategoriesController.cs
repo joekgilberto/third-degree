@@ -68,6 +68,35 @@ namespace service.Controllers
             return update;
         }
 
+        [HttpPut("image/{id:length(24)}")]
+        [Authorize]
+        public async Task<ActionResult<Category>> UpdateImage(string id, string image)
+        {
+            Category? category = await _categoriesService.GetByIdAsync(id);
+
+            if (category is null)
+            {
+                return NotFound();
+            }
+
+            Category updatedCategory = new Category();
+
+            updatedCategory.Id = category.Id;
+
+            updatedCategory.Title = category.Title;
+
+            updatedCategory.Image = image;
+
+            Category? update = await _categoriesService.UpdateAsync(id, updatedCategory);
+
+            if (update is null)
+            {
+                return NotFound();
+            }
+
+            return update;
+        }
+
         [HttpDelete("{id:length(24)}")]
         [Authorize]
         public async Task<IActionResult> Remove(string id)

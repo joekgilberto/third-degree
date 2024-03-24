@@ -11,3 +11,5 @@ https://www.infoworld.com/article/3669188/how-to-implement-jwt-authentication-in
 https://unsplash.com/photos/brown-pencil-on-equation-paper-ViEBSoZH6M4?utm_content=creditShareLink&utm_medium=referral&utm_source=unsplash
 
 https://unsplash.com/photos/brown-wooden-drawer-lRoX0shwjUQ
+
+https://unsplash.com/photos/solved-3x3-rubiks-cube-MAEbdaFe4ps
