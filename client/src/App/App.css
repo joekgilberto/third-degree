@@ -25,6 +25,10 @@ button{
   font-family: "Kode Mono", monospace;
 }
 
+p{
+  font-size: 1.25rem;
+}
+
 a,
 button {
   cursor: pointer;
@@ -43,6 +47,10 @@ a {
   text-decoration: underline !important;
 }
 
+p .cursive{
+  font-size: 1.3rem;
+}
+
 .mono{
   font-family: "Kode Mono", monospace;
 }
@@ -56,11 +64,29 @@ a {
   }
 }
 
+@keyframes hover-diag {
+  0%{
+      transform: translate(0,0);
+    }
+    100%{
+      transform: translate(-5px,-5px);
+    }
+  }
+
 @keyframes fade-in {
   0%{
     opacity: 0;
   }
   100%{
     opacity: 100%;
+  }
+}
+
+@keyframes quarter-glow{
+  0%{
+      opacity: 0;
+  }
+  100%{
+      opacity: 25%;
   }
 }
