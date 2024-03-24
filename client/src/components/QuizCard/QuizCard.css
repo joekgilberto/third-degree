@@ -19,6 +19,7 @@
 .QuizCard .title h3{
     margin: 0 0 5px 0;
     color: #2c3d5a;
+    font-size: 1.4rem;
 }
 
 .QuizCard .title p{
@@ -31,7 +32,7 @@
 }
 
 .QuizCard .avg{
-    height: 55px;
+    height: 75px;
     display: flex;
     flex-direction: column;
     justify-content: center;

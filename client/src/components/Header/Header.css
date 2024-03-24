@@ -28,7 +28,6 @@ header .logo h1{
 nav{
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
     padding: 10px 0;
     border-bottom: 2px solid #fff;
 }

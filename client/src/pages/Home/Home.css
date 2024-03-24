@@ -1,7 +1,7 @@
 .Home {
     display: flex;
     flex-direction: column;
-    padding: 0 !important;
+    padding: 10px 0 0 0 !important;
 }
 
 .Home>div {
@@ -53,11 +53,12 @@
 
 .Home .hardest>h3 {
     flex: 1;
+    margin: 5px 0 20px 0;
     color: #2c3d5a;
     font-size: 1.5rem;
     text-align: center;
     font-style: italic;
-    margin: 5px 0 20px 0;
+    text-shadow: 1px 1px 2px #00000060;
     border-bottom: 3px solid #2c3d5a;
 }
 
