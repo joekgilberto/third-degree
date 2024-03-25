@@ -1,26 +1,32 @@
 ﻿<Properties StartupConfiguration="{A2A19300-3E6D-4CD8-AA10-3F7A5B418F45}|https">
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/QuizzesController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Models/User.cs">
     <Files>
-      <File FileName="Models/User.cs" />
+      <File FileName="Models/User.cs" Line="1" Column="1" />
       <File FileName="Services/UsersService.cs" />
-      <File FileName="Services/QuizzesService.cs" Line="38" Column="47" />
+      <File FileName="Services/QuizzesService.cs" />
       <File FileName="Services/CategoriesService.cs" />
-      <File FileName="Services/SubmissionsService.cs" Line="26" Column="34" />
-      <File FileName="Controllers/UsersController.cs" />
-      <File FileName="Controllers/SubmissionsController.cs" />
+      <File FileName="Services/SubmissionsService.cs" />
+      <File FileName="Controllers/UsersController.cs" Line="1" Column="1" />
+      <File FileName="Controllers/SubmissionsController.cs" Line="1" Column="1" />
       <File FileName="Controllers/QuizzesController.cs" Line="47" Column="20" />
-      <File FileName="Controllers/CategoriesController.cs" />
+      <File FileName="Controllers/CategoriesController.cs" Line="69" Column="10" />
       <File FileName="Program.cs" />
-      <File FileName="Models/Submission.cs" />
+      <File FileName="Models/Submission.cs" Line="1" Column="1" />
+      <File FileName="Models/Category.cs" Line="19" Column="40" />
+      <File FileName="Models/Question.cs" Line="17" Column="48" />
+      <File FileName="Models/Answer.cs" Line="11" Column="44" />
+      <File FileName="Models/Choices.cs" Line="13" Column="39" />
+      <File FileName="Models/Creds.cs" Line="1" Column="1" />
+      <File FileName="Models/Quiz.cs" Line="1" Column="1" />
+      <File FileName="Models/ThirdDegreeDatabaseSettings.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="service">
-            <Node name="service" expanded="True">
+            <Node name="service">
               <Node name="Controllers" expanded="True" />
-              <Node name="Models" expanded="True" />
               <Node name="Services" expanded="True" />
             </Node>
           </Node>

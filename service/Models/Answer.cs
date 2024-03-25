@@ -9,10 +9,6 @@ namespace service.Models
 		public string Guess { get; set; }
 
 		public List<string> Guesses { get; set; }
-
-		public Answer()
-		{
-		}
 	}
 }
 

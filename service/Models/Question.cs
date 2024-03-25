@@ -15,10 +15,6 @@ namespace service.Models
         public string Answer { get; set; }
         
         public List<string> Answers {get; set;}
-
-        public Question()
-		{
-		}
 	}
 }
 

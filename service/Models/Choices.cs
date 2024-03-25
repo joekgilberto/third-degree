@@ -11,10 +11,6 @@ namespace service.Models
         public string? C { get; set; }
 
         public string? D { get; set; }
-
-        public Choices()
-		{
-		}
 	}
 }
 
