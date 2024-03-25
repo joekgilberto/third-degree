@@ -1,10 +1,10 @@
 
 .Banner {
     width: 100%;
-    height: 200px;
+    height: 234px;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: 1;
+    grid-template-rows: 200px 34px;
     justify-content: center;
     justify-items: flex-end;
     align-items: center;
@@ -44,6 +44,19 @@
     animation: banner-text-in .25s .65s ease-in forwards;
 }
 
+.Banner p{
+    width: 100%;
+    grid-row: 2 / span 1;
+    margin: 0;
+    padding: 10px;
+    grid-column: 1 /span 5;
+    font-size: .75rem !important;
+    font-style: italic;
+}
+
+.Banner :hover a{
+    text-decoration: underline;
+}
 
 @keyframes banner-in {
     0% {

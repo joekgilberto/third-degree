@@ -55,6 +55,10 @@ p .cursive{
   font-family: "Kode Mono", monospace;
 }
 
+.delete{
+  background-color: #d02828;
+}
+
 @keyframes hover {
   0%{
     transform: translateY(0);

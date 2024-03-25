@@ -13,6 +13,10 @@ namespace service.Models
         public string Title { get; set; }
 
         public string? Image { get; set; }
+
+        public string? Credit { get; set; }
+
+        public string? Link { get; set; }
     }
 }
 

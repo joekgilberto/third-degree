@@ -6,6 +6,7 @@ import { Routes, Route } from 'react-router-dom'
 import Home from '../../pages/Home/Home';
 import CategoryIndex from '../../pages/CategoryIndex/CategoryIndex';
 import CategoryShow from '../../pages/CategoryShow/CategoryShow';
+import CategoryEdit from '../../pages/CategoryEdit/CategoryEdit'
 import QuizNew from '../../pages/QuizNew/QuizNew';
 import QuizShow from '../../pages/QuizShow/QuizShow';
 import QuizEdit from '../../pages/QuizEdit/QuizEdit';
@@ -14,6 +15,7 @@ import Account from '../../pages/Account/Account';
 import Auth from '../../pages/Auth/Auth';
 import PrivateRoute from '../CustomRoutes/PrivateRoute';
 import AuthenticatedRoute from '../CustomRoutes/AuthenticatedRoute';
+import ClearanceRoute from '../../components/CustomRoutes/ClearanceRoute';
 import Footer from '../../components/Footer/Footer';
 
 export default function Main() {
@@ -23,6 +25,11 @@ export default function Main() {
         <Route path='/' element={<Home />} />
         <Route path='/categories' element={<CategoryIndex />} />
         <Route path='/categories/:id' element={<CategoryShow />} />
+        <Route path='/categories/edit/:id' element={
+          <ClearanceRoute>
+            <CategoryEdit />
+          </ClearanceRoute>
+        } />
         <Route path='/quiz/new' element={
           <PrivateRoute>
             <QuizNew />

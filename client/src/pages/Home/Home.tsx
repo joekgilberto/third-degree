@@ -30,7 +30,7 @@ export default function Home() {
 
   return (
     <div className='Home'>
-      <Banner source='https://images.unsplash.com/photo-1518133910546-b6c2fb7d79e3?q=80&w=3024&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' altText='brown pencil on equation paper' sub='A challenger approaches!'/>
+      <Banner source='https://images.unsplash.com/photo-1518133910546-b6c2fb7d79e3?q=80&w=3024&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' altText='brown pencil on equation paper' sub='A challenger approaches!' link='https://unsplash.com/@chrisliverani' credit='Chris Liverani' />
       <div className='intro'>
         <p>Welcome to <span className='cursive bold'>Third Degree</span>, the quiz center of the known universe!</p>
         <p>Here, we believe in the power of knowledge and the joy of learning. Whether you're here to challenge your intellect or to craft thought-provoking quizzes, you've found the perfect digital institution.</p>

@@ -24,6 +24,8 @@ export interface Category {
     id?: string;
     title: string;
     image?: string;
+    credit?: string;
+    link?: string;
 };
 
 export interface User {

@@ -187,7 +187,7 @@ export default function QuizShow() {
                     return <ShowQuestion question={question} />
                 })}
                 <input type='submit' value='Submit' />
-                {user.id === quiz.author ?
+                {user.id === quiz.author || user.clearance >= 1 ?
                     <>
                         <Link to={`/quiz/edit/${quiz.id}`}>
                             <button>Edit</button>

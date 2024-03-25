@@ -41,6 +41,7 @@ nav .pages{
 nav .pages button,
 nav button.auth{
     color: #fff;
+    font-size: .8rem;
     text-shadow: 2px 2px 3px #00000060;
     background: transparent;
     border: none;
