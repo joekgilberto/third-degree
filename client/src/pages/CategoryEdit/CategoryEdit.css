@@ -1,12 +1,5 @@
-.CategoryEdit{
+.CategoryEdit {
     display: flex;
     flex-direction: column;
     padding: 10px 0;
-}
-
-.CategoryEdit form{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 10px;
 }

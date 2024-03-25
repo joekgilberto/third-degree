@@ -37,11 +37,14 @@ export default function CategoryIndex() {
         <p>Pick your <span className='cursive bold'>category</span>:</p>
       </div>
       <div className='list'>
-        {categories.map((category) => {
-          return (
-            <CategoryCard key={category.id} category={category} />
-          )
-        })}
+        {categories.length ?
+          categories.map((category) => {
+            return (
+              <CategoryCard key={category.id} category={category} />
+            )
+          }) :
+          <p className='none-yet'>No categories, yet!</p>
+        }
       </div>
     </div>
   );

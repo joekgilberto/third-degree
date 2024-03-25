@@ -18,12 +18,15 @@
 }
 
 .CategoryShow .options button{
-    font-size: .8rem;
-    font-weight: 600;
-    box-shadow: 2px 2px 3px #00000060;
+    font-size: 1rem;
 }
 
 .CategoryShow .list{
     padding: 20px;
     background-color: #b7d9f8ff;
+}
+
+.CategoryShow .none-yet{
+    padding: 10px;
+    background-image: linear-gradient(135deg, #455d84ff, #121d2fff);
 }
