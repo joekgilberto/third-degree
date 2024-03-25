@@ -1,13 +1,11 @@
 import './CategoryEdit.css';
 
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectUser } from '../../App/appSlice';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { updateCurrentPage } from '../../components/Header/navSlice';
 import * as categoryServices from '../../utilities/category/category-services';
-import * as quizServices from '../../utilities/quiz/quiz-services';
-import { Quiz, Category, User } from '../../utilities/types';
+import { Category } from '../../utilities/types';
 
 import Banner from '../../components/Banner/Banner';
 import QuizCard from '../../components/QuizCard/QuizCard';
@@ -16,6 +14,7 @@ import Loading from '../../components/Loading/Loading';
 export default function CategoryEdit() {
 
     const { id } = useParams();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [category, setCategory] = useState<Category>();
     const [formData, setFormData] = useState<Category>({ title: '' });
@@ -34,7 +33,8 @@ export default function CategoryEdit() {
 
     async function handleSubmit(e: React.ChangeEvent<HTMLFormElement>): Promise<void>{
         e.preventDefault();
-        console.log(formData)
+        categoryServices.updateCategory(id, formData);
+        navigate(`/categories/${id}`);
     }
 
     useEffect(() => {
