@@ -39,6 +39,10 @@ a {
   text-decoration: none;
 }
 
+input{
+  color: #000;
+}
+
 .bold {
   font-weight: bold !important;  
 }

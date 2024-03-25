@@ -32,6 +32,11 @@ export default function CategoryEdit() {
         setFormData(cache);
     }
 
+    async function handleSubmit(e: React.ChangeEvent<HTMLFormElement>): Promise<void>{
+        e.preventDefault();
+        console.log(formData)
+    }
+
     useEffect(() => {
         dispatch(updateCurrentPage(''));
         handleRequest();
@@ -42,15 +47,25 @@ export default function CategoryEdit() {
     };
 
     return (
-        <div className='CategoryShow'>
+        <div className='CategoryEdit'>
             <Banner source='https://images.unsplash.com/photo-1540835296355-c04f7a063cbb?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' altText={category.title} sub={`Edit ${category.title}`} link='https://unsplash.com/@olav_ahrens' credit='Olav Ahrens Røtne' />
-            <form>
+            <form onSubmit={handleSubmit}>
                 <label>Title
-                    <input name='title' onChange={handleChange} />
+                    <input name='title' value={formData.title} onChange={handleChange} />
                 </label>
+
                 <label>Image
-                <input name='image' onChange={handleChange} />
+                    <input name='image' value={formData.image} onChange={handleChange} />
                 </label>
+
+                <label>Photographer
+                    <input name='credit' value={formData.credit} onChange={handleChange} required={formData.image ? true : false} />
+                </label>
+
+                <label>Photographer Link
+                    <input name='link' value={formData.link} onChange={handleChange} />
+                </label>
+                <input type='submit' value={'Save'} />
             </form>
         </div>
     );
