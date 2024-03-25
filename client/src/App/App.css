@@ -63,6 +63,13 @@ p .cursive{
   background-color: #d02828;
 }
 
+.list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
 @keyframes hover {
   0%{
     transform: translateY(0);

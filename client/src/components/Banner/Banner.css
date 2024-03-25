@@ -52,6 +52,7 @@
     grid-column: 1 /span 5;
     font-size: .75rem !important;
     font-style: italic;
+    background-color: #00000060;
 }
 
 .Banner :hover a{

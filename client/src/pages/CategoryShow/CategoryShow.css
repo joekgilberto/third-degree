@@ -5,13 +5,25 @@
 }
 
 .CategoryShow div{
-    padding: 10px;
+    padding: 10px 20px;
 }
 
 .CategoryShow .options{
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     gap: 10px;
-    background-color: #00000060;
+    padding: 10px;
+    background-color: #b7d9f8ff;
+}
+
+.CategoryShow .options button{
+    font-size: .8rem;
+    font-weight: 600;
+    box-shadow: 2px 2px 3px #00000060;
+}
+
+.CategoryShow .list{
+    padding: 20px;
+    background-color: #b7d9f8ff;
 }
