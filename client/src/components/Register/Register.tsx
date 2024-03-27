@@ -61,7 +61,7 @@ export default function Register({ credentials, reEnter }: { credentials: Creden
             <input name='username' value={credentials.username} placeholder='Enter a username...' onChange={handleChange} autoComplete='username' required />
             <input type='password' name='password' value={credentials.password} placeholder='Enter a password...' onChange={handleChange} autoComplete='new-password' required />
             <input type='password' name='reEnter' value={reEnter} placeholder='Re-Enter your password...' onChange={handleReEnter} autoComplete='new-password' required />
-            <input className='submit' type='submit' value='Register' />
+            <input type='submit' value='Register' />
             {error ?
                 <p>{error}</p>
                 :

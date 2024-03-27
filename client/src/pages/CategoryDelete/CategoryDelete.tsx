@@ -94,7 +94,7 @@ export default function CategoryDelete() {
                     <p className='none'>No quizzes to update, proceed below to delete.</p>
                 }
                 <div className='options'>
-                    <input className='submit' type='submit' value='Delete' />
+                    <input type='submit' value='Delete' />
                     <button className='cancel' onClick={handleCancel}>Cancel</button>
                 </div>
             </form>

@@ -9,7 +9,8 @@ main>div {
 }
 
 main button,
-.submit {
+.submit,
+input[type="submit"] {
     font-size: 1.25rem;
     color: #fff;
     font-weight: 600;

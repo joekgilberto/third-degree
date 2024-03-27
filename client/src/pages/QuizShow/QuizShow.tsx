@@ -231,7 +231,7 @@ export default function QuizShow() {
                     return <ShowQuestion question={question} />
                 })}
                 <div className='options'>
-                    <input className='submit' type='submit' value='Submit' />
+                    <input type='submit' value='Submit' />
                     <button className='cancel' onClick={handleCancel}>Exit</button>
                 </div>
             </form>

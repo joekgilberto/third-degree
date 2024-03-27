@@ -11,7 +11,7 @@ export default function ShowQuestion({ question }: { question: Question }) {
 
     return (
         <div className='ShowQuestion'>
-            <p className='number mono'>Question #{question.id + 1}</p>
+            <h4 className='mono'>Question #{question.id + 1}</h4>
             <label>
                 <p>{question.query}</p>
             {question.type === 'text' ?

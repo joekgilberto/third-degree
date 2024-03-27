@@ -43,7 +43,7 @@ export default function Login({ credentials }: { credentials: Credentials }) {
       <h2>Login to continue your journey...</h2>
       <input name='username' value={credentials.username} placeholder='Enter your username...' onChange={handleChange} autoComplete='username' required />
       <input type='password' name='password' value={credentials.password} placeholder='Enter your password...' onChange={handleChange} autoComplete='current-password' required />
-      <input className='submit' type='submit' value='Login' />
+      <input type='submit' value='Login' />
     </form>
   );
 };

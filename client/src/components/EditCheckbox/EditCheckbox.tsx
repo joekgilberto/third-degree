@@ -82,14 +82,14 @@ export default function EditCheckbox({ question }: { question: Question }) {
         <div className='EditCheckbox'>
             <div className='radio-choices'>
                 <label>A&#41;
-                    <input name='a' placeholder='Enter choice A' onChange={handleChangeChoice} required />
+                    <input name='a' placeholder='Enter choice A' value={question.choices.a} onChange={handleChangeChoice} required />
                 </label>
                 <label>B&#41;
-                    <input name='b' placeholder='Enter choice B' onChange={handleChangeChoice} required />
+                    <input name='b' placeholder='Enter choice B' value={question.choices.b} onChange={handleChangeChoice} required />
                 </label>
                 {editQuiz.questions[question.id].choices.c?.length || editQuiz.questions[question.id].choices.c === '' ?
                     <label>C&#41;
-                        <input name='c' placeholder='Enter choice C' onChange={handleChangeChoice} required />
+                        <input name='c' placeholder='Enter choice C' value={question.choices.c} onChange={handleChangeChoice} required />
                         {editQuiz.questions[question.id].choices.d?.length || editQuiz.questions[question.id].choices.d !== '' ?
                             <button onClick={handleDeleteChoice}>X</button>
                             : null}
@@ -97,7 +97,7 @@ export default function EditCheckbox({ question }: { question: Question }) {
                     : null}
                 {editQuiz.questions[question.id].choices.d?.length || editQuiz.questions[question.id].choices.d === '' ?
                     <label>D&#41;
-                        <input name='d' placeholder='Enter choice D' onChange={handleChangeChoice} required />
+                        <input name='d' placeholder='Enter choice D' value={question.choices.d} onChange={handleChangeChoice} required />
                         <button onClick={handleDeleteChoice}>X</button>
                     </label>
                     : <button onClick={handleAddChoice}>+ Add a Choice</button>}

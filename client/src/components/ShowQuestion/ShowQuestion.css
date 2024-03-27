@@ -3,8 +3,8 @@
     flex-direction: column;
 }
 
-.ShowQuestion .number{
-    margin: 0;
+.ShowQuestion h4{
+    margin: 10px 0 0 0;
     color: #2c3d5a;
     font-size: 1.5rem;
     font-weight: 600;
@@ -27,10 +27,14 @@
     align-items: center;
     margin: 10px;
     padding: 5px;
-    background-image: linear-gradient(135deg, #455d84ff, #121d2fff);
+    border: 2px solid #2c3d5a;
+    border-radius: 5px;
+    box-shadow: none;
 }
 
 .ShowRadio label p,
 .ShowCheckbox label p{
+    color: #2c3d5a;
+    text-shadow: none;
     background-image: none;
 }

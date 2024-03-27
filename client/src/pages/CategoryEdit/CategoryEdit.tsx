@@ -76,7 +76,7 @@ export default function CategoryEdit() {
                     <input name='link' value={formData.link} placeholder='ex: https://joekgilberto.com' onChange={handleChange} />
                 </label>
                 <div className='options'>
-                    <input className='submit' type='submit' value={'Save'} />
+                    <input type='submit' value={'Save'} />
                     <button className='cancel' onClick={handleCancel}>Cancel</button>
                 </div>
             </form>
