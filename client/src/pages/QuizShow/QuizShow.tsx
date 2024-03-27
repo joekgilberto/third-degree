@@ -179,32 +179,38 @@ export default function QuizShow() {
                 </div>
                 <div className='challengers'>
                     {quiz.avgScore || quiz.avgScore === 0 ?
-                            <p><span className='mono'>{quiz.avgScore.toFixed(2)}% average score | </span><span className='bold'>{quiz.submissions.length}</span><span className='italics'> {quiz.submissions.length===1?'challenger':'challengers'}</span></p>
+                        <p><span className='mono'>{quiz.avgScore.toFixed(2)}% average score | </span><span className='bold'>{quiz.submissions.length}</span><span className='italics'> {quiz.submissions.length === 1 ? 'challenger' : 'challengers'}</span></p>
                         :
                         <p className='mono'>No challengers, yet!</p>}
                 </div>
+                {user.id === quiz.author || user.clearance >= 1 ?
+                    <div className='clearance'>
+                        {!deleteToggle ?
+                            <>
+                                <Link to={`/quiz/edit/${quiz.id}`}>
+                                    <button>Edit</button>
+                                </Link>
+                                <button className='delete' onClick={(e) => setDeleteToggle(true)}>Delete</button>
+                            </>
+                            :
+                            <div className='confirm delete'>
+                                <p>Are you sure you want to delete your spectacular, one-of-a-kind quiz?</p>
+                                <div className='options'>
+                                <button className='cancel' onClick={handleDelete}>Confirm</button>
+                                <button className='submit' onClick={(e) => setDeleteToggle(false)}>Exit</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    : null}
             </div>
             <form onSubmit={handleSubmit}>
                 {quiz.questions.map((question: Question) => {
                     return <ShowQuestion question={question} />
                 })}
-                <input type='submit' value='Submit' />
-                {user.id === quiz.author || user.clearance >= 1 ?
-                    <>
-                        <Link to={`/quiz/edit/${quiz.id}`}>
-                            <button>Edit</button>
-                        </Link>
-                        {!deleteToggle ?
-                            <button onClick={(e) => setDeleteToggle(true)}>Delete</button>
-                            :
-                            <div>
-                                <p>Are you sure you want to delete your spectacular, one-of-a-kind quiz?</p>
-                                <button onClick={handleDelete}>Confirm</button>
-                                <button onClick={(e) => setDeleteToggle(false)}>Exit</button>
-                            </div>
-                        }
-                    </>
-                    : null}
+                <div className='options'>
+                    <input className='submit' type='submit' value='Submit' />
+                </div>
             </form>
         </div>
     );

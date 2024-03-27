@@ -103,6 +103,31 @@ form input::placeholder{
   font-style: italic;
 }
 
+.options{
+  display: flex;
+  margin-top: 10px;
+  gap: 10px;
+}
+
+.options > input,
+.options > button,
+.options > a > button{
+  flex: 1;
+  padding: 5px;
+}
+
+.options > a {
+  flex: 1;
+  display: flex;
+}
+
+.clearance{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+
 .bold {
   font-weight: bold !important;  
 }

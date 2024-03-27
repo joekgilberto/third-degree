@@ -8,11 +8,7 @@
     padding: 10px 20px;
 }
 
-.CategoryShow .options{
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 10px;
+.CategoryShow .clearance{
     padding: 10px;
     background-color: #b7d9f8ff;
 }

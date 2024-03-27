@@ -3,18 +3,6 @@
     text-align: center;
 }
 
-.CategoryDelete .options{
-    display: flex;
-    margin-top: 10px;
-    gap: 10px;
-}
-
-.CategoryDelete .options > input,
-.CategoryDelete .options > button{
-    flex: 1;
-    padding: 5px;
-}
-
 .CategoryDelete .submit {
     background-image: linear-gradient(145deg, #eb4444, #d02828);
 }
