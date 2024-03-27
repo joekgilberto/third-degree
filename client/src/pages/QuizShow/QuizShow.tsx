@@ -172,15 +172,17 @@ export default function QuizShow() {
 
     return (
         <div className='QuizShow'>
-            <div>
-                <h2>{quiz.title}</h2>
-                <p>{quiz.questions.length} Questions by {quiz.username}</p>
-            </div>
-            <div>
-                {quiz.avgScore || quiz.avgScore === 0 ?
-                    <h3>{quiz.avgScore.toFixed(2)}% average score | {quiz.submissions.length} challengers</h3>
-                    :
-                    <h3>No challengers, yet!</h3>}
+            <div className='intro'>
+                <div className='title'>
+                    <h2>{quiz.title}</h2>
+                    <p><span className='bold'>{quiz.questions.length}</span><span className='italics'> {quiz.questions.length === 1 ? 'question' : 'questions'} by </span><span className='bold'>{quiz.username}</span></p>
+                </div>
+                <div className='challengers'>
+                    {quiz.avgScore || quiz.avgScore === 0 ?
+                            <p><span className='mono'>{quiz.avgScore.toFixed(2)}% average score | </span><span className='bold'>{quiz.submissions.length}</span><span className='italics'> {quiz.submissions.length===1?'challenger':'challengers'}</span></p>
+                        :
+                        <p className='mono'>No challengers, yet!</p>}
+                </div>
             </div>
             <form onSubmit={handleSubmit}>
                 {quiz.questions.map((question: Question) => {

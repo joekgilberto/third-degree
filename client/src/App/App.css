@@ -107,6 +107,10 @@ form input::placeholder{
   font-weight: bold !important;  
 }
 
+.italics{
+  font-style: italic !important;
+}
+
 .underline {
   text-decoration: underline !important;
 }
