@@ -21,25 +21,25 @@ export default function ShowRadio({ question }: { question: Question }) {
         <div className='ShowRadio'>
             <label>
                 <input type='radio' name='a' value='a' checked={newSubmission.answers[question.id].guess==='a'} onChange={handleChange} />
-                A&#41; {question.choices.a}
+                <p>A&#41; {question.choices.a}</p>
             </label>
 
             <label>
                 <input type='radio' name='b' value='b' checked={newSubmission.answers[question.id].guess==='b'} onChange={handleChange} />
-                B&#41; {question.choices.b}
+                <p>B&#41; {question.choices.b}</p>
             </label>
 
             {question.choices.c ?
                 <label>
                     <input type='radio' name='c' value='c' checked={newSubmission.answers[question.id].guess==='c'} onChange={handleChange} />
-                    C&#41; {question.choices.c}
+                    <p>C&#41; {question.choices.c}</p>
                 </label>
                 : null}
 
             {question.choices.d ?
                 <label>
                     <input type='radio' name='d' value='d' checked={newSubmission.answers[question.id].guess==='d'} onChange={handleChange} />
-                    D&#41; {question.choices.d}
+                    <p>D&#41; {question.choices.d}</p>
                 </label>
                 : null}
         </div>

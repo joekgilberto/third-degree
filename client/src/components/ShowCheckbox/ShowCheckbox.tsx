@@ -30,25 +30,25 @@ export default function ShowCheckbox({ question }: { question: Question }) {
             <p>&#40;select all that apply&#41;</p>
             <label>
                 <input type='checkbox' name='a' value='a' checked={newSubmission.answers[question.id].guesses.includes('a')} onChange={handleChange} />
-                A&#41; {question.choices.a}
+                <p>A&#41; {question.choices.a}</p>
             </label>
 
             <label>
                 <input type='checkbox' name='b' value='b' checked={newSubmission.answers[question.id].guesses.includes('b')} onChange={handleChange} />
-                B&#41; {question.choices.b}
+                <p>B&#41; {question.choices.b}</p>
             </label>
 
             {question.choices.c ?
                 <label>
                     <input type='checkbox' name='c' value='c' checked={newSubmission.answers[question.id].guesses.includes('c')} onChange={handleChange} />
-                    C&#41; {question.choices.c}
+                    <p>C&#41; {question.choices.c}</p>
                 </label>
                 : null}
 
             {question.choices.d ?
                 <label>
                     <input type='checkbox' name='d' value='d' checked={newSubmission.answers[question.id].guesses.includes('d')} onChange={handleChange} />
-                    D&#41; {question.choices.d}
+                    <p>D&#41; {question.choices.d}</p>
                 </label>
                 : null}
         </div>
