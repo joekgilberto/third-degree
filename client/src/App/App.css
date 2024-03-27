@@ -56,27 +56,51 @@ form label {
   display: flex;
   flex-direction: column;
   margin: 10px 0;
-  padding: 10px;
-  color: #2c3d5a;
-  font-size: 1rem;
-  font-family: "Kode Mono", monospace;
-  font-weight: 600;
   text-shadow: 1px 1px 2px #00000060;
-  background-image: linear-gradient(135deg, #fff, #cfe8ff);
+  background-image: linear-gradient(135deg, #fff, #cfe8ff);  border: none;
   box-shadow: 2px 2px 3px #00000060;
 }
 
-form input{
-  margin-top: 10px;
+form label.select {
+  display: flex;
+  flex-direction: row;
+  background-color: none;
+}
+
+form label p{
+  flex: 1;
+  margin: 0;
+  padding: 10px;
   font-size: 1rem;
-  background-color: transparent;
+  font-family: "Kode Mono", monospace;
+  font-weight: 600;
+  background-image: linear-gradient(135deg, #455d84ff, #121d2fff);
+}
+
+form label input{
+  flex: 1;
+  margin: 10px;
+  padding: 10px 5px;
+  font-size: 1rem;
   border: none;
-  border-bottom: 1px solid #2c3d5a;
+  border-bottom: 1px solid #838994;
   border-radius: 0;
+  background-color: transparent;
+}
+
+form label select{
+  padding: 5px;
+  background-image: linear-gradient(135deg, #fff, #cfe8ff);  border: none;
+  border: none;
 }
 
 form input:focus{
   outline: none;
+}
+
+form input::placeholder{
+  color: #838994;
+  font-style: italic;
 }
 
 .bold {
@@ -93,6 +117,14 @@ p .cursive{
 
 .mono{
   font-family: "Kode Mono", monospace;
+}
+
+.submit{
+  background-image: linear-gradient(135deg, #62b3ff, #0888ff);
+}
+
+.cancel{
+  background-image: linear-gradient(135deg, #5976a4, #2d4b7c) !important;
 }
 
 .delete{

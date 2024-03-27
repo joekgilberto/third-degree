@@ -78,7 +78,8 @@ export default function CategoryDelete() {
                 {formData.length ?
                     formData.map((quiz: Quiz, idx: number) => {
                         return (
-                            <label>{quiz.title}
+                            <label className='select'>
+                                <p>{quiz.title}</p>
                                 <select name={`${idx}`} defaultValue={''} onChange={handleChange} required>
                                     <option disabled value=''>Choose a Category</option>
                                     {categories.map((category: Category) => {
@@ -94,7 +95,7 @@ export default function CategoryDelete() {
                 }
                 <div className='options'>
                     <input className='submit' type='submit' value='Delete' />
-                    <button onClick={handleCancel}>Cancel</button>
+                    <button className='cancel' onClick={handleCancel}>Cancel</button>
                 </div>
             </form>
         </div>
