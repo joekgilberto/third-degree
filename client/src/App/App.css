@@ -57,18 +57,25 @@ form label {
   flex-direction: column;
   margin: 10px 0;
   text-shadow: 1px 1px 2px #00000060;
-  background-image: linear-gradient(135deg, #fff, #cfe8ff);  border: none;
+  background-image: url('https://i.imgur.com/hxvRJSA.jpg');
+  background-size: 105%;
+  background-position: center;
+  background-repeat: no-repeat;
   box-shadow: 2px 2px 3px #00000060;
 }
 
 form label.select {
+  flex: 1;
   display: flex;
   flex-direction: row;
   background-color: none;
 }
 
-form label p{
+form label.select p{
   flex: 1;
+}
+
+form label p{
   margin: 0;
   padding: 10px;
   font-size: 1rem;
@@ -78,7 +85,6 @@ form label p{
 }
 
 form label input{
-  flex: 1;
   margin: 10px;
   padding: 10px 5px;
   font-size: 1rem;
@@ -90,11 +96,16 @@ form label input{
 
 form label select{
   padding: 5px;
-  background-image: linear-gradient(135deg, #fff, #cfe8ff);  border: none;
+  text-align: center;
+  background-image: url('https://i.imgur.com/hxvRJSA.jpg');
+  background-size: 105%;
+  background-position: center;
+  background-repeat: no-repeat;
   border: none;
 }
 
-form input:focus{
+form input:focus,
+form select:focus{
   outline: none;
 }
 

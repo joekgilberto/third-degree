@@ -13,3 +13,5 @@ https://unsplash.com/photos/brown-pencil-on-equation-paper-ViEBSoZH6M4?utm_conte
 https://unsplash.com/photos/brown-wooden-drawer-lRoX0shwjUQ
 
 https://unsplash.com/photos/solved-3x3-rubiks-cube-MAEbdaFe4ps
+
+HTTPS://www.TWITTER.com/SYNTHEVISUALS/SWZyDZN
