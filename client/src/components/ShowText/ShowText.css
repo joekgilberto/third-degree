@@ -1,0 +1,15 @@
+.ShowText{
+    display: flex;
+    flex-direction: column;
+}
+
+.ShowText p{
+    padding-bottom: 0 !important;
+    color: #2c3d5a !important;
+    text-shadow: none !important;
+    background-image: none !important;
+}
+
+.ShowText input{
+    flex: 1;
+}

@@ -11,10 +11,9 @@ export default function ShowQuestion({ question }: { question: Question }) {
 
     return (
         <div className='ShowQuestion'>
-            <div className='question'>
-                <p className='number mono'>Question #{question.id + 1}</p>
-                <p className='query'>{question.query}</p>
-            </div>
+            <p className='number mono'>Question #{question.id + 1}</p>
+            <label>
+                <p>{question.query}</p>
             {question.type === 'text' ?
                 <ShowText question={question} />
                 : question.type === 'radio' ?
@@ -22,7 +21,7 @@ export default function ShowQuestion({ question }: { question: Question }) {
                     :
                     <ShowCheckbox question={question} />
             }
-            <hr />
+            </label>
         </div>
     );
 };

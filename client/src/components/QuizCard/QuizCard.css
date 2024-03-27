@@ -29,6 +29,7 @@
     margin: 0 0 5px 0;
     color: #2c3d5a;
     font-size: 1.4rem;
+    text-shadow: 1px 1px 2px #00000060;
 }
 
 .QuizCard .title p{

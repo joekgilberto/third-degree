@@ -29,9 +29,10 @@
     color: #2c3d5a;
 }
 
-.QuizShow .challengers p {
+.QuizShow .challengers h3 {
     margin: 10px 0 0 0;
     font-size: 1rem;
+    font-weight: 400;
 }
 
 .QuizShow .clearance{

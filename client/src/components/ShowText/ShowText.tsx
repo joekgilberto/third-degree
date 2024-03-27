@@ -28,7 +28,7 @@ export default function ShowText({ question }: { question: Question }) {
     return (
         <div className='ShowText'>
             <p>&#40;{length} {length === 1 ? 'word' : 'words'} long&#41;</p>
-            <input name='guess' placeholder='Make a guess' onChange={handleChange} required />
+            <input name='guess' placeholder='Make an (educated) guess!' onChange={handleChange} required />
         </div>
     );
 };

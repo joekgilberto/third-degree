@@ -117,7 +117,7 @@ export default function QuizEdit() {
 
     useEffect(() => {
         if (editQuiz.id) {
-            if (user.id !== editQuiz.author || user.clearance >= 1) {
+            if (user.id !== editQuiz.author && user.clearance < 1) {
                 navigate(`/quiz/${editQuiz.id}`);
             } else {
                 handleRequest();

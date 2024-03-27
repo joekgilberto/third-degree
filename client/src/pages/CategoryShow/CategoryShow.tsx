@@ -45,7 +45,7 @@ export default function CategoryShow() {
       <div className='find'>
         <p>Find a <span className='cursive bold'>quiz</span>:</p>
       </div>
-      {user.clearance ?
+      {user.clearance >= 1 ?
         <div className='clearance'>
           <Link to={`/categories/edit/${category.id}`}>
             <button>Edit</button>

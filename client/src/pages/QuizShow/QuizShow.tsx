@@ -137,8 +137,30 @@ export default function QuizShow() {
         });
     };
 
+    function handleCancel(e: React.MouseEvent<HTMLButtonElement, MouseEvent>){
+        e.preventDefault();
+        dispatch(updateSubmissionNew({
+            answers: [],
+            score: 0,
+            submissionDate: new Date(),
+            username: '',
+            challenger: '',
+            quiz: ''
+        }));
+        setRetakeId(null);
+        navigate(`/categories/${quiz.category}`)
+    }
+
     useEffect(() => {
         dispatch(updateCurrentPage(''));
+        dispatch(updateSubmissionNew({
+            answers: [],
+            score: 0,
+            submissionDate: new Date(),
+            username: '',
+            challenger: '',
+            quiz: ''
+        }))
         handleRetake(user);
     }, []);
 
@@ -179,7 +201,7 @@ export default function QuizShow() {
                 </div>
                 <div className='challengers'>
                     {quiz.avgScore || quiz.avgScore === 0 ?
-                        <p><span className='mono'>{quiz.avgScore.toFixed(2)}% average score | </span><span className='bold'>{quiz.submissions.length}</span><span className='italics'> {quiz.submissions.length === 1 ? 'challenger' : 'challengers'}</span></p>
+                        <h3><span className='mono'>{quiz.avgScore.toFixed(2)}% average score | </span><span className='bold'>{quiz.submissions.length}</span><span className='italics'> {quiz.submissions.length === 1 ? 'challenger' : 'challengers'}</span></h3>
                         :
                         <p className='mono'>No challengers, yet!</p>}
                 </div>
@@ -210,6 +232,7 @@ export default function QuizShow() {
                 })}
                 <div className='options'>
                     <input className='submit' type='submit' value='Submit' />
+                    <button className='cancel' onClick={handleCancel}>Exit</button>
                 </div>
             </form>
         </div>
