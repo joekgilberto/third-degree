@@ -7,6 +7,7 @@ import Home from '../../pages/Home/Home';
 import CategoryIndex from '../../pages/CategoryIndex/CategoryIndex';
 import CategoryShow from '../../pages/CategoryShow/CategoryShow';
 import CategoryEdit from '../../pages/CategoryEdit/CategoryEdit'
+import CategoryDelete from '../../pages/CategoryDelete/CategoryDelete';
 import QuizNew from '../../pages/QuizNew/QuizNew';
 import QuizShow from '../../pages/QuizShow/QuizShow';
 import QuizEdit from '../../pages/QuizEdit/QuizEdit';
@@ -28,6 +29,11 @@ export default function Main() {
         <Route path='/categories/edit/:id' element={
           <ClearanceRoute>
             <CategoryEdit />
+          </ClearanceRoute>
+        } />
+        <Route path='/categories/delete/:id' element={
+          <ClearanceRoute>
+            <CategoryDelete />
           </ClearanceRoute>
         } />
         <Route path='/quiz/new' element={

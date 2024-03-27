@@ -50,18 +50,20 @@ export default function CategoryShow() {
           <Link to={`/categories/edit/${category.id}`}>
             <button>Edit</button>
           </Link>
-          <button className='delete'>Delete</button>
+          <Link to={`/categories/delete/${category.id}`}>
+            <button className='delete'>Delete</button>
+          </Link>
         </div>
         : null}
       <div className='list'>
-        {quizzes.length?
-        quizzes.map((quiz: Quiz, idx: number) => {
-          return (
-            <QuizCard key={quiz.id} quiz={quiz} timing={idx} />
-          )
-        })
-      :
-      <p className='none-yet'>No {category.title.toLowerCase()} quizzes, yet!</p>}
+        {quizzes.length ?
+          quizzes.map((quiz: Quiz, idx: number) => {
+            return (
+              <QuizCard key={quiz.id} quiz={quiz} timing={idx} />
+            )
+          })
+          :
+          <p className='none-yet'>No {category.title.toLowerCase()} quizzes, yet!</p>}
       </div>
     </div>
   );

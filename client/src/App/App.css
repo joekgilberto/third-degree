@@ -39,7 +39,8 @@ a {
   text-decoration: none;
 }
 
-input{
+input,
+select{
   color: #000;
 }
 

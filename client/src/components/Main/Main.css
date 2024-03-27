@@ -18,6 +18,7 @@ main button,
     background-image: linear-gradient(135deg, #59a4e8, #297cc9);
     border: none;
     box-shadow: 2px 2px 3px #00000060;
+    cursor: pointer;
 }
 
 main button:active {

@@ -8,7 +8,6 @@ import * as categoryServices from '../../utilities/category/category-services';
 import { Category } from '../../utilities/types';
 
 import Banner from '../../components/Banner/Banner';
-import QuizCard from '../../components/QuizCard/QuizCard';
 import Loading from '../../components/Loading/Loading';
 
 export default function CategoryEdit() {
@@ -20,7 +19,7 @@ export default function CategoryEdit() {
     const [formData, setFormData] = useState<Category>({ title: '' });
 
     async function handleRequest(): Promise<void> {
-        await categoryServices.getCategory(id).then(async (c) => {
+        await categoryServices.getCategory(id).then((c: Category) => {
             setCategory(c);
             setFormData(c);
         });
