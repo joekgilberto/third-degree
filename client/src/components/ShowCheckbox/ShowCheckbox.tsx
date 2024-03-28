@@ -13,13 +13,13 @@ export default function ShowCheckbox({ question }: { question: Question }) {
     function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
         const answerArr: Array<Answer> = [...newSubmission.answers];
 
-        if(newSubmission.answers[question.id].guesses.includes(e.target.value)){
+        if (newSubmission.answers[question.id].guesses.includes(e.target.value)) {
             const idx: number = answerArr[question.id].guesses.indexOf(e.target.value);
             const guessesArr: Array<string> = [...answerArr[question.id].guesses];
-            guessesArr.splice(idx,1);
-            answerArr[question.id] = { ...answerArr[question.id], guesses:[...guessesArr] };
+            guessesArr.splice(idx, 1);
+            answerArr[question.id] = { ...answerArr[question.id], guesses: [...guessesArr] };
         } else {
-            answerArr[question.id] = { ...answerArr[question.id], guesses:[...answerArr[question.id].guesses, e.target.value] };
+            answerArr[question.id] = { ...answerArr[question.id], guesses: [...answerArr[question.id].guesses, e.target.value] };
         };
 
         dispatch(updateSubmissionNew({ ...newSubmission, answers: [...answerArr] }));
@@ -28,25 +28,25 @@ export default function ShowCheckbox({ question }: { question: Question }) {
     return (
         <div className='ShowCheckbox'>
             <p>&#40;select all that apply&#41;</p>
-            <label>
+            <label className='pointer'>
                 <input type='checkbox' name='a' value='a' checked={newSubmission.answers[question.id].guesses.includes('a')} onChange={handleChange} />
                 <p>A&#41; {question.choices.a}</p>
             </label>
 
-            <label>
+            <label className='pointer'>
                 <input type='checkbox' name='b' value='b' checked={newSubmission.answers[question.id].guesses.includes('b')} onChange={handleChange} />
                 <p>B&#41; {question.choices.b}</p>
             </label>
 
             {question.choices.c ?
-                <label>
+                <label className='pointer'>
                     <input type='checkbox' name='c' value='c' checked={newSubmission.answers[question.id].guesses.includes('c')} onChange={handleChange} />
                     <p>C&#41; {question.choices.c}</p>
                 </label>
                 : null}
 
             {question.choices.d ?
-                <label>
+                <label className='pointer'>
                     <input type='checkbox' name='d' value='d' checked={newSubmission.answers[question.id].guesses.includes('d')} onChange={handleChange} />
                     <p>D&#41; {question.choices.d}</p>
                 </label>

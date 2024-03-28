@@ -30,7 +30,12 @@ p {
 }
 
 a,
-button {
+button,
+input[type="radio"],
+input[type="checkbox"],
+input[type="submit"],
+select,
+.pointer {
   cursor: pointer;
 }
 
@@ -242,7 +247,7 @@ input[type="submit"] {
   box-shadow: none;
 }
 
-.QuizForm .form-header .new-category input{
+.QuizForm .form-header .new-category input {
   margin: 0 0 10px 10px;
   padding: 15px 10px 5px 0;
   border: none;
@@ -254,8 +259,49 @@ input[type="submit"] {
   text-shadow: none;
 }
 
-.QuizForm .disclaimer{
-  font-size: 1rem;
+.QuizForm .disclaimer p {
+  margin: 10px;
+  color: #2c3d5a;
+  font-size: .6rem;
+}
+
+.QuizForm .add-question{
+  margin: 10px 0;
+  display: flex;
+  gap: 10px;
+}
+
+.QuizForm .add-question button {
+  flex: 1;
+  min-height: 45px;
+  font-size: .9rem;
+}
+
+.QuizForm .add-question .delete {
+  flex: none;
+  padding: 0 10px;
+}
+
+.FormQuestion{
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+}
+
+.FormQuestion .number{
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-image: linear-gradient(135deg, #455d84ff, #121d2fff);
+}
+
+.FormQuestion .number h3{
+  flex: 1;
+  margin: 0;
+}
+
+.FormQuestion .number .delete{
+
 }
 
 @keyframes hover {

@@ -152,26 +152,26 @@ export default function QuizNew() {
                 </div>
                 {newCategoryToggle ?
                     <div className='disclaimer'>
-                        <p>*Please create a new category at your own discretion.  We here at Third Degree recommend keeping category names concise and relevant.  Admins reserve the right to edit, merge, or delete any new categories.</p>
+                        <p>*Third Degree recommends keeping category names concise and relevant.  Admins reserve the right to edit, merge, or delete any new categories.</p>
                     </div>
                     : null}
-                <div>
+                <div className='questions'>
                     {newQuiz.questions?.map((question: Question, idx) => {
                         return (<>
                             <NewQuestion key={idx} question={question} />
                             <hr />
                         </>)
                     })}
-                    <div>
+                    <div className='add-question'>
                         {!newQuestion ?
                             <button onClick={(e) => setNewQuestion(true)}>+ Add a Question</button>
                             :
-                            <div className='form-question-options'>
+                            <>
                                 <button onClick={(e) => addQuestion('text')}>Short Answer</button>
                                 <button onClick={(e) => addQuestion('radio')}>Multiple Choice</button>
                                 <button onClick={(e) => addQuestion('checkbox')}>Select All</button>
-                                <button onClick={(e) => setNewQuestion(false)}>X</button>
-                            </div>
+                                <button className='delete' onClick={(e) => setNewQuestion(false)}>X</button>
+                            </>
                         }
                         {newQuiz.questions.length ?
                             <input type='submit' value='Submit' />

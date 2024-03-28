@@ -19,26 +19,26 @@ export default function ShowRadio({ question }: { question: Question }) {
 
     return (
         <div className='ShowRadio'>
-            <label>
-                <input type='radio' name='a' value='a' checked={newSubmission.answers[question.id].guess==='a'} onChange={handleChange} />
+            <label className='pointer'>
+                <input type='radio' name='a' value='a' checked={newSubmission.answers[question.id].guess === 'a'} onChange={handleChange} />
                 <p>A&#41; {question.choices.a}</p>
             </label>
 
-            <label>
-                <input type='radio' name='b' value='b' checked={newSubmission.answers[question.id].guess==='b'} onChange={handleChange} />
+            <label className='pointer'>
+                <input type='radio' name='b' value='b' checked={newSubmission.answers[question.id].guess === 'b'} onChange={handleChange} />
                 <p>B&#41; {question.choices.b}</p>
             </label>
 
             {question.choices.c ?
-                <label>
-                    <input type='radio' name='c' value='c' checked={newSubmission.answers[question.id].guess==='c'} onChange={handleChange} />
+                <label className='pointer'>
+                    <input type='radio' name='c' value='c' checked={newSubmission.answers[question.id].guess === 'c'} onChange={handleChange} />
                     <p>C&#41; {question.choices.c}</p>
                 </label>
                 : null}
 
             {question.choices.d ?
-                <label>
-                    <input type='radio' name='d' value='d' checked={newSubmission.answers[question.id].guess==='d'} onChange={handleChange} />
+                <label className='pointer'>
+                    <input type='radio' name='d' value='d' checked={newSubmission.answers[question.id].guess === 'd'} onChange={handleChange} />
                     <p>D&#41; {question.choices.d}</p>
                 </label>
                 : null}
