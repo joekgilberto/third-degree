@@ -173,11 +173,11 @@ export default function QuizNew() {
                                 <button className='delete' onClick={(e) => setNewQuestion(false)}>X</button>
                             </>
                         }
-                        {newQuiz.questions.length ?
-                            <input type='submit' value='Submit' />
+                    </div>
+                    {newQuiz.questions.length ?
+                            <input className='submit' type='submit' value='Submit' />
                             :
                             null}
-                    </div>
                 </div>
             </form>
         </div>

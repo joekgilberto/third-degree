@@ -265,6 +265,11 @@ input[type="submit"] {
   font-size: .6rem;
 }
 
+.QuizForm .questions{
+  display: flex;
+  flex-direction: column;
+}
+
 .QuizForm .add-question{
   margin: 10px 0;
   display: flex;
@@ -300,9 +305,10 @@ input[type="submit"] {
   margin: 0;
 }
 
-.FormQuestion .number .delete{
-
+.FormQuestion .submit{
+  flex: 1;
 }
+
 
 @keyframes hover {
   0% {
