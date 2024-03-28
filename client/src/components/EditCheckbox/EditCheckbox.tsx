@@ -79,7 +79,7 @@ export default function EditCheckbox({ question }: { question: Question }) {
     };
 
     return (
-        <div className='EditCheckbox'>
+        <div className='FormCheckbox'>
             <div className='radio-choices'>
                 <label>A&#41;
                     <input name='a' placeholder='Enter choice A' value={question.choices.a} onChange={handleChangeChoice} required />

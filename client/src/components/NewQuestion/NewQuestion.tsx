@@ -38,7 +38,7 @@ export default function NewQuestion({ question }: { question: Question }) {
     };
 
     return (
-        <div className='NewQuestion'>
+        <div className='FormQuestion'>
             <h3>Question #{question.id + 1} <button onClick={handleDelete}>X</button></h3>
             <input name='query' placeholder='Type a question' onChange={handleChangeQuery} required />
             {question.type === 'text' ?

@@ -17,7 +17,7 @@ export default function EditText({question}:{question: Question}) {
     };
 
     return (
-        <div className='EditText'>
+        <div className='FormText'>
             <h3>Answer #{question.id + 1}</h3>
             <input name='answer' value={editQuiz.questions[question.id].answer} placeholder='Type an answer' onChange={handleChange} required />
             <p>*Third Degree recommends keeping short answer questions as concise as possible for challenger benefit.</p>

@@ -1,4 +1,4 @@
-.App{
+.App {
   height: 100vh;
   width: 100vw;
   max-height: -webkit-fill-available;
@@ -21,11 +21,11 @@ h3,
 h4,
 h5,
 h6,
-button{
+button {
   font-family: "Kode Mono", monospace;
 }
 
-p{
+p {
   font-size: 1.25rem;
 }
 
@@ -40,7 +40,7 @@ a {
 }
 
 input,
-select{
+select {
   color: #000;
 }
 
@@ -71,11 +71,11 @@ form label.select {
   background-color: none;
 }
 
-form label.select p{
+form label.select p {
   flex: 1;
 }
 
-form label p{
+form label p {
   margin: 0;
   padding: 10px;
   font-size: 1rem;
@@ -84,7 +84,7 @@ form label p{
   background-image: linear-gradient(135deg, #455d84ff, #121d2fff);
 }
 
-form label input{
+form label input {
   margin: 10px;
   padding: 10px 5px;
   font-size: 1rem;
@@ -94,7 +94,7 @@ form label input{
   background-color: transparent;
 }
 
-form label select{
+form label select {
   padding: 5px;
   text-align: center;
   background-image: url('https://i.imgur.com/hxvRJSA.jpg');
@@ -105,34 +105,34 @@ form label select{
 }
 
 form input:focus,
-form select:focus{
+form select:focus {
   outline: none;
 }
 
-form input::placeholder{
+form input::placeholder {
   color: #838994;
   font-style: italic;
 }
 
-.options{
+.options {
   display: flex;
   margin-top: 10px;
   gap: 10px;
 }
 
-.options > input,
-.options > button,
-.options > a > button{
+.options>input,
+.options>button,
+.options>a>button {
   flex: 1;
   padding: 5px;
 }
 
-.options > a {
+.options>a {
   flex: 1;
   display: flex;
 }
 
-.clearance{
+.clearance {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -140,10 +140,10 @@ form input::placeholder{
 }
 
 .bold {
-  font-weight: bold !important;  
+  font-weight: bold !important;
 }
 
-.italics{
+.italics {
   font-style: italic !important;
 }
 
@@ -151,23 +151,23 @@ form input::placeholder{
   text-decoration: underline !important;
 }
 
-p .cursive{
+p .cursive {
   font-size: 1.3rem;
 }
 
-.mono{
+.mono {
   font-family: "Kode Mono", monospace;
 }
 
-input[type="submit"]{
+input[type="submit"] {
   background-image: linear-gradient(135deg, #62b3ff, #0888ff);
 }
 
-.cancel{
+.cancel {
   background-image: linear-gradient(135deg, #5976a4, #2d4b7c) !important;
 }
 
-.delete{
+.delete {
   background-image: linear-gradient(145deg, #eb4444, #d02828);
 }
 
@@ -178,38 +178,122 @@ input[type="submit"]{
   gap: 20px;
 }
 
+.QuizForm form {
+  min-height: calc(100vh - 262px);
+  justify-content: flex-start;
+}
+
+.QuizForm h2 {
+  margin: 0;
+  padding: 10px;
+}
+
+.QuizForm .form-header {
+  display: flex;
+  box-shadow: 2px 2px 3px #00000060;
+}
+
+.QuizForm .form-header .title {
+  width: 70%;
+  margin: 0;
+  padding: 10px;
+  background-image: linear-gradient(135deg, #455d84ff, #121d2fff);
+}
+
+.QuizForm .form-header .title input {
+  width: 100%;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-bottom: 2px solid #fff;
+  background: none;
+  padding-left: 0;
+}
+
+.QuizForm .form-header .title input::placeholder {
+  color: #fff;
+}
+
+.QuizForm .form-header select {
+  flex: 1;
+  padding: 10px;
+  background-image: url('https://i.imgur.com/hxvRJSA.jpg');
+  background-size: 105%;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: none;
+}
+
+.QuizForm .form-header .new-category {
+  display: flex;
+}
+
+.QuizForm .form-header .new-category {
+  background-image: url('https://i.imgur.com/hxvRJSA.jpg');
+  background-size: 105%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.QuizForm .form-header .new-category input,
+.QuizForm .form-header .new-category button {
+  background: none;
+  box-shadow: none;
+}
+
+.QuizForm .form-header .new-category input{
+  margin: 0 0 10px 10px;
+  padding: 15px 10px 5px 0;
+  border: none;
+  border-bottom: 2px solid #2c3d5a;
+}
+
+.QuizForm .form-header .new-category button {
+  color: #d02828;
+  text-shadow: none;
+}
+
+.QuizForm .disclaimer{
+  font-size: 1rem;
+}
+
 @keyframes hover {
-  0%{
+  0% {
     transform: translateY(0);
   }
-  100%{
+
+  100% {
     transform: translateY(-5px);
   }
 }
 
 @keyframes hover-diag {
-  0%{
-      transform: translate(0,0);
-    }
-    100%{
-      transform: translate(-5px,-5px);
-    }
+  0% {
+    transform: translate(0, 0);
   }
 
+  100% {
+    transform: translate(-5px, -5px);
+  }
+}
+
 @keyframes fade-in {
-  0%{
+  0% {
     opacity: 0;
   }
-  100%{
+
+  100% {
     opacity: 100%;
   }
 }
 
-@keyframes quarter-glow{
-  0%{
-      opacity: 0;
+@keyframes quarter-glow {
+  0% {
+    opacity: 0;
   }
-  100%{
-      opacity: 25%;
+
+  100% {
+    opacity: 25%;
   }
 }

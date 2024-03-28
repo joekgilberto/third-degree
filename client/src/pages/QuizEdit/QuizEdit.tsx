@@ -130,7 +130,7 @@ export default function QuizEdit() {
     };
 
     return (
-        <div className='QuizEdit'>
+        <div className='QuizForm'>
             <h2>Edit Quiz</h2>
             <form onSubmit={handleSubmit}>
                 <div className='form-header'>

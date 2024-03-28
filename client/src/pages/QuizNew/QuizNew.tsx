@@ -128,11 +128,13 @@ export default function QuizNew() {
     };
 
     return (
-        <div className='QuizNew'>
+        <div className='QuizForm'>
             <h2>New Quiz</h2>
             <form onSubmit={handleSubmit}>
                 <div className='form-header'>
-                    <input name='title' placeholder='Enter Title' onChange={handleChange} />
+                    <div className='title'>
+                        <input className='mono' name='title' placeholder='Enter Title' onChange={handleChange} />
+                    </div>
                     {!newCategoryToggle ?
                         <select name='category' defaultValue={''} onChange={handleCategory} required>
                             <option disabled value=''>Choose a Category</option>
@@ -142,14 +144,14 @@ export default function QuizNew() {
                             <option value='new'>(New Category)</option>
                         </select>
                         :
-                        <>
+                        <div className='new-category'>
                             <input name='category' placeholder='Enter new category' onChange={handleNewCategory} required />
                             <button onClick={handleExitCategory}>X</button>
-                        </>
+                        </div>
                     }
                 </div>
                 {newCategoryToggle ?
-                    <div className='form-note'>
+                    <div className='disclaimer'>
                         <p>*Please create a new category at your own discretion.  We here at Third Degree recommend keeping category names concise and relevant.  Admins reserve the right to edit, merge, or delete any new categories.</p>
                     </div>
                     : null}

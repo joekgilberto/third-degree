@@ -64,7 +64,7 @@ export default function NewRadio({ question }: { question: Question }) {
     };
 
     return (
-        <div className='NewRadio'>
+        <div className='FormRadio'>
             <div className='radio-choices'>
                 <label>A&#41;
                     <input name='a' placeholder='Enter choice A' onChange={handleChangeChoice} required />
