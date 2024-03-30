@@ -133,7 +133,7 @@ export default function QuizNew() {
             <form onSubmit={handleSubmit}>
                 <div className='form-header'>
                     <div className='title'>
-                        <input className='mono' name='title' placeholder='Enter Title' onChange={handleChange} />
+                        <input className='mono' name='title' placeholder='Enter Title' onChange={handleChange} required />
                     </div>
                     {!newCategoryToggle ?
                         <select name='category' defaultValue={''} onChange={handleCategory} required>
