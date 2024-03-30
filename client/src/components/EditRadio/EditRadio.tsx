@@ -91,7 +91,7 @@ export default function EditRadio({ question }: { question: Question }) {
                     null}
             </div>
             <div>
-                <h3>Answer #{question.id + 1}</h3>
+                <h3>Answer:</h3>
                 <select name='answer' defaultValue={editQuiz.questions[question.id].answer} onChange={handleAnswer} required >
                     <option disabled value=''>Choose an Answer</option>
                     <option value='a'>A</option>

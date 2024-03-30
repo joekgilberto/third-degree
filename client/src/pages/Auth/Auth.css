@@ -8,14 +8,12 @@
     flex: 1
 }
 
-.Login,
-.Register{
+.Auth form{
     padding: 10px 0 0 0 !important;
     background-color: transparent !important;
 }
 
-.Login .inputs,
-.Register .inputs{
+.Auth form .inputs{
     display: flex;
     flex-direction: column;
     margin-top: 20px;
@@ -23,7 +21,6 @@
     background-color: #b7d9f8ff;
 }
 
-.Login .inputs .submit,
-.Register .inputs .submit{
+.Auth form .inputs .submit{
     margin-top: 10px;
 }

@@ -167,10 +167,22 @@ export default function QuizEdit() {
                             <button onClick={(e) => setEditQuestion(true)}>+ Add a Question</button>
                             :
                             <div className='form-question-options'>
-                                <button onClick={(e) => addQuestion('text')}>Short Answer</button>
-                                <button onClick={(e) => addQuestion('radio')}>Multiple Choice</button>
-                                <button onClick={(e) => addQuestion('checkbox')}>Select All</button>
-                                <button onClick={(e) => setEditQuestion(false)}>X</button>
+                                <button onClick={(e) => {
+                                    e.preventDefault();
+                                    addQuestion('text');
+                                }}>Short Answer</button>
+                                <button onClick={(e) => {
+                                    e.preventDefault();
+                                    addQuestion('radio');
+                                }}>Multiple Choice</button>
+                                <button onClick={(e) => {
+                                    e.preventDefault();
+                                    addQuestion('checkbox');
+                                }}>Select All</button>
+                                <button onClick={(e) => {
+                                    e.preventDefault();
+                                    setEditQuestion(false);
+                                }}>X</button>
                             </div>
                         }
                         {editQuiz.questions.length ?

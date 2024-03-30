@@ -103,7 +103,7 @@ export default function EditCheckbox({ question }: { question: Question }) {
                     : <button onClick={handleAddChoice}>+ Add a Choice</button>}
             </div>
             <div>
-                <h3>Answer #{question.id + 1}</h3>
+                <h3>Answer&#40;s&#41;:</h3>
                 <label>
                     <input type='checkbox' value='a' onChange={handleAnswer} checked={handleCehcked('a')} />
                     A

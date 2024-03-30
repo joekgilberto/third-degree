@@ -173,7 +173,7 @@ input[type="submit"] {
 }
 
 .delete {
-  background-image: linear-gradient(145deg, #eb4444, #d02828);
+  background-image: linear-gradient(145deg, #eb4444, #d02828) !important;
 }
 
 .list {
@@ -262,7 +262,7 @@ input[type="submit"] {
 .QuizForm .disclaimer p {
   margin: 10px;
   color: #2c3d5a;
-  font-size: .6rem;
+  font-size: .8rem;
 }
 
 .QuizForm .questions{
@@ -291,6 +291,10 @@ input[type="submit"] {
   display: flex;
   flex-direction: column;
   margin: 10px 0;
+  background-image: url('https://i.imgur.com/hxvRJSA.jpg');
+  background-size: 105%;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .FormQuestion .number{

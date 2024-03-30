@@ -18,7 +18,7 @@ export default function NewText({question}:{question: Question}) {
 
     return (
         <div className='FormText'>
-            <h3>Answer #{question.id + 1}</h3>
+            <h3>Answer:</h3>
             <input name='answer' placeholder='Type an answer' onChange={handleChange} required />
             <p>*Third Degree recommends keeping short answer questions as concise as possible for challenger benefit.</p>
         </div>

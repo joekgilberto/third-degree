@@ -164,20 +164,36 @@ export default function QuizNew() {
                     })}
                     <div className='add-question'>
                         {!newQuestion ?
-                            <button onClick={(e) => setNewQuestion(true)}>+ Add a Question</button>
+                            <button onClick={(e) => {
+                                e.preventDefault();
+                                setNewQuestion(true)
+                            }
+                            }>+ Add a Question</button>
                             :
                             <>
-                                <button onClick={(e) => addQuestion('text')}>Short Answer</button>
-                                <button onClick={(e) => addQuestion('radio')}>Multiple Choice</button>
-                                <button onClick={(e) => addQuestion('checkbox')}>Select All</button>
-                                <button className='delete' onClick={(e) => setNewQuestion(false)}>X</button>
+                                <button onClick={(e) => {
+                                    e.preventDefault();
+                                    addQuestion('text');
+                                }}>Short Answer</button>
+                                <button onClick={(e) => {
+                                    e.preventDefault();
+                                    addQuestion('radio');
+                            }}>Multiple Choice</button>
+                                <button onClick={(e) => {
+                                    e.preventDefault();
+                                    addQuestion('checkbox');
+                                    }}>Select All</button>
+                                <button className='delete' onClick={(e) => {
+                                    e.preventDefault();
+                                    setNewQuestion(false);
+                                }}>X</button>
                             </>
                         }
                     </div>
                     {newQuiz.questions.length ?
-                            <input className='submit' type='submit' value='Submit' />
-                            :
-                            null}
+                        <input className='submit' type='submit' value='Submit' />
+                        :
+                        null}
                 </div>
             </form>
         </div>
