@@ -1,0 +1,29 @@
+.Auth .toggle{
+    display: flex;
+    padding: 0 10px 15px 10px;
+    background-color: #b7d9f8ff;
+}
+
+.Auth .toggle button{
+    flex: 1
+}
+
+.Login,
+.Register{
+    padding: 10px 0 0 0 !important;
+    background-color: transparent !important;
+}
+
+.Login .inputs,
+.Register .inputs{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #b7d9f8ff;
+}
+
+.Login .inputs .submit,
+.Register .inputs .submit{
+    margin-top: 10px;
+}

@@ -29,13 +29,9 @@ export default function Auth() {
                 :
                 <Login credentials={credentials} />
             }
-            {
-                toggle ?
-                    <button onClick={(e) => setToggle(false)}>Login</button>
-                    :
-                    <button onClick={(e) => setToggle(true)}>Register</button>
-            }
-
+            <div className='toggle'>
+                <button className='cancel' onClick={(e) => setToggle(!toggle)}>{toggle ? 'Login' : 'Register'}</button>
+            </div>
         </div>
     );
 };
