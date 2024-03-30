@@ -35,9 +35,11 @@ export default function Header() {
           <Link to='/categories'>
             <button className={handlePage('categories')}>Categories</button>
           </Link>
+          {user.id ?
           <Link to='/quiz/new'>
             <button className={handlePage('new')}>New Quiz</button>
           </Link>
+          :null}
         </div>
         {user.id ?
           <Link to='/account'>
