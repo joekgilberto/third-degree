@@ -11,6 +11,8 @@ export default function EditRadio({ question }: { question: Question }) {
     const dispatch = useDispatch();
 
     function handleAddChoice(e: React.MouseEvent<HTMLButtonElement>): void {
+        e.preventDefault();
+
         let cache: Choices = { ...editQuiz.questions[question.id].choices };
 
         if (!editQuiz.questions[question.id].choices.c?.length && editQuiz.questions[question.id].choices.c !== '') {
@@ -18,24 +20,26 @@ export default function EditRadio({ question }: { question: Question }) {
         } else if (!editQuiz.questions[question.id].choices.d?.length && editQuiz.questions[question.id].choices.d !== '') {
             cache.d = '';
         };
-        
+
         const questionArr: Array<Question> = [...editQuiz.questions];
         questionArr[question.id] = { ...questionArr[question.id], choices: { ...cache } };
         dispatch(updateQuizEdit({ ...editQuiz, questions: [...questionArr] }));
     };
 
     function handleDeleteChoice(e: React.MouseEvent<HTMLButtonElement>): void {
+        e.preventDefault();
+
         let cache: Choices = { ...editQuiz.questions[question.id].choices };
         const questionArr: Array<Question> = [...editQuiz.questions]
 
         if ('d' in cache) {
             delete cache.d;
-            if(questionArr[question.id].answer === 'd'){
+            if (questionArr[question.id].answer === 'd') {
                 questionArr[question.id] = { ...questionArr[question.id], answer: '' }
             };
         } else {
             delete cache.c;
-            if(questionArr[question.id].answer === 'c'){
+            if (questionArr[question.id].answer === 'c') {
                 questionArr[question.id] = { ...questionArr[question.id], answer: '' }
             };
         };
@@ -64,15 +68,19 @@ export default function EditRadio({ question }: { question: Question }) {
 
     return (
         <div className='FormRadio'>
+            <h3 className='options'>Options</h3>
             <div className='radio-choices'>
-                <label>A&#41;
+                <label>
+                    <p>A&#41;</p>
                     <input name='a' placeholder='Enter choice A' value={question.choices.a} onChange={handleChangeChoice} required />
                 </label>
-                <label>B&#41;
-                    <input name='b' placeholder='Enter choice B'value={question.choices.b} onChange={handleChangeChoice} required />
+                <label>
+                    <p>B&#41;</p>
+                    <input name='b' placeholder='Enter choice B' value={question.choices.b} onChange={handleChangeChoice} required />
                 </label>
                 {editQuiz.questions[question.id].choices.c?.length || editQuiz.questions[question.id].choices.c === '' ?
-                    <label>C&#41;
+                    <label>
+                        <p>C&#41;</p>
                         <input name='c' placeholder='Enter choice C' value={question.choices.c} onChange={handleChangeChoice} required />
                         {editQuiz.questions[question.id].choices.d?.length || editQuiz.questions[question.id].choices.d !== '' ?
                             <button onClick={handleDeleteChoice}>X</button>
@@ -80,7 +88,8 @@ export default function EditRadio({ question }: { question: Question }) {
                     </label>
                     : null}
                 {editQuiz.questions[question.id].choices.d?.length || editQuiz.questions[question.id].choices.d === '' ?
-                    <label>D&#41;
+                    <label>
+                        <p>D&#41;</p>
                         <input name='d' placeholder='Enter choice D' value={question.choices.d} onChange={handleChangeChoice} required />
                         <button onClick={handleDeleteChoice}>X</button>
                     </label>
@@ -90,7 +99,7 @@ export default function EditRadio({ question }: { question: Question }) {
                     :
                     null}
             </div>
-            <div>
+            <label className='answer'>
                 <h3>Answer:</h3>
                 <select name='answer' defaultValue={editQuiz.questions[question.id].answer} onChange={handleAnswer} required >
                     <option disabled value=''>Choose an Answer</option>
@@ -103,7 +112,7 @@ export default function EditRadio({ question }: { question: Question }) {
                         <option value='d'>D</option>
                         : null}
                 </select>
-            </div>
+            </label>
         </div>
     );
 };

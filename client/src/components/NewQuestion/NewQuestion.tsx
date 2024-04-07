@@ -14,15 +14,15 @@ export default function NewQuestion({ question }: { question: Question }) {
     const newQuiz: Quiz = useSelector(selectNewQuiz);
     const dispatch = useDispatch();
 
-    function handleDelete(e: React.FormEvent<HTMLButtonElement>): void{
+    function handleDelete(e: React.FormEvent<HTMLButtonElement>): void {
         const questionsCache: Array<Question> = [...newQuiz.questions]
-        const idx: number = questionsCache.findIndex((q)=>q.id === question.id);
-        if (idx > -1){
-            questionsCache.splice(idx,1);
-            for (let i: number = 0; i < questionsCache.length; i++){
-                questionsCache[i] = {...questionsCache[i], id: i};
+        const idx: number = questionsCache.findIndex((q) => q.id === question.id);
+        if (idx > -1) {
+            questionsCache.splice(idx, 1);
+            for (let i: number = 0; i < questionsCache.length; i++) {
+                questionsCache[i] = { ...questionsCache[i], id: i };
             }
-            dispatch(updateQuizNew({...newQuiz, questions: [...questionsCache]}));
+            dispatch(updateQuizNew({ ...newQuiz, questions: [...questionsCache] }));
         } else {
             console.log('Error: Question not found.');
         };
@@ -40,10 +40,13 @@ export default function NewQuestion({ question }: { question: Question }) {
     return (
         <div className='FormQuestion'>
             <div className='number'>
-            <h3>Question #{question.id + 1}</h3>
-            <button className='delete' onClick={handleDelete}>X</button>
+                <h3>Question #{question.id + 1}</h3>
+                <button className='delete' onClick={handleDelete}>X</button>
             </div>
-            <input name='query' placeholder='Type a question' onChange={handleChangeQuery} required />
+            <label className='question'>
+                <p>Question:</p>
+                <input name='query' placeholder='Type a question' onChange={handleChangeQuery} required />
+            </label>
             {question.type === 'text' ?
                 <NewText question={question} />
                 : question.type === 'radio' ?

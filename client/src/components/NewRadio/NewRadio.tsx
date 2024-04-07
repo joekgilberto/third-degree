@@ -12,6 +12,8 @@ export default function NewRadio({ question }: { question: Question }) {
     const dispatch = useDispatch();
 
     function handleAddChoice(e: React.MouseEvent<HTMLButtonElement>): void {
+        e.preventDefault();
+
         let cache: Choices = { ...newQuiz.questions[question.id].choices };
 
         if (!newQuiz.questions[question.id].choices.c?.length && newQuiz.questions[question.id].choices.c !== '') {
@@ -26,6 +28,8 @@ export default function NewRadio({ question }: { question: Question }) {
     };
 
     function handleDeleteChoice(e: React.MouseEvent<HTMLButtonElement>): void {
+        e.preventDefault();
+
         let cache: Choices = { ...newQuiz.questions[question.id].choices };
         const questionArr: Array<Question> = [...newQuiz.questions]
 
@@ -65,30 +69,35 @@ export default function NewRadio({ question }: { question: Question }) {
 
     return (
         <div className='FormRadio'>
+            <h3 className='options'>Options</h3>
             <div className='radio-choices'>
-                <label>A&#41;
+                <label>
+                    <p>A&#41;</p>
                     <input name='a' placeholder='Enter choice A' onChange={handleChangeChoice} required />
                 </label>
-                <label>B&#41;
+                <label>
+                    <p>B&#41;</p>
                     <input name='b' placeholder='Enter choice B' onChange={handleChangeChoice} required />
                 </label>
                 {newQuiz.questions[question.id].choices.c?.length || newQuiz.questions[question.id].choices.c === '' ?
-                    <label>C&#41;
+                    <label>
+                        <p>C&#41;</p>
                         <input name='c' placeholder='Enter choice C' onChange={handleChangeChoice} required />
                         {newQuiz.questions[question.id].choices.d?.length || newQuiz.questions[question.id].choices.d !== '' ?
-                            <button onClick={handleDeleteChoice}>X</button>
+                            <button className='remove-choice' onClick={handleDeleteChoice}>X</button>
                             : null}
                     </label>
                     : null}
                 {newQuiz.questions[question.id].choices.d?.length || newQuiz.questions[question.id].choices.d === '' ?
-                    <label>D&#41;
+                    <label>
+                        <p>D&#41;</p>
                         <input name='d' placeholder='Enter choice D' onChange={handleChangeChoice} required />
-                        <button onClick={handleDeleteChoice}>X</button>
+                        <button className='remove-choice' onClick={handleDeleteChoice}>X</button>
                     </label>
                     : 
                     <button onClick={handleAddChoice}>+ Add a Choice</button>}
             </div>
-            <div>
+            <div className='answer'>
                 <h3>Answer:</h3>
                 <select name='answer' defaultValue={''} onChange={handleAnswer} required >
                     <option disabled value=''>Choose an Answer</option>

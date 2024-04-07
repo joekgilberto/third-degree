@@ -1,14 +1,13 @@
 import './App.css';
+import './QuizForm.css';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import * as localStorageTools from '../utilities/local-storage';
 import { useDispatch } from 'react-redux';
 import { updateUser } from './appSlice';
-import { AppDispatch } from './store';
 
 import Header from '../components/Header/Header';
 import Main from '../components/Main/Main';
-import Footer from '../components/Footer/Footer';
 import { decodeToken } from '../utilities/tools';
 
 export default function App() {

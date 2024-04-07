@@ -1,0 +1,283 @@
+.QuizForm form {
+    min-height: calc(100vh - 262px);
+    justify-content: flex-start;
+}
+
+.QuizForm h2 {
+    margin: 0;
+    padding: 10px;
+}
+
+.QuizForm .form-header {
+    display: flex;
+    box-shadow: 2px 2px 3px #00000060;
+}
+
+.QuizForm .form-header .title {
+    width: 70%;
+    margin: 0;
+    padding: 10px;
+    background-image: linear-gradient(135deg, #455d84ff, #121d2fff);
+}
+
+.QuizForm .form-header .title input {
+    width: 100%;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: none;
+    border-bottom: 2px solid #fff;
+    background: none;
+    padding-left: 0;
+}
+
+.QuizForm .form-header .title input::placeholder {
+    color: #fff;
+}
+
+.QuizForm .form-header select {
+    flex: 1;
+    padding: 10px;
+    background-image: url('https://i.imgur.com/hxvRJSA.jpg');
+    background-size: 105%;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: none;
+}
+
+.QuizForm .form-header .new-category {
+    display: flex;
+}
+
+.QuizForm .form-header .new-category {
+    background-image: url('https://i.imgur.com/hxvRJSA.jpg');
+    background-size: 105%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.QuizForm .form-header .new-category input,
+.QuizForm .form-header .new-category button {
+    background: none;
+    box-shadow: none;
+}
+
+.QuizForm .form-header .new-category input {
+    margin: 0 0 10px 10px;
+    padding: 15px 10px 5px 0;
+    border: none;
+    border-bottom: 2px solid #2c3d5a;
+}
+
+.QuizForm .form-header .new-category button {
+    color: #d02828;
+    text-shadow: none;
+}
+
+.QuizForm .disclaimer p {
+    margin: 10px;
+    color: #2c3d5a;
+    font-size: .8rem;
+}
+
+.QuizForm .questions {
+    display: flex;
+    flex-direction: column;
+}
+
+.QuizForm .add-question {
+    margin: 10px 0;
+    display: flex;
+    gap: 10px;
+}
+
+.QuizForm .add-question button {
+    flex: 1;
+    min-height: 45px;
+    font-size: .9rem;
+}
+
+.QuizForm .add-question .delete {
+    flex: none;
+    padding: 0 10px;
+}
+
+.FormQuestion {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+    background-image: url('https://i.imgur.com/hxvRJSA.jpg');
+    background-size: 105%;
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 2px 2px 3px #00000060;
+}
+
+.FormQuestion .number {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-image: linear-gradient(135deg, #455d84ff, #121d2fff);
+}
+
+.FormQuestion .number h3 {
+    flex: 1;
+    margin: 0;
+}
+
+.FormQuestion label {
+    box-shadow: none;
+}
+
+.FormQuestion label p {
+    margin: 0 10px;
+}
+
+.FormQuestion .question input {
+    border-bottom: 2px solid #2c3d5a;
+}
+
+.FormQuestion label p,
+.FormText label p,
+.FormRadio .options {
+    padding: 0;
+    color: #2c3d5a;
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-shadow: none;
+    background-image: none;
+}
+
+.FormQuestion label p,
+.FormRadio .options{
+    text-decoration: underline;
+}
+
+.FormQuestion .submit {
+    flex: 1;
+}
+
+.FormQuestion>input {
+    flex: 1;
+    padding: 10px;
+    font-size: 1rem;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #2c3d5a;
+    box-shadow: none;
+    margin: 10px;
+}
+
+.FormText label,
+.FormRadio .radio-choices label,
+.FormRadio .answer {
+    flex: 1;
+    flex-direction: row;
+    padding: 10px;
+    font-size: 1rem;
+    background-color: transparent;
+    border: 2px solid #2c3d5a;
+    border-radius: 5px;
+    box-shadow: none;
+}
+
+.FormText {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.FormText label {
+    gap: 10px;
+}
+
+.FormText label,
+.FormRadio label {
+    margin: 0;
+    box-shadow: none;
+}
+
+.FormText label p {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    text-decoration: none;
+}
+
+.FormText label input {
+    flex: 1;
+    margin: 0;
+}
+
+.FormText .disclaimer {
+    margin: 10px 5px;
+    color: #2c3d5a;
+    font-size: .8rem;
+}
+
+.FormRadio {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.FormRadio .options {
+    margin: 0;
+}
+
+.FormRadio .radio-choices label {
+    margin: 10px 0;
+    align-items: center;
+    box-shadow: none;
+}
+
+.FormRadio .radio-choices label p {
+    color: #2c3d5a;
+    text-decoration: none;
+    text-shadow: none;
+    background-image: none;
+}
+
+.FormRadio .radio-choices label input {
+    flex: 1;
+    margin: 0;
+}
+
+.FormRadio .remove-choice {
+    color: #d02828;
+    text-shadow: none;
+    background-image: none;
+    box-shadow: none;
+    margin-left: 10px;
+}
+
+.FormRadio button {
+    background-image: linear-gradient(135deg, #455d84ff, #121d2fff);
+}
+
+.FormRadio .answer {
+    display: flex;
+    align-items: baseline;
+    margin: 20px 0 5px 0;
+    gap: 15px;
+}
+
+.FormRadio .answer h3 {
+    margin: 0;
+    padding: 0;
+    color: #2c3d5a;
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-decoration: none;
+    text-shadow: none;
+    background-image: none;
+}
+
+.FormRadio select {
+    flex: 1;
+    padding-right: 10px;
+    font-size: 1rem;
+    text-align: end;
+    background-color: transparent;
+    border: none;
+}

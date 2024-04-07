@@ -21,6 +21,7 @@ export default function QuizShow() {
     const { id } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
+    const [loading, setLoading] = useState(true);
     const newSubmission: Submission = useSelector(selectSubmission);
     const quiz: Quiz = useSelector(selectQuiz);
     const user: User = useSelector(selectUser);
@@ -168,6 +169,12 @@ export default function QuizShow() {
         dispatch(loadQuiz(id));
     }, [dispatch]);
 
+    useEffect(()=>{
+        if(quiz.id === id){
+            setLoading(false)
+        }
+    },[quiz.id])
+
     useEffect(() => {
         if (quiz.id) {
             const answerArr: Array<Answer> = [];
@@ -188,7 +195,7 @@ export default function QuizShow() {
         };
     }, [quiz]);
 
-    if (!quiz?.id || !newSubmission.answers?.length) {
+    if (!quiz?.id || !newSubmission.answers?.length || loading) {
         return <Loading />;
     };
 
