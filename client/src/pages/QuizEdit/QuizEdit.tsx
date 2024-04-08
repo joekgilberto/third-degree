@@ -157,10 +157,7 @@ export default function QuizEdit() {
                     : null}
                 <div>
                     {editQuiz.questions?.map((question: Question, idx) => {
-                        return (<>
-                            <EditQuestion key={idx} question={question} />
-                            <hr />
-                        </>)
+                        return <EditQuestion key={idx} question={question} />
                     })}
                     <div>
                         {!editQuestion ?

@@ -63,7 +63,7 @@ form label {
   margin: 10px 0;
   text-shadow: 1px 1px 2px #00000060;
   background-image: url('https://i.imgur.com/hxvRJSA.jpg');
-  background-size: 105%;
+  background-size: 175%;
   background-position: center;
   background-repeat: no-repeat;
   box-shadow: 2px 2px 3px #00000060;
@@ -103,7 +103,7 @@ form label select {
   padding: 5px;
   text-align: center;
   background-image: url('https://i.imgur.com/hxvRJSA.jpg');
-  background-size: 105%;
+  background-size: 175%;
   background-position: center;
   background-repeat: no-repeat;
   border: none;

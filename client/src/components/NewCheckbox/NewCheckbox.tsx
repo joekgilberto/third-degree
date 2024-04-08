@@ -11,6 +11,8 @@ export default function NewCheckbox({ question }: { question: Question }) {
     const dispatch = useDispatch();
 
     function handleAddChoice(e: React.MouseEvent<HTMLButtonElement>): void {
+        e.preventDefault();
+
         let cache: Choices = { ...newQuiz.questions[question.id].choices }
 
         if (!newQuiz.questions[question.id].choices.c?.length && newQuiz.questions[question.id].choices.c !== '') {
@@ -25,6 +27,8 @@ export default function NewCheckbox({ question }: { question: Question }) {
     };
 
     function handleDeleteChoice(e: React.MouseEvent<HTMLButtonElement>): void {
+        e.preventDefault();
+
         let choicesCache: Choices = { ...newQuiz.questions[question.id].choices };
         let answersCache: Array<string> = [...newQuiz.questions[question.id].answers];
 
@@ -66,7 +70,7 @@ export default function NewCheckbox({ question }: { question: Question }) {
             const idx: number = cache.indexOf(e.target.value);
             cache.splice(idx, 1);
         };
-        
+
         const questionArr: Array<Question> = [...newQuiz.questions];
         questionArr[question.id] = { ...questionArr[question.id], answers: cache };
         dispatch(updateQuizNew({ ...newQuiz, questions: [...questionArr] }));
@@ -74,52 +78,59 @@ export default function NewCheckbox({ question }: { question: Question }) {
 
     return (
         <div className='FormCheckbox'>
-            <div className='radio-choices'>
-                <label>A&#41;
+            <h3 className='options'>Options</h3>
+            <div className='checkbox-choices'>
+                <label>
+                    <p>A&#41;</p>
                     <input name='a' placeholder='Enter choice A' onChange={handleChangeChoice} required />
                 </label>
-                <label>B&#41;
+                <label>
+                    <p>B&#41;</p>
                     <input name='b' placeholder='Enter choice B' onChange={handleChangeChoice} required />
                 </label>
                 {newQuiz.questions[question.id].choices.c?.length || newQuiz.questions[question.id].choices.c === '' ?
-                    <label>C&#41;
+                    <label>
+                        <p>C&#41;</p>
                         <input name='c' placeholder='Enter choice C' onChange={handleChangeChoice} required />
                         {newQuiz.questions[question.id].choices.d?.length || newQuiz.questions[question.id].choices.d !== '' ?
-                            <button onClick={handleDeleteChoice}>X</button>
+                            <button className='remove-choice' onClick={handleDeleteChoice}>X</button>
                             : null}
                     </label>
                     : null}
                 {newQuiz.questions[question.id].choices.d?.length || newQuiz.questions[question.id].choices.d === '' ?
-                    <label>D&#41;
+                    <label>
+                        <p>D&#41;</p>
                         <input name='d' placeholder='Enter choice D' onChange={handleChangeChoice} required />
-                        <button onClick={handleDeleteChoice}>X</button>
+                        <button className='remove-choice' onClick={handleDeleteChoice}>X</button>
                     </label>
                     :
                     <button onClick={handleAddChoice}>+ Add a Choice</button>
                 }
             </div>
-            <div>
+            <div className='answer'>
                 <h3>Answer&#40;s&#41;:</h3>
-                <label>
-                    <input type='checkbox' value='a' onChange={handleAnswer} />
-                    A
-                </label>
-                <label>
-                    <input type='checkbox' value='b' onChange={handleAnswer} />
-                    B
-                </label>
-                {newQuiz.questions[question.id].choices.c?.length || newQuiz.questions[question.id].choices.c === '' ?
+                <div className='answer-choices'>
                     <label>
-                        <input type='checkbox' value='c' onChange={handleAnswer} />
-                        C
+                        <p>A&#41;</p>
+                        <input type='checkbox' value='a' onChange={handleAnswer} />
                     </label>
-                    : null}
-                {newQuiz.questions[question.id].choices.d?.length || newQuiz.questions[question.id].choices.d === '' ?
                     <label>
-                        <input type='checkbox' value='d' onChange={handleAnswer} />
-                        D
+                        <p>B&#41;</p>
+                        <input type='checkbox' value='b' onChange={handleAnswer} />
                     </label>
-                    : null}
+                    {newQuiz.questions[question.id].choices.c?.length || newQuiz.questions[question.id].choices.c === '' ?
+                        <label>
+                            <p>C&#41;</p>
+                            <input type='checkbox' value='c' onChange={handleAnswer} />
+                        </label>
+                        : null}
+                    {newQuiz.questions[question.id].choices.d?.length || newQuiz.questions[question.id].choices.d === '' ?
+                        <label>
+                            <p>D&#41;</p>
+                            <input type='checkbox' value='d' onChange={handleAnswer} />
+                        </label>
+                        : null}
+                </div>
             </div>
         </div>
     );

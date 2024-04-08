@@ -15,6 +15,8 @@ export default function EditQuestion({ question }: { question: Question }) {
     const dispatch = useDispatch();
 
     function handleDelete(e: React.FormEvent<HTMLButtonElement>): void{
+        e.preventDefault();
+
         const questionsCache: Array<Question> = [...editQuiz.questions]
         const idx: number = questionsCache.findIndex((q)=>q.id === question.id);
         

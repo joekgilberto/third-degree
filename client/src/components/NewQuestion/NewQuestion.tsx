@@ -15,6 +15,8 @@ export default function NewQuestion({ question }: { question: Question }) {
     const dispatch = useDispatch();
 
     function handleDelete(e: React.FormEvent<HTMLButtonElement>): void {
+        e.preventDefault();
+        
         const questionsCache: Array<Question> = [...newQuiz.questions]
         const idx: number = questionsCache.findIndex((q) => q.id === question.id);
         if (idx > -1) {

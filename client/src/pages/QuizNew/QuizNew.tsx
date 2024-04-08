@@ -157,9 +157,7 @@ export default function QuizNew() {
                     : null}
                 <div className='questions'>
                     {newQuiz.questions?.map((question: Question, idx) => {
-                        return (<>
-                            <NewQuestion key={idx} question={question} />
-                        </>)
+                        return <NewQuestion key={idx} question={question} />
                     })}
                     <div className='add-question'>
                         {!newQuestion ?

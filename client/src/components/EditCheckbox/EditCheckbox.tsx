@@ -11,6 +11,8 @@ export default function EditCheckbox({ question }: { question: Question }) {
     const dispatch = useDispatch();
 
     function handleAddChoice(e: React.MouseEvent<HTMLButtonElement>): void {
+        e.preventDefault();
+
         let cache: Choices = { ...editQuiz.questions[question.id].choices }
 
         if (!editQuiz.questions[question.id].choices.c?.length && editQuiz.questions[question.id].choices.c !== '') {
@@ -24,6 +26,8 @@ export default function EditCheckbox({ question }: { question: Question }) {
     };
 
     function handleDeleteChoice(e: React.MouseEvent<HTMLButtonElement>): void {
+        e.preventDefault();
+
         let choicesCache: Choices = { ...editQuiz.questions[question.id].choices };
         let answersCache: Array<string> = [...editQuiz.questions[question.id].answers];
 
@@ -80,7 +84,7 @@ export default function EditCheckbox({ question }: { question: Question }) {
 
     return (
         <div className='FormCheckbox'>
-            <div className='radio-choices'>
+            <div className='checkbox-choices'>
                 <label>A&#41;
                     <input name='a' placeholder='Enter choice A' value={question.choices.a} onChange={handleChangeChoice} required />
                 </label>
@@ -102,7 +106,7 @@ export default function EditCheckbox({ question }: { question: Question }) {
                     </label>
                     : <button onClick={handleAddChoice}>+ Add a Choice</button>}
             </div>
-            <div>
+            <div className='answer'>
                 <h3>Answer&#40;s&#41;:</h3>
                 <label>
                     <input type='checkbox' value='a' onChange={handleAnswer} checked={handleCehcked('a')} />

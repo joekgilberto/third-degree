@@ -235,7 +235,7 @@ export default function QuizShow() {
             </div>
             <form onSubmit={handleSubmit}>
                 {quiz.questions.map((question: Question) => {
-                    return <ShowQuestion question={question} />
+                    return <ShowQuestion key={question.id} question={question} />
                 })}
                 <div className='options'>
                     <input type='submit' value='Submit' />
