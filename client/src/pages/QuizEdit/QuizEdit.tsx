@@ -31,6 +31,7 @@ export default function QuizEdit() {
     };
 
     function handleCategory(e: React.ChangeEvent<HTMLSelectElement>): void {
+        console.log(e.target.value)
         if (e.target.value === 'new') {
             setNewCategoryToggle(true);
             dispatch(updateQuizEdit({ ...editQuiz, category: '' }));
@@ -134,25 +135,27 @@ export default function QuizEdit() {
             <h2>Edit Quiz</h2>
             <form onSubmit={handleSubmit}>
                 <div className='form-header'>
-                    <input name='title' value={editQuiz.title} placeholder='Enter Title' onChange={handleChange} />
+                    <div className='title'>
+                        <input className='mono' name='title' value={editQuiz.title} placeholder='Enter Title' onChange={handleChange} />
+                    </div>
                     {!newCategoryToggle ?
                         <select name='category' defaultValue={editQuiz.category} onChange={handleCategory} required>
                             <option disabled value=''>Choose a Category</option>
                             {categories.map((category: Category) => {
                                 return <option key={category.id} value={category.id}>{category.title}</option>
                             })}
-                            <option value='form'>(New Category)</option>
+                            <option value='new'>(New Category)</option>
                         </select>
                         :
-                        <>
+                        <div className='new-category'>
                             <input name='category' placeholder='Enter new category' onChange={handleNewCategory} required />
                             <button onClick={handleExitCategory}>X</button>
-                        </>
+                        </div>
                     }
                 </div>
                 {newCategoryToggle ?
-                    <div className='form-note'>
-                        <p>*Please create a new category at your own discretion.  We here at Third Degree recommend keeping category names concise and relevant.  Admins reserve the right to edit, merge, or delete any new categories.</p>
+                    <div className='disclaimer'>
+                        <p>*Third Degree recommends keeping category names concise and relevant.  Admins reserve the right to edit, merge, or delete any new categories.</p>
                     </div>
                     : null}
                 <div>

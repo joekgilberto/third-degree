@@ -6,8 +6,8 @@
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="service">
-            <Node name="service">
+          <Node name="service" expanded="True">
+            <Node name="service" expanded="True">
               <Node name="Models" expanded="True">
                 <Node name="User.cs" selected="True" />
               </Node>

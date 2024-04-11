@@ -109,23 +109,23 @@ export default function EditCheckbox({ question }: { question: Question }) {
             <div className='answer'>
                 <h3>Answer&#40;s&#41;:</h3>
                 <label>
+                    <p>A&#41;</p>
                     <input type='checkbox' value='a' onChange={handleAnswer} checked={handleCehcked('a')} />
-                    A
                 </label>
                 <label>
+                    <p>B&#41;</p>
                     <input type='checkbox' value='b' onChange={handleAnswer} checked={handleCehcked('b')} />
-                    B
                 </label>
                 {editQuiz.questions[question.id].choices.c?.length || editQuiz.questions[question.id].choices.c === '' ?
                     <label>
+                        <p>C&#41;</p>
                         <input type='checkbox' value='c' onChange={handleAnswer} checked={handleCehcked('c')} />
-                        C
                     </label>
                     : null}
                 {editQuiz.questions[question.id].choices.d?.length || editQuiz.questions[question.id].choices.d === '' ?
                     <label>
+                        <p>D&#41;</p>
                         <input type='checkbox' value='d' onChange={handleAnswer} checked={handleCehcked('d')} />
-                        D
                     </label>
                     : null}
             </div>
