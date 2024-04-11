@@ -54,27 +54,28 @@ export default function CategoryEdit() {
 
     return (
         <div className='CategoryEdit'>
-            <Banner source={category.image ? category.image : 'https://images.unsplash.com/photo-1540835296355-c04f7a063cbb?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'} altText={category.title} sub={category.title} link={category.link ? category.link : 'https://unsplash.com/@olav_ahrens'} credit={category.credit ? category.credit : 'Olav Ahrens Røtne'} />
+            <Banner source={formData.image? formData.image : category.image ? category.image : 'https://images.unsplash.com/photo-1540835296355-c04f7a063cbb?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'} altText={category.title} sub={category.title} link={category.link ? category.link : 'https://unsplash.com/@olav_ahrens'} credit={category.credit ? category.credit : 'Olav Ahrens Røtne'} />
             <form onSubmit={handleSubmit}>
                 <label>
                     <p>Title</p>
-                    <input name='title' value={formData.title} placeholder='ex: Animals' onChange={handleChange} />
+                    <input name='title' value={formData.title?formData.title:''} placeholder='ex: Animals' onChange={handleChange} />
                 </label>
 
                 <label>
-                    <p>Image Link</p>
-                    <input name='image' value={formData.image} placeholder='ex: https://image.com' onChange={handleChange} />
+                    <p>Image Source</p>
+                    <input name='image' value={formData.image?formData.image:''} placeholder='ex: https://unsplash.com/photos/image' onChange={handleChange} />
                 </label>
 
                 <label>
                     <p>Photographer Name</p>
-                    <input name='credit' value={formData.credit} placeholder='ex: Joe Gilberto' onChange={handleChange} required={formData.image ? true : false} />
+                    <input name='credit' value={formData.credit?formData.credit:''} placeholder='ex: Joe Gilberto' onChange={handleChange} required={formData.image ? true : false} />
                 </label>
 
                 <label>
                     <p>Photographer Link</p>
-                    <input name='link' value={formData.link} placeholder='ex: https://joekgilberto.com' onChange={handleChange} />
+                    <input name='link' value={formData.link?formData.link:''} placeholder='ex: https://unsplash.com/@joekgilberto' onChange={handleChange} />
                 </label>
+
                 <div className='options'>
                     <input type='submit' value={'Save'} />
                     <button className='cancel' onClick={handleCancel}>Cancel</button>

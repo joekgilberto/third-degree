@@ -185,6 +185,17 @@ input[type="submit"] {
   gap: 20px;
 }
 
+.none-yet {
+  padding: 10px;
+  color: #2c3d5a;
+  background-image: url('https://i.imgur.com/hxvRJSA.jpg');
+  background-size: 175%;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: none;
+  box-shadow: 2px 2px 3px #00000060;
+}
+
 
 @keyframes hover {
   0% {
