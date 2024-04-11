@@ -158,39 +158,42 @@ export default function QuizEdit() {
                         <p>*Third Degree recommends keeping category names concise and relevant.  Admins reserve the right to edit, merge, or delete any new categories.</p>
                     </div>
                     : null}
-                <div>
-                    {editQuiz.questions?.map((question: Question, idx) => {
-                        return <EditQuestion key={idx} question={question} />
-                    })}
-                    <div>
-                        {!editQuestion ?
-                            <button onClick={(e) => setEditQuestion(true)}>+ Add a Question</button>
-                            :
-                            <div className='form-question-options'>
+                    <div className='questions'>
+                        {editQuiz.questions?.map((question: Question, idx) => {
+                            return <EditQuestion key={idx} question={question} />
+                        })}
+                        <div className='add-question'>
+                            {!editQuestion ?
                                 <button onClick={(e) => {
                                     e.preventDefault();
-                                    addQuestion('text');
-                                }}>Short Answer</button>
-                                <button onClick={(e) => {
-                                    e.preventDefault();
-                                    addQuestion('radio');
-                                }}>Multiple Choice</button>
-                                <button onClick={(e) => {
-                                    e.preventDefault();
-                                    addQuestion('checkbox');
-                                }}>Select All</button>
-                                <button onClick={(e) => {
-                                    e.preventDefault();
-                                    setEditQuestion(false);
-                                }}>X</button>
-                            </div>
-                        }
+                                    setEditQuestion(true)
+                                }}>+ Add a Question</button>
+                                :
+                                <>
+                                    <button onClick={(e) => {
+                                        e.preventDefault();
+                                        addQuestion('text');
+                                    }}>Short Answer</button>
+                                    <button onClick={(e) => {
+                                        e.preventDefault();
+                                        addQuestion('radio');
+                                    }}>Multiple Choice</button>
+                                    <button onClick={(e) => {
+                                        e.preventDefault();
+                                        addQuestion('checkbox');
+                                    }}>Select All</button>
+                                    <button onClick={(e) => {
+                                        e.preventDefault();
+                                        setEditQuestion(false);
+                                    }}>X</button>
+                                </>
+                            }
+                        </div>
                         {editQuiz.questions.length ?
                             <input type='submit' value='Save' />
                             :
                             null}
                     </div>
-                </div>
             </form>
         </div>
     );

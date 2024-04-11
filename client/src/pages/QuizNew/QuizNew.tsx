@@ -188,7 +188,7 @@ export default function QuizNew() {
                         }
                     </div>
                     {newQuiz.questions.length ?
-                        <input className='submit' type='submit' value='Submit' />
+                        <input type='submit' value='Submit' />
                         :
                         null}
                 </div>
