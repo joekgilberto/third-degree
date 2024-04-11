@@ -14,18 +14,18 @@ export default function EditQuestion({ question }: { question: Question }) {
     const editQuiz: Quiz = useSelector(selectEditQuiz);
     const dispatch = useDispatch();
 
-    function handleDelete(e: React.FormEvent<HTMLButtonElement>): void{
+    function handleDelete(e: React.FormEvent<HTMLButtonElement>): void {
         e.preventDefault();
 
         const questionsCache: Array<Question> = [...editQuiz.questions]
-        const idx: number = questionsCache.findIndex((q)=>q.id === question.id);
-        
-        if (idx > -1){
-            questionsCache.splice(idx,1);
-            for (let i: number = 0; i < questionsCache.length; i++){
-                questionsCache[i] = {...questionsCache[i], id: i};
+        const idx: number = questionsCache.findIndex((q) => q.id === question.id);
+
+        if (idx > -1) {
+            questionsCache.splice(idx, 1);
+            for (let i: number = 0; i < questionsCache.length; i++) {
+                questionsCache[i] = { ...questionsCache[i], id: i };
             }
-            dispatch(updateQuizEdit({...editQuiz, questions: [...questionsCache]}));
+            dispatch(updateQuizEdit({ ...editQuiz, questions: [...questionsCache] }));
         } else {
             console.log('Error: Question not found.');
         };
@@ -42,8 +42,14 @@ export default function EditQuestion({ question }: { question: Question }) {
 
     return (
         <div className='FormQuestion'>
-            <h3>Question #{question.id + 1} <button onClick={handleDelete}>X</button></h3>
-            <input name='query' value={question.query} placeholder='Type a question' onChange={handleChangeQuery} required />
+            <div className='number'>
+                <h3>Question #{question.id + 1}</h3>
+                <button className='delete' onClick={handleDelete}>X</button>
+            </div>
+            <label className='question'>
+                <p>Question:</p>
+                <input name='query' value={question.query} placeholder='Type a question' onChange={handleChangeQuery} required />
+            </label>
             {question.type === 'text' ?
                 <EditText question={question} />
                 : question.type === 'radio' ?

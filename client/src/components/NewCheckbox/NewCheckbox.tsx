@@ -92,7 +92,7 @@ export default function NewCheckbox({ question }: { question: Question }) {
                     <label>
                         <p>C&#41;</p>
                         <input name='c' placeholder='Enter choice C' onChange={handleChangeChoice} required />
-                        {newQuiz.questions[question.id].choices.d?.length || newQuiz.questions[question.id].choices.d !== '' ?
+                        {!newQuiz.questions[question.id].choices.d && newQuiz.questions[question.id].choices.d !== '' ?
                             <button className='remove-choice' onClick={handleDeleteChoice}>X</button>
                             : null}
                     </label>

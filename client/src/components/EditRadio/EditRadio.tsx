@@ -82,8 +82,8 @@ export default function EditRadio({ question }: { question: Question }) {
                     <label>
                         <p>C&#41;</p>
                         <input name='c' placeholder='Enter choice C' value={question.choices.c} onChange={handleChangeChoice} required />
-                        {editQuiz.questions[question.id].choices.d?.length || editQuiz.questions[question.id].choices.d !== '' ?
-                            <button onClick={handleDeleteChoice}>X</button>
+                        {!editQuiz.questions[question.id].choices.d && editQuiz.questions[question.id].choices.d !== '' ?
+                            <button className='remove-choice' onClick={handleDeleteChoice}>X</button>
                             : null}
                     </label>
                     : null}
@@ -91,13 +91,9 @@ export default function EditRadio({ question }: { question: Question }) {
                     <label>
                         <p>D&#41;</p>
                         <input name='d' placeholder='Enter choice D' value={question.choices.d} onChange={handleChangeChoice} required />
-                        <button onClick={handleDeleteChoice}>X</button>
+                        <button className='remove-choice' onClick={handleDeleteChoice}>X</button>
                     </label>
-                    : null}
-                {!editQuiz.questions[question.id].choices.d?.length && editQuiz.questions[question.id].choices.d !== '' ?
-                    <button onClick={handleAddChoice}>+ Add a Choice</button>
-                    :
-                    null}
+                    : <button onClick={handleAddChoice}>+ Add a Choice</button>}
             </div>
             <label className='answer'>
                 <h3>Answer:</h3>

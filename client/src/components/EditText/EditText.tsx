@@ -18,9 +18,11 @@ export default function EditText({question}:{question: Question}) {
 
     return (
         <div className='FormText'>
-            <h3>Answer:</h3>
-            <input name='answer' value={editQuiz.questions[question.id].answer} placeholder='Type an answer' onChange={handleChange} required />
-            <p>*Third Degree recommends keeping short answer questions as concise as possible for challenger benefit.</p>
+            <label>
+                <p>Answer:</p>
+                <input name='answer' value={editQuiz.questions[question.id].answer} placeholder='Type an answer' onChange={handleChange} required />
+            </label>
+            <p className='disclaimer'>*Third Degree recommends keeping answers to Short Answer questions as concise as possible for challenger benefit.</p>
         </div>
     );
 };

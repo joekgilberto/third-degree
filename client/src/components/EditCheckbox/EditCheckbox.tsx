@@ -84,50 +84,57 @@ export default function EditCheckbox({ question }: { question: Question }) {
 
     return (
         <div className='FormCheckbox'>
+            <h3 className='options'>Options</h3>
             <div className='checkbox-choices'>
-                <label>A&#41;
-                    <input name='a' placeholder='Enter choice A' value={question.choices.a} onChange={handleChangeChoice} required />
-                </label>
-                <label>B&#41;
-                    <input name='b' placeholder='Enter choice B' value={question.choices.b} onChange={handleChangeChoice} required />
-                </label>
-                {editQuiz.questions[question.id].choices.c?.length || editQuiz.questions[question.id].choices.c === '' ?
-                    <label>C&#41;
-                        <input name='c' placeholder='Enter choice C' value={question.choices.c} onChange={handleChangeChoice} required />
-                        {editQuiz.questions[question.id].choices.d?.length || editQuiz.questions[question.id].choices.d !== '' ?
-                            <button onClick={handleDeleteChoice}>X</button>
-                            : null}
-                    </label>
-                    : null}
-                {editQuiz.questions[question.id].choices.d?.length || editQuiz.questions[question.id].choices.d === '' ?
-                    <label>D&#41;
-                        <input name='d' placeholder='Enter choice D' value={question.choices.d} onChange={handleChangeChoice} required />
-                        <button onClick={handleDeleteChoice}>X</button>
-                    </label>
-                    : <button onClick={handleAddChoice}>+ Add a Choice</button>}
-            </div>
-            <div className='answer'>
-                <h3>Answer&#40;s&#41;:</h3>
                 <label>
                     <p>A&#41;</p>
-                    <input type='checkbox' value='a' onChange={handleAnswer} checked={handleCehcked('a')} />
+                    <input name='a' placeholder='Enter choice A' value={question.choices.a} onChange={handleChangeChoice} required />
                 </label>
                 <label>
                     <p>B&#41;</p>
-                    <input type='checkbox' value='b' onChange={handleAnswer} checked={handleCehcked('b')} />
+                    <input name='b' placeholder='Enter choice B' value={question.choices.b} onChange={handleChangeChoice} required />
                 </label>
                 {editQuiz.questions[question.id].choices.c?.length || editQuiz.questions[question.id].choices.c === '' ?
                     <label>
                         <p>C&#41;</p>
-                        <input type='checkbox' value='c' onChange={handleAnswer} checked={handleCehcked('c')} />
+                        <input name='c' placeholder='Enter choice C' value={question.choices.c} onChange={handleChangeChoice} required />
+                        {!editQuiz.questions[question.id].choices.d && editQuiz.questions[question.id].choices.d !== '' ?
+                            <button className='remove-choice' onClick={handleDeleteChoice}>X</button>
+                            : null}
                     </label>
                     : null}
                 {editQuiz.questions[question.id].choices.d?.length || editQuiz.questions[question.id].choices.d === '' ?
                     <label>
                         <p>D&#41;</p>
-                        <input type='checkbox' value='d' onChange={handleAnswer} checked={handleCehcked('d')} />
+                        <input name='d' placeholder='Enter choice D' value={question.choices.d} onChange={handleChangeChoice} required />
+                        <button className='remove-choice' onClick={handleDeleteChoice}>X</button>
                     </label>
-                    : null}
+                    : <button onClick={handleAddChoice}>+ Add a Choice</button>}
+            </div>
+            <div className='answer'>
+                <h3>Answer&#40;s&#41;:</h3>
+                <div className='answer-choices'>
+                    <label>
+                        <p>A&#41;</p>
+                        <input type='checkbox' value='a' onChange={handleAnswer} checked={handleCehcked('a')} />
+                    </label>
+                    <label>
+                        <p>B&#41;</p>
+                        <input type='checkbox' value='b' onChange={handleAnswer} checked={handleCehcked('b')} />
+                    </label>
+                    {editQuiz.questions[question.id].choices.c?.length || editQuiz.questions[question.id].choices.c === '' ?
+                        <label>
+                            <p>C&#41;</p>
+                            <input type='checkbox' value='c' onChange={handleAnswer} checked={handleCehcked('c')} />
+                        </label>
+                        : null}
+                    {editQuiz.questions[question.id].choices.d?.length || editQuiz.questions[question.id].choices.d === '' ?
+                        <label>
+                            <p>D&#41;</p>
+                            <input type='checkbox' value='d' onChange={handleAnswer} checked={handleCehcked('d')} />
+                        </label>
+                        : null}
+                </div>
             </div>
         </div>
     );
